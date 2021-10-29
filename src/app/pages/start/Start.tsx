@@ -1,9 +1,8 @@
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import ExampleImage from '../../assets/images/ExampleImage.png'
-import Happy from '../../assets/icons/happy.svg'
 
-export const Home: React.FC = () => {
+export const Start: React.FC = () => {
     return (
         <>
             <Helmet>

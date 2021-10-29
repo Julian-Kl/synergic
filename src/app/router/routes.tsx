@@ -1,5 +1,5 @@
-import { Home } from './../pages/home/Home'
-import { Subpage1 } from './../pages/route1/Subpage1'
+import { Start } from '../pages/start/Start'
+import { ComponentComposer } from '../pages/componentComposer/ComponentComposer'
 
 export interface routeObject {
     path: string
@@ -11,15 +11,15 @@ export interface routeObject {
 const routes: routeObject[] = [
     {
         path: '/',
-        name: 'Home',
+        name: 'Start',
         exact: true,
-        component: Home,
+        component: Start,
     },
     {
-        path: '/subpage1',
-        name: 'Subpage1',
+        path: '/component-composer',
+        name: 'Component Composer',
         exact: true,
-        component: Subpage1,
+        component: ComponentComposer,
     },
 ]
 
