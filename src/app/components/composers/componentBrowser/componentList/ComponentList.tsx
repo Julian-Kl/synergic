@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Button, Grid, IconButton, Paper, styled } from '@mui/material'
+import { Box, Button, Grid, Paper, styled } from '@mui/material'
 import { atomRegistry } from '../../../../../builder/components/atoms/atomRegistry'
 import { moleculeRegistry } from '../../../../../builder/components/molecule/moleculeRegistry'
 import { componentMetadata } from '../../../../../builder/types/componentMetadata'
