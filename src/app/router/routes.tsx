@@ -41,7 +41,7 @@ const routes: routeObject[] = [
         name: 'Navigation Editor',
         exact: true,
         component: NavigationEditor,
-    },
+    }
 ]
 
 export default routes
