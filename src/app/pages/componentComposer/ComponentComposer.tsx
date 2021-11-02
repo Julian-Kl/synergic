@@ -11,7 +11,6 @@ export const ComponentComposer: React.FC = () => {
                 <meta name='description' content='This is the Component Composer' />
             </Helmet>
             <ComponentBrowser />
-            <div style={{height: 60}}></div>
             <GridComposer />
         </>
     )
