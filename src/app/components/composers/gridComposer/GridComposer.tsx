@@ -3,14 +3,11 @@ import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
 import Grid, { GridSize } from '@mui/material/Grid'
-import { Slider, Typography } from '@mui/material'
+import { Button, Slider, Typography } from '@mui/material'
+import AddCircleIcon from '@mui/icons-material/AddCircle'
 
 interface GridElement {
     size: GridSize
-}
-
-interface ComposedGrid {
-    gridElements: GridElement[]
 }
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -23,6 +20,7 @@ const Item = styled(Paper)(({ theme }) => ({
 }))
 
 export const GridComposer: React.FC = () => {
+
     const [
         gridContainerNumerator,
         setGridContainerNumerator,
@@ -30,14 +28,14 @@ export const GridComposer: React.FC = () => {
 
     const [gridSpacing, setGridSpacing] = useState<number>(0)
 
+    const [gridElements, setGridElements] = useState<GridElement[]>([])
+
     const gridContainerDenominator = 12
 
-    const gridElements: GridElement[] = [
-        { size: 3 },
-        { size: 6 },
-        { size: 5 },
-        { size: 12 },
-    ]
+    const addGridElement = () => {
+        gridElements.push({ size: 3 })
+        setGridElements([...gridElements])
+    }
 
     return (
         <>
@@ -46,14 +44,17 @@ export const GridComposer: React.FC = () => {
             </Typography>
 
             <Box sx={{ flexGrow: 1, p: 2 }}>
-                <Grid container spacing={2}>
-                    <Grid item xs={6}>
+                <Grid container spacing={4}>
+                    <Grid item xs={2}>
                         <Typography variant='body1' gutterBottom>
                             Grid Container Display Width
                         </Typography>
                         <Slider
                             value={gridContainerNumerator as number}
-                            onChange={(event: Event, newValue: number | number[]) => {
+                            onChange={(
+                                event: Event,
+                                newValue: number | number[]
+                            ) => {
                                 setGridContainerNumerator(newValue as GridSize)
                             }}
                             step={1}
@@ -62,13 +63,16 @@ export const GridComposer: React.FC = () => {
                             max={gridContainerDenominator}
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={2}>
                         <Typography variant='body1' gutterBottom>
                             Grid Spacing
                         </Typography>
                         <Slider
                             value={gridSpacing}
-                            onChange={(event: Event, newValue: number | number[]) => {
+                            onChange={(
+                                event: Event,
+                                newValue: number | number[]
+                            ) => {
                                 setGridSpacing(newValue as number)
                             }}
                             step={1}
@@ -102,6 +106,14 @@ export const GridComposer: React.FC = () => {
                                         <Item>xs={gridElement.size}</Item>
                                     </Grid>
                                 ))}
+                                <Grid item xs={2} style={{ display: "flex", justifyContent: "flex-start" }}>
+                                    <Button
+                                        variant='contained'
+                                        onClick={addGridElement}
+                                    >
+                                        <AddCircleIcon fontSize='medium'/>
+                                    </Button>
+                                </Grid>
                             </Grid>
                         </Box>
                     </Item>
