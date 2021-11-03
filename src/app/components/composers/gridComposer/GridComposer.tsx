@@ -5,6 +5,7 @@ import Paper from '@mui/material/Paper'
 import Grid, { GridSize } from '@mui/material/Grid'
 import { Button, Slider, Typography } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
+import { GridCell } from './gridCell/GridCell'
 
 interface GridElement {
     size: GridSize
@@ -35,6 +36,10 @@ export const GridComposer: React.FC = () => {
     const addGridElement = () => {
         gridElements.push({ size: 3 })
         setGridElements([...gridElements])
+    }
+
+    const removeGridElement = (index: number): void => {
+        console.log(gridElements.splice (index));
     }
 
     return (
@@ -84,10 +89,8 @@ export const GridComposer: React.FC = () => {
                 </Grid>
             </Box>
 
-            <div style={{ height: 60 }}></div>
-
             {/* Container for the Grid Composer */}
-            <Grid container spacing={0} columns={gridContainerDenominator}>
+            <Grid container spacing={0} columns={gridContainerDenominator} style={{ marginTop: 60 }}>
                 <Grid
                     item
                     xs={gridContainerNumerator}
@@ -98,13 +101,10 @@ export const GridComposer: React.FC = () => {
                         <Box sx={{ flexGrow: 1 }}>
                             <Grid container spacing={gridSpacing}>
                                 {gridElements.map((gridElement, index) => (
-                                    <Grid
-                                        key={index}
-                                        item
-                                        xs={gridElement.size}
-                                    >
-                                        <Item>xs={gridElement.size}</Item>
-                                    </Grid>
+                                    <GridCell 
+                                    key={index}
+                                    size={gridElement.size}
+                                    />
                                 ))}
                                 <Grid item xs={2} style={{ display: "flex", justifyContent: "flex-start" }}>
                                     <Button
