@@ -1,11 +1,9 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { ComponentBrowser } from '../../components/composers/componentBrowser/ComponentBrowser'
+import { ComponentBrowser } from '../../components/componentBrowser/ComponentBrowser'
 import { GridComposer } from '../../components/composers/gridComposer/GridComposer'
-import { SelectedCellContext } from '../../contexts/componentComposer/SelectedCellContext'
 
 export const ComponentComposer: React.FC = () => {
-    const selectedCellContext = useContext(SelectedCellContext);
 
     return (
         <>
