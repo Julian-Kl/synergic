@@ -1,0 +1,1 @@
+export const builderApiUrl = 'http://localhost:1337'

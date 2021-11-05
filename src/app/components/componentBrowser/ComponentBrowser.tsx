@@ -1,7 +1,6 @@
 import React from 'react'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import Typography from '@mui/material/Typography'
 import Box from '@mui/material/Box'
 import { ComponentList } from './componentList/ComponentList'
 
@@ -70,13 +69,13 @@ export const ComponentBrowser: React.FC = () => {
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <ComponentList components='atom' />
+                <ComponentList components='atoms' />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <ComponentList components='molecule' />
+                <ComponentList components='molecules' />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <ComponentList components='organism' />
+                <ComponentList components='organisms' />
             </TabPanel>
         </Box>
     )
