@@ -1,8 +1,8 @@
 import React from 'react'
-import { Box, Button, Grid } from '@mui/material'
-import AddCircleIcon from '@mui/icons-material/AddCircle'
+import { Box, Grid } from '@mui/material'
 import { BuilderComponentList } from './BuilderComponentList/BuilderComponentList'
 import { AtomList } from './AtomList/AtomList'
+import { AddComponent } from '../../atoms/AddComponent/AddComponent'
 
 interface Props {
     components: 'atoms' | 'molecules' | 'organisms'
@@ -22,11 +22,7 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
                     <BuilderComponentList components={props.components} />
-                    <Grid item xs={2}>
-                        <Button variant='contained' href='#contained-buttons'>
-                            <AddCircleIcon fontSize='medium' />
-                        </Button>
-                    </Grid>
+                    <AddComponent components={props.components} />
                 </Grid>
             </Box>
         )
