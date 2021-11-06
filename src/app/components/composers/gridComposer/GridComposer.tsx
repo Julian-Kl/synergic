@@ -30,8 +30,6 @@ export const GridComposer: React.FC = () => {
     ] = useState<GridSize>(8)
     const gridContainerDenominator = 12
 
-    console.log(currentEditedComponent?.component?.grid)
-
     useEffect(() => {
         if (typeof currentEditedComponent?.component?.grid != 'undefined') {
             setGridElements(currentEditedComponent?.component?.grid)

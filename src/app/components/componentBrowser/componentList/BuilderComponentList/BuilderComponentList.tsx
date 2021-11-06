@@ -34,10 +34,27 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
                 'POST',
                 {
                     name: name,
+                    settings: [],
+                    grid: [],
                 }
             )
             data.push(response.data)
             setData([...data])
+        }
+    }
+
+    const deleteComponent = async (id: number) => {
+        if (id) {
+            const response = await fetchApi(
+                `${builderApiUrl}/${props.components}/${id}`,
+                'DELETE'
+            )
+
+            const updatedData: ComponentData[] = data.filter(function(value){
+                return value.id != response.data.id;
+            });
+
+            setData([...updatedData])
         }
     }
 
@@ -53,14 +70,21 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
         <>
             {loading && <LoadingBackdrop />}
             {data &&
-                data.map((component: ComponentData) => (
+                data.map((component: ComponentData, index) => (
                     <Grid
                         key={component.id}
                         item
                         xs={2}
                         onClick={() => selectComponent(component)}
                     >
-                        <Item selected={isSelected(component)}>{component.name}</Item>
+                        <Item
+                            selected={isSelected(component)}
+                            deleteComponent={deleteComponent}
+                            index={index}
+                            id={component.id}
+                        >
+                            {component.name}
+                        </Item>
                     </Grid>
                 ))}
             <AddComponent
