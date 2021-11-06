@@ -12,15 +12,17 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
     boxShadow: 'none',
-    border: 'solid 1px darkblue',
+    ":hover": {
+        border: 'solid 1px rgba(25,118,210, .5)'
+    },
+    border: 'solid 1px rgba(25,118,210, .2)',
+    borderRadius: 0,
 }))
 
 export const GridCell: React.FC<Props> = (props: Props) => {
     return (
         <Grid item xs={props.size}>
-            <Item>
-                xs={props.size}
-            </Item>
+            <Item>xs={props.size}</Item>
         </Grid>
     )
 }

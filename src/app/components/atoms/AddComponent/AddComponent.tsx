@@ -4,31 +4,15 @@ import React, { useState } from 'react'
 import CheckIcon from '@mui/icons-material/Check'
 import { Box } from '@mui/system'
 import CloseIcon from '@mui/icons-material/Close'
-import { builderApiUrl } from '../../../services/builderApiUrl'
-import { fetchApi } from '../../../services/fetchApi'
 
 interface Props {
     components: 'molecules' | 'organisms'
+    createComponent: (name: string) => void
 }
 
 export const AddComponent: React.FC<Props> = (props: Props) => {
     const [isActive, setIsActive] = useState(false)
     const [name, setName] = useState('')
-
-    console.log(name)
-
-    const createComponent = () => {
-        if(name){
-            fetchApi(
-                `${builderApiUrl}/${props.components}`,
-                'POST',
-                {
-                    name: name,
-                }
-            )
-            setIsActive(false)
-        }
-    }
 
     if (isActive) {
         return (
@@ -58,16 +42,18 @@ export const AddComponent: React.FC<Props> = (props: Props) => {
                                 variant='contained'
                                 color='success'
                                 onClick={() => {
-                                    createComponent()
+                                    props.createComponent(name)
+                                    setIsActive(false)
                                 }}
                             >
                                 <CheckIcon fontSize='medium' />
                             </Button>
-                            <Button variant='contained' color='error'>
-                                <CloseIcon
-                                    fontSize='medium'
-                                    onClick={() => setIsActive(false)}
-                                />
+                            <Button
+                                variant='contained'
+                                color='error'
+                                onClick={() => setIsActive(false)}
+                            >
+                                <CloseIcon fontSize='medium' />
                             </Button>
                         </Grid>
                     </Grid>

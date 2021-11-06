@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Paper from '@mui/material/Paper'
@@ -6,53 +6,73 @@ import Grid, { GridSize } from '@mui/material/Grid'
 import { Button, Slider, Typography } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { GridCell } from './gridCell/GridCell'
-
-interface GridElement {
-    size: GridSize
-}
+import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
+import { ComponentGrid } from '../../../types/ComponentData'
+import { builderApiUrl } from '../../../services/builderApiUrl'
+import { fetchApi } from '../../../services/fetchApi'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
-    padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
     boxShadow: 'none',
-    border: 'solid 1px darkblue',
+    padding: 0,
+    borderRadius: 0,
 }))
 
 export const GridComposer: React.FC = () => {
-
+    const currentEditedComponent = useContext(CurrentEditedComponentContext)
+    const [gridSpacing, setGridSpacing] = useState<number>(0)
+    const [gridElements, setGridElements] = useState<ComponentGrid[]>([])
     const [
         gridContainerNumerator,
         setGridContainerNumerator,
-    ] = useState<GridSize>(6)
-
-    const [gridSpacing, setGridSpacing] = useState<number>(0)
-
-    const [gridElements, setGridElements] = useState<GridElement[]>([])
-
+    ] = useState<GridSize>(8)
     const gridContainerDenominator = 12
 
-    const addGridElement = () => {
-        gridElements.push({ size: 3 })
-        setGridElements([...gridElements])
-    }
+    console.log(currentEditedComponent?.component?.grid)
 
-    const removeGridElement = (index: number): void => {
-        console.log(gridElements.splice (index));
+    useEffect(() => {
+        if (typeof currentEditedComponent?.component?.grid != 'undefined') {
+            setGridElements(currentEditedComponent?.component?.grid)
+        }
+    })
+
+    const addGridElement = async () => {
+        if (gridElements != null) {
+            gridElements.push({
+                size: 3,
+                settings: [],
+                components: [],
+            })
+        } else {
+            setGridElements([
+                {
+                    size: 3,
+                    settings: [],
+                    components: [],
+                },
+            ])
+        }
+
+        const response = await fetchApi(
+            `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
+            'PUT',
+            {
+                grid: gridElements,
+            }
+        )
+
+        setGridElements([...gridElements])
     }
 
     return (
         <>
-            <Typography variant='h4' component='h1' gutterBottom>
-                Grid Composer
-            </Typography>
-
             <Box sx={{ flexGrow: 1, p: 2 }}>
                 <Grid container spacing={4}>
                     <Grid item xs={2}>
                         <Typography variant='body1' gutterBottom>
-                            Grid Container Display Width
+                            Display Width
                         </Typography>
                         <Slider
                             value={gridContainerNumerator as number}
@@ -90,28 +110,50 @@ export const GridComposer: React.FC = () => {
             </Box>
 
             {/* Container for the Grid Composer */}
-            <Grid container spacing={0} columns={gridContainerDenominator} style={{ marginTop: 60 }}>
+            <Grid
+                container
+                spacing={0}
+                columns={gridContainerDenominator}
+                style={{
+                    paddingTop: 60,
+                    minHeight: '80%',
+                    backgroundColor: 'lightgray',
+                }}
+            >
                 <Grid
                     item
                     xs={gridContainerNumerator}
-                    style={{ marginLeft: 'auto', marginRight: 'auto' }}
+                    style={{
+                        marginLeft: 'auto',
+                        marginRight: 'auto',
+                    }}
                 >
                     <Item>
                         {/* Grid Builder */}
                         <Box sx={{ flexGrow: 1 }}>
                             <Grid container spacing={gridSpacing}>
-                                {gridElements.map((gridElement, index) => (
-                                    <GridCell 
-                                    key={index}
-                                    size={gridElement.size}
-                                    />
-                                ))}
-                                <Grid item xs={2} style={{ display: "flex", justifyContent: "flex-start" }}>
+                                {currentEditedComponent?.component?.grid &&
+                                    currentEditedComponent?.component?.grid.map(
+                                        (gridElement: ComponentGrid, index) => (
+                                            <GridCell
+                                                key={index}
+                                                size={gridElement.size}
+                                            />
+                                        )
+                                    )}
+                                <Grid
+                                    item
+                                    xs={2}
+                                    style={{
+                                        display: 'flex',
+                                        justifyContent: 'flex-start',
+                                    }}
+                                >
                                     <Button
                                         variant='contained'
                                         onClick={addGridElement}
                                     >
-                                        <AddCircleIcon fontSize='medium'/>
+                                        <AddCircleIcon fontSize='medium' />
                                     </Button>
                                 </Grid>
                             </Grid>

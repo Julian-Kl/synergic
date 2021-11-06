@@ -1,5 +1,5 @@
 import { Start } from '../pages/start/Start'
-import { ComponentComposer } from '../pages/componentComposer/ComponentComposer'
+import { ComponentCreator } from '../pages/componentCreator/ComponentCreator'
 import { TemplateEditor } from '../pages/templateEditor/TemplateEditor'
 import { NavigationEditor } from '../pages/navigationEditor/NavigationEditor'
 import { PageEditor } from '../pages/pageEditor/PageEditor'
@@ -19,26 +19,26 @@ const routes: routeObject[] = [
         component: Start,
     },
     {
-        path: '/component-composer',
-        name: 'Component Composer',
+        path: '/component-creator',
+        name: 'Components',
         exact: true,
-        component: ComponentComposer,
+        component: ComponentCreator,
     },
     {
         path: '/template-editor',
-        name: 'Template Editor',
+        name: 'Templates',
         exact: true,
         component: TemplateEditor,
     },
     {
         path: '/page-editor',
-        name: 'Page Editor',
+        name: 'Pages',
         exact: true,
         component: PageEditor,
     },
     {
         path: '/navigation-editor',
-        name: 'Navigation Editor',
+        name: 'Navigation',
         exact: true,
         component: NavigationEditor,
     }

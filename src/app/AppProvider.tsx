@@ -1,6 +1,6 @@
 import React from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
-import { LoadingContextProvider } from './contexts/LoadingContext'
+import { CurrentEditedComponentContextProvider } from './contexts/CurrentEditedComponentContext'
 
 interface Props {
     children: React.ReactNode
@@ -10,7 +10,9 @@ export const AppProvider: React.FC<Props> = (props: Props) => {
     return (
         <>
             <CssBaseline />
-            <LoadingContextProvider>{props.children}</LoadingContextProvider>
+            <CurrentEditedComponentContextProvider>
+                {props.children}
+            </CurrentEditedComponentContextProvider>
         </>
     )
 }

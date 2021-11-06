@@ -19,14 +19,13 @@ function TabPanel(props: TabPanelProps) {
             hidden={value !== index}
             id={`simple-tabpanel-${index}`}
             aria-labelledby={`simple-tab-${index}`}
-            style={{ width: '100%' }}
+            style={{
+                width: '100%',
+                overflowY: 'scroll',
+            }}
             {...other}
         >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    {children}
-                </Box>
-            )}
+            {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
         </div>
     )
 }
@@ -53,10 +52,10 @@ export const ComponentBrowser: React.FC = () => {
                 display: 'flex',
                 height: 160,
                 borderBottom: 2,
-                borderColor: 'divider',
+                borderColor: '#1565c0',
             }}
         >
-            <Box sx={{ borderBottom: 2, borderColor: 'divider' }}>
+            <Box>
                 <Tabs
                     value={value}
                     onChange={handleChange}

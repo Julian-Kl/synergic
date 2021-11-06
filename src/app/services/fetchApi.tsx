@@ -1,5 +1,3 @@
-import { useState, useEffect } from 'react'
-
 interface fetchApi {
     (
         url: string,
@@ -43,7 +41,6 @@ export const fetchApi: fetchApi = async (url, method, body) => {
     let loading = true
         const response = await fetch(url, options)
         const data = await response.json()
-        console.log(data)
         loading = false
 
     return { data, loading }
