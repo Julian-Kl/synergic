@@ -10,6 +10,7 @@ import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedCo
 import { ComponentGrid } from '../../../types/ComponentData'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
+import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -22,6 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export const GridComposer: React.FC = () => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
+    const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
     const [gridSpacing, setGridSpacing] = useState<number>(0)
     const [gridElements, setGridElements] = useState<ComponentGrid[]>([])
     const [
@@ -61,7 +63,14 @@ export const GridComposer: React.FC = () => {
             }
         )
 
-        setGridElements([...gridElements])
+        if (!response.loading) {
+            setGridElements([...gridElements])
+        }
+    }
+
+    const selectGridCell = (component: ComponentGrid, index: number) => {
+        currentEditedGridCell?.setComponent(component)
+        currentEditedGridCell?.setId(index)
     }
 
     return (
@@ -69,7 +78,7 @@ export const GridComposer: React.FC = () => {
             <Box sx={{ flexGrow: 1, p: 2 }}>
                 <Grid container spacing={4}>
                     <Grid item xs={2}>
-                        <Typography variant='body1' gutterBottom>
+                        <Typography variant='h6' gutterBottom>
                             Display Width
                         </Typography>
                         <Slider
@@ -87,7 +96,7 @@ export const GridComposer: React.FC = () => {
                         />
                     </Grid>
                     <Grid item xs={2}>
-                        <Typography variant='body1' gutterBottom>
+                        <Typography variant='h6' gutterBottom>
                             Grid Spacing
                         </Typography>
                         <Slider
@@ -132,12 +141,54 @@ export const GridComposer: React.FC = () => {
                             <Grid container spacing={gridSpacing}>
                                 {currentEditedComponent?.component?.grid &&
                                     currentEditedComponent?.component?.grid.map(
-                                        (gridElement: ComponentGrid, index) => (
-                                            <GridCell
-                                                key={index}
-                                                size={gridElement.size}
-                                            />
-                                        )
+                                        (gridElement: ComponentGrid, index) => {
+                                            if (
+                                                currentEditedGridCell?.id !=
+                                                index
+                                            ) {
+                                                return (
+                                                    <Grid
+                                                        key={index}
+                                                        item
+                                                        xs={gridElement.size}
+                                                        onClick={() =>
+                                                            selectGridCell(
+                                                                gridElement,
+                                                                index
+                                                            )
+                                                        }
+                                                    >
+                                                        <GridCell
+                                                            key={index}
+                                                            size={
+                                                                gridElement.size
+                                                            }
+                                                            selected={
+                                                                index ===
+                                                                currentEditedGridCell?.id
+                                                            }
+                                                        />
+                                                    </Grid>
+                                                )
+                                            } else {
+                                                return (
+                                                    <Grid
+                                                        key={index}
+                                                        item
+                                                        xs={currentEditedGridCell?.component?.size}
+                                                    >
+                                                        <GridCell
+                                                            key={index}
+                                                            size={currentEditedGridCell?.component?.size}
+                                                            selected={
+                                                                index ===
+                                                                currentEditedGridCell?.id
+                                                            }
+                                                        />
+                                                    </Grid>
+                                                )
+                                            }
+                                        }
                                     )}
                                 <Grid
                                     item

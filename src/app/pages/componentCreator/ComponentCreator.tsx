@@ -7,9 +7,11 @@ import {
     SidebarLeft,
     SidebarRight,
 } from '../../components/molecules/Sidebar/Sidebar'
+import { SidebarLeftSettings } from '../../components/molecules/SidebarLeftSettings/SidebarLeftSettings'
+import { CurrentEditedComponentContextProvider } from '../../contexts/CurrentEditedComponentContext'
+import { CurrentEditedGridCellContextProvider } from '../../contexts/CurrentEditedGridCell'
 
 export const ComponentCreator: React.FC = () => {
-
     return (
         <>
             <Helmet>
@@ -19,34 +21,31 @@ export const ComponentCreator: React.FC = () => {
                     content='This is the Component Editor'
                 />
             </Helmet>
-            <ComponentBrowser />
-            <Grid container style={{ minHeight: '75vh' }}>
-                <Grid item xs={2}>
-                    <SidebarRight>
-                        <Typography
-                            variant='h6'
-                            component='h3'
-                            style={{ paddingTop: 20 }}
-                        >
-                            Component Settings
-                        </Typography>
-                    </SidebarRight>
-                </Grid>
-                <Grid item xs={8}>
-                    <GridComposer />
-                </Grid>
-                <Grid item xs={2}>
-                    <SidebarLeft>
-                        <Typography
-                            variant='h6'
-                            component='h3'
-                            style={{ paddingTop: 20 }}
-                        >
-                            Atom Settings
-                        </Typography>
-                    </SidebarLeft>
-                </Grid>
-            </Grid>
+            <CurrentEditedComponentContextProvider>
+                <CurrentEditedGridCellContextProvider>
+                    <ComponentBrowser />
+                    <Grid container style={{ minHeight: '75vh' }}>
+                        <Grid item xs={2}>
+                            <SidebarRight>
+                                <SidebarLeftSettings />
+                            </SidebarRight>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <GridComposer />
+                        </Grid>
+                        <Grid item xs={2}>
+                            <SidebarLeft>
+                                <Typography
+                                    variant='h6'
+                                    component='h3'
+                                >
+                                    Some Settings
+                                </Typography>
+                            </SidebarLeft>
+                        </Grid>
+                    </Grid>
+                </CurrentEditedGridCellContextProvider>
+            </CurrentEditedComponentContextProvider>
         </>
     )
 }

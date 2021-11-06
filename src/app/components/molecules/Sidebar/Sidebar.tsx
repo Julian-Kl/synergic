@@ -6,6 +6,7 @@ export const SidebarLeft = styled(Paper)(({ theme }) => ({
     borderLeft: `solid 2px ${theme.palette.primary.main}`,
     borderRadius: 0,
     minHeight: '100%',
+    padding: 24,
 }))
 
 export const SidebarRight = styled(Paper)(({ theme }) => ({
@@ -14,4 +15,5 @@ export const SidebarRight = styled(Paper)(({ theme }) => ({
     borderRight: `solid 2px ${theme.palette.primary.main}`,
     borderRadius: 0,
     minHeight: '100%',
+    padding: 24,
 }))
