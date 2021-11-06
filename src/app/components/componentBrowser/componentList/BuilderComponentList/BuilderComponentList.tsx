@@ -7,6 +7,7 @@ import { AddComponent } from '../../../atoms/AddComponent/AddComponent'
 import { fetchApi } from '../../../../services/fetchApi'
 import { ComponentData } from '../../../../types/ComponentData'
 import { CurrentEditedComponentContext } from '../../../../contexts/CurrentEditedComponentContext'
+import { CurrentEditedGridCellContext } from '../../../../contexts/CurrentEditedGridCell'
 
 interface Props {
     components: 'molecules' | 'organisms'
@@ -14,6 +15,7 @@ interface Props {
 
 export const BuilderComponentList: React.FC<Props> = (props: Props) => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
+    const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
     const [data, setData] = useState<ComponentData[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -55,11 +57,14 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
             });
 
             setData([...updatedData])
+            currentEditedComponent?.setComponent(null)
         }
     }
 
     const selectComponent = (component: ComponentData) => {
         currentEditedComponent?.setComponent(component)
+        currentEditedGridCell?.setComponent(null)
+        currentEditedGridCell?.setId(null)
     }
 
     const isSelected = (component: ComponentData) => {

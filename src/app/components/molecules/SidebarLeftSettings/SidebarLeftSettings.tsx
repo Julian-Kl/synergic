@@ -1,20 +1,42 @@
 import { Divider, GridSize, Slider, Typography } from '@mui/material'
 import React, { useContext } from 'react'
+import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
-import { ComponentGrid } from '../../../types/ComponentData'
+import { builderApiUrl } from '../../../services/builderApiUrl'
+import { fetchApi } from '../../../services/fetchApi'
+import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
 
 export const SidebarLeftSettings: React.FC = () => {
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
+    const currentEditedComponent = useContext(CurrentEditedComponentContext)
     const gridContainerDenominator = 12
     
-    const updateGridSize = (newValue: GridSize) => {
+    const updateGridSize = async (newValue: GridSize, cellId: number | null) => {
         if (
             currentEditedGridCell &&
             currentEditedGridCell.component
         ) {
-            const updatedCellComponent: ComponentGrid = Object.assign({}, currentEditedGridCell.component);
+            const updatedCellComponent: ComponentGrid = Object.assign({}, currentEditedGridCell.component)
             updatedCellComponent.size = newValue as GridSize
             currentEditedGridCell.setComponent(updatedCellComponent)
+
+            if(cellId) {
+                const updatedCurrentEditedComponent: ComponentData = Object.assign({}, currentEditedComponent?.component)
+                updatedCurrentEditedComponent.grid[cellId] = currentEditedGridCell.component
+                
+
+                const response = await fetchApi(
+                    `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
+                    'PUT',
+                    {
+                        grid: updatedCurrentEditedComponent.grid,
+                    }
+                )
+        
+                if (!response.loading) {
+                    currentEditedComponent?.setComponent(updatedCurrentEditedComponent)
+                }
+            }
         }
     }
 
@@ -35,7 +57,7 @@ export const SidebarLeftSettings: React.FC = () => {
                         onChange={(
                             event: Event,
                             newValue: number | number[]
-                        ) => updateGridSize(newValue as GridSize)}
+                        ) => updateGridSize(newValue as GridSize, currentEditedGridCell?.id)}
                         step={1}
                         marks
                         min={1}

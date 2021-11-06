@@ -34,7 +34,7 @@ interface Props {
 }
 
 export const Item: React.FC<Props> = (props: Props) => {
-    const handleClick = () => {
+    const handleDelete = () => {
         if(props.id && props.deleteComponent) {
             props.deleteComponent(props.id)
         }
@@ -49,7 +49,7 @@ export const Item: React.FC<Props> = (props: Props) => {
                 <Grid item xs={4} style={{ padding: 0}}>
                 <Button
                 color='inherit'
-                onClick={() => handleClick()}
+                onClick={() => handleDelete()}
             >
                 <DeleteIcon fontSize='medium' />
             </Button>
