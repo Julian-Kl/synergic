@@ -2,6 +2,8 @@ import { Skeleton } from '@mui/material'
 import React from 'react'
 import { atomMetadata } from '../../../../../../builder/types/atomMetadata'
 import { ComponentData } from '../../../../../types/ComponentData'
+import { AtomPreview } from '../../../../builderComponents/atomPreview/AtomPreview'
+import { MoleculePreview } from '../../../../builderComponents/moleculesPreview/MoleculePreview'
 
 interface Props {
     components: (atomMetadata | ComponentData)[]
@@ -12,18 +14,10 @@ export const GridCellChildren: React.FC<Props> = (props: Props) => {
         return (
             <>
                 {props.components.map((component, index) => {
-                    let element: atomMetadata | ComponentData
-    
                     if (component.type === 'atoms') {
-                        element = component as atomMetadata
-    
-                        return <div key={index}>{element.name}</div>
-
-                        
+                        return <AtomPreview key={index} component={component as atomMetadata}/>
                     } else {
-                        element = component as ComponentData
-    
-                        return <div key={index}>{element.name}</div>
+                        return <MoleculePreview key={index} component={component as ComponentData}/>
                     }
                 })}
             </>

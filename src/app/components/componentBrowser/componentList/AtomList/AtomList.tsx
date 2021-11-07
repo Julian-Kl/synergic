@@ -13,14 +13,15 @@ interface Props {
 export const AtomList: React.FC<Props> = (props: Props) => {
     return (
         <>
-            {atomRegistry.map((component) => (
-                <Grid key={component.name} item xs={2}>
+        
+            {Object.keys(atomRegistry).map((key) => (
+                <Grid key={atomRegistry[key].name} item xs={2}>
                     <BrowserItem
                         isAddAble={props.isAddAble}
                         addComponentToCell={props.addComponentToCell}
-                        component={component}
+                        component={atomRegistry[key]}
                     >
-                        {component.name}
+                        {atomRegistry[key].name}
                     </BrowserItem>
                 </Grid>
             ))}
