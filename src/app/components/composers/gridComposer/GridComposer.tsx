@@ -160,9 +160,7 @@ export const GridComposer: React.FC = () => {
                                                     >
                                                         <GridCell
                                                             key={index}
-                                                            size={
-                                                                gridElement.size
-                                                            }
+                                                            gridElement={gridElement}
                                                             selected={
                                                                 index ===
                                                                 currentEditedGridCell?.id
@@ -179,7 +177,7 @@ export const GridComposer: React.FC = () => {
                                                     >
                                                         <GridCell
                                                             key={index}
-                                                            size={currentEditedGridCell?.component?.size}
+                                                            gridElement={gridElement}
                                                             selected={
                                                                 index ===
                                                                 currentEditedGridCell?.id

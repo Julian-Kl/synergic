@@ -1,5 +1,7 @@
-import { GridSize, Paper, styled } from '@mui/material'
+import { Paper, styled } from '@mui/material'
 import React from 'react'
+import { ComponentGrid } from '../../../../types/ComponentData'
+import { GridCellChildren } from './gridCellChildren/GridCellChildren'
 
 export const DefaultItem = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -24,16 +26,19 @@ export const ActiveItem = styled(Paper)(({ theme }) => ({
     borderRadius: 0,
 }))
 
-
 interface Props {
-    size: GridSize | undefined
     selected?: boolean
+    gridElement: ComponentGrid
 }
 
 export const GridCell: React.FC<Props> = (props: Props) => {
     return props.selected ? (
-        <ActiveItem>xs={props.size}</ActiveItem>
+        <ActiveItem>
+            <GridCellChildren components={props.gridElement.components} />
+        </ActiveItem>
     ) : (
-        <DefaultItem>xs={props.size}</DefaultItem>
+        <DefaultItem>
+            <GridCellChildren components={props.gridElement.components} />
+        </DefaultItem>
     )
 }

@@ -1,16 +1,19 @@
 import { Grid } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { builderApiUrl } from '../../../../services/builderApiUrl'
-import { Item } from '../Item/Item'
+import { BrowserItem } from '../BrowserItem/BrowserItem'
 import { LoadingBackdrop } from '../../../atoms/LoadingBackdrop/LoadingBackdrop'
 import { AddComponent } from '../../../atoms/AddComponent/AddComponent'
 import { fetchApi } from '../../../../services/fetchApi'
 import { ComponentData } from '../../../../types/ComponentData'
 import { CurrentEditedComponentContext } from '../../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../../contexts/CurrentEditedGridCell'
+import { atomMetadata } from '../../../../../builder/types/atomMetadata'
 
 interface Props {
     components: 'molecules' | 'organisms'
+    isAddAble: boolean
+    addComponentToCell: (component: atomMetadata | ComponentData) => void
 }
 
 export const BuilderComponentList: React.FC<Props> = (props: Props) => {
@@ -68,7 +71,7 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
     }
 
     const isSelected = (component: ComponentData) => {
-        return component === currentEditedComponent?.component
+        return component.id === currentEditedComponent?.component?.id && component.type === currentEditedComponent?.component?.type
     }
 
     return (
@@ -82,14 +85,17 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
                         xs={2}
                         onClick={() => selectComponent(component)}
                     >
-                        <Item
+                        <BrowserItem
                             selected={isSelected(component)}
                             deleteComponent={deleteComponent}
                             index={index}
                             id={component.id}
+                            isAddAble={props.isAddAble && !isSelected(component)}
+                            addComponentToCell={props.addComponentToCell}
+                            component={component}
                         >
                             {component.name}
-                        </Item>
+                        </BrowserItem>
                     </Grid>
                 ))}
             <AddComponent
