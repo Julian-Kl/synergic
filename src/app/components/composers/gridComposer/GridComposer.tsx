@@ -7,7 +7,7 @@ import { Button, Slider, Typography } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
 import { GridCell } from './gridCell/GridCell'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
-import { ComponentGrid } from '../../../types/ComponentData'
+import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
@@ -68,6 +68,30 @@ export const GridComposer: React.FC = () => {
         }
     }
 
+    const deleteGridElement = async () => {
+
+        const updatedGrid = gridElements.filter(function (value, index, arr) {
+            return index != currentEditedGridCell?.id
+        })
+
+        const response = await fetchApi(
+            `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
+            'PUT',
+            {
+                grid: updatedGrid,
+            }
+        )
+
+        if (!response.loading) {
+            const updatedCurrentEditedComponent: ComponentData = Object.assign({}, currentEditedComponent?.component)
+            updatedCurrentEditedComponent.grid  = updatedGrid
+            currentEditedComponent?.setComponent(updatedCurrentEditedComponent)
+
+            currentEditedGridCell?.setComponent(null)
+            currentEditedGridCell?.setId(null)
+        }
+    }
+
     const selectGridCell = (component: ComponentGrid, index: number) => {
         currentEditedGridCell?.setComponent(component)
         currentEditedGridCell?.setId(index)
@@ -123,8 +147,9 @@ export const GridComposer: React.FC = () => {
                 columns={gridContainerDenominator}
                 style={{
                     paddingTop: 60,
-                    minHeight: '80%',
+                    height: '70%',
                     backgroundColor: 'lightgray',
+                    overflowY: 'scroll'
                 }}
             >
                 <Grid
@@ -160,10 +185,15 @@ export const GridComposer: React.FC = () => {
                                                     >
                                                         <GridCell
                                                             key={index}
-                                                            gridElement={gridElement}
+                                                            gridElement={
+                                                                gridElement
+                                                            }
                                                             selected={
                                                                 index ===
                                                                 currentEditedGridCell?.id
+                                                            }
+                                                            deleteGridElement={() =>
+                                                                deleteGridElement()
                                                             }
                                                         />
                                                     </Grid>
@@ -173,14 +203,23 @@ export const GridComposer: React.FC = () => {
                                                     <Grid
                                                         key={index}
                                                         item
-                                                        xs={currentEditedGridCell?.component?.size}
+                                                        xs={
+                                                            currentEditedGridCell
+                                                                ?.component
+                                                                ?.size
+                                                        }
                                                     >
                                                         <GridCell
                                                             key={index}
-                                                            gridElement={gridElement}
+                                                            gridElement={
+                                                                gridElement
+                                                            }
                                                             selected={
                                                                 index ===
                                                                 currentEditedGridCell?.id
+                                                            }
+                                                            deleteGridElement={() =>
+                                                                deleteGridElement()
                                                             }
                                                         />
                                                     </Grid>

@@ -1,7 +1,8 @@
-import { Paper, styled } from '@mui/material'
+import { Button, Grid, Paper, styled } from '@mui/material'
 import React from 'react'
 import { ComponentGrid } from '../../../../types/ComponentData'
 import { GridCellChildren } from './gridCellChildren/GridCellChildren'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 export const DefaultItem = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -26,15 +27,47 @@ export const ActiveItem = styled(Paper)(({ theme }) => ({
     borderRadius: 0,
 }))
 
-interface Props {
-    selected?: boolean
-    gridElement: ComponentGrid
+interface SettingsPopupProps {
+    deleteGridElement: () => void
 }
 
-export const GridCell: React.FC<Props> = (props: Props) => {
-    return props.selected ? (
+const SettingsPopup: React.FC<SettingsPopupProps> = (props: SettingsPopupProps) => {
+    return (
+        <Paper
+            elevation={3}
+            style={{
+                position: 'absolute',
+                border: 'solid 1px rgba(25,118,210, 1)',
+                borderRadius: 2,
+                padding: 4,
+            }}
+        >
+            <Grid container>
+                <Grid item xs={4} style={{ padding: 0 }}>
+                    <Button
+                        color='error'
+                        variant='text'
+                        onClick={() => props.deleteGridElement()}
+                    >
+                        <DeleteIcon fontSize='small' />
+                    </Button>
+                </Grid>
+            </Grid>
+        </Paper>
+    )
+}
+
+interface GridCellProps {
+    selected?: boolean
+    gridElement: ComponentGrid
+    deleteGridElement: () => void
+}
+
+export const GridCell: React.FC<GridCellProps> = (props: GridCellProps) => {
+    return props.selected && props.deleteGridElement ? (
         <ActiveItem>
             <GridCellChildren components={props.gridElement.components} />
+            <SettingsPopup deleteGridElement={() => props.deleteGridElement()} />
         </ActiveItem>
     ) : (
         <DefaultItem>

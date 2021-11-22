@@ -8,6 +8,7 @@ import {
     SidebarRight,
 } from '../../components/molecules/Sidebar/Sidebar'
 import { SidebarLeftSettings } from '../../components/molecules/SidebarLeftSettings/SidebarLeftSettings'
+import { SidebarRightSettings } from '../../components/molecules/SidebarRightSettings/SidebarRightSettings'
 import { CurrentEditedComponentContextProvider } from '../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContextProvider } from '../../contexts/CurrentEditedGridCell'
 
@@ -24,7 +25,7 @@ export const ComponentCreator: React.FC = () => {
             <CurrentEditedComponentContextProvider>
                 <CurrentEditedGridCellContextProvider>
                     <ComponentBrowser />
-                    <Grid container style={{ minHeight: '75vh' }}>
+                    <Grid container style={{ minHeight: '70vh' }}>
                         <Grid item xs={2}>
                             <SidebarRight>
                                 <SidebarLeftSettings />
@@ -35,12 +36,7 @@ export const ComponentCreator: React.FC = () => {
                         </Grid>
                         <Grid item xs={2}>
                             <SidebarLeft>
-                                <Typography
-                                    variant='h6'
-                                    component='h3'
-                                >
-                                    Some Settings
-                                </Typography>
+                                <SidebarRightSettings />
                             </SidebarLeft>
                         </Grid>
                     </Grid>

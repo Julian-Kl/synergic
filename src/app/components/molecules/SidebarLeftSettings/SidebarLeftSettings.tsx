@@ -20,7 +20,7 @@ export const SidebarLeftSettings: React.FC = () => {
             updatedCellComponent.size = newValue as GridSize
             currentEditedGridCell.setComponent(updatedCellComponent)
 
-            if(cellId) {
+            if(cellId != null) {
                 const updatedCurrentEditedComponent: ComponentData = Object.assign({}, currentEditedComponent?.component)
                 updatedCurrentEditedComponent.grid[cellId] = currentEditedGridCell.component
                 

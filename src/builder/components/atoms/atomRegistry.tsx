@@ -1,4 +1,3 @@
-import React from 'react'
 import { atomMetadata } from '../../types/atomMetadata'
 import { Headline } from './headline/Headline'
 import { Paragraph } from './paragraph/Paragraph'
@@ -24,7 +23,7 @@ export const atomRegistry: AtomRegistry = {
             text: 'string',
         },
         defaultProps: {
-            variant: 'h1',
+            variant: 'h4',
             text: 'Lorem ipsum dolor sit amet',
         },
         component: Headline,

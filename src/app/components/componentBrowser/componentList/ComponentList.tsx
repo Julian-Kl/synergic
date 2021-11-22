@@ -4,7 +4,7 @@ import { BuilderComponentList } from './BuilderComponentList/BuilderComponentLis
 import { AtomList } from './AtomList/AtomList'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
-import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
+import { ComponentData } from '../../../types/ComponentData'
 import { atomMetadata } from '../../../../builder/types/atomMetadata'
 import { fetchApi } from '../../../services/fetchApi'
 import { builderApiUrl } from '../../../services/builderApiUrl'
@@ -40,7 +40,7 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
     }
 
     const addComponentToCell = async (component: atomMetadata | ComponentData) => {
-        if(currentEditedComponent?.component && currentEditedGridCell?.id) {
+        if(currentEditedComponent?.component && currentEditedGridCell?.id != null) {
 
             const updatedCurrentEditedComponent: ComponentData = Object.assign({}, currentEditedComponent?.component)
             updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components.push(component)
