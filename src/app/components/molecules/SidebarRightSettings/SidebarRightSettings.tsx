@@ -34,8 +34,6 @@ export const SidebarRightSettings: React.FC = () => {
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
 
-    console.log(currentEditedGridCell?.component?.components)
-
     const deleteChildren = async (id: number) => {
         const updatedCellComponents = currentEditedGridCell?.component?.components.filter(
             function (value, index, arr) {
@@ -56,8 +54,6 @@ export const SidebarRightSettings: React.FC = () => {
             updatedCurrentEditedComponent.grid[
                 currentEditedGridCell?.id
             ].components = updatedCellComponents
-
-            console.log(updatedCurrentEditedComponent.grid)
 
             const response = await fetchApi(
                 `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
