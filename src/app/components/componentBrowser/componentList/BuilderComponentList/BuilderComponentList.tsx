@@ -14,6 +14,7 @@ interface Props {
     components: 'molecules' | 'organisms'
     isAddAble: boolean
     addComponentToCell: (component: atomMetadata | ComponentData) => void
+    isCreateable: boolean | undefined
 }
 
 export const BuilderComponentList: React.FC<Props> = (props: Props) => {
@@ -55,9 +56,9 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
                 'DELETE'
             )
 
-            const updatedData: ComponentData[] = data.filter(function(value){
-                return value.id != response.data.id;
-            });
+            const updatedData: ComponentData[] = data.filter(function (value) {
+                return value.id != response.data.id
+            })
 
             setData([...updatedData])
             currentEditedComponent?.setComponent(null)
@@ -71,7 +72,10 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
     }
 
     const isSelected = (component: ComponentData) => {
-        return component.id === currentEditedComponent?.component?.id && component.type === currentEditedComponent?.component?.type
+        return (
+            component.id === currentEditedComponent?.component?.id &&
+            component.type === currentEditedComponent?.component?.type
+        )
     }
 
     return (
@@ -90,7 +94,9 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
                             deleteComponent={deleteComponent}
                             index={index}
                             id={component.id}
-                            isAddAble={props.isAddAble && !isSelected(component)}
+                            isAddAble={
+                                props.isAddAble && !isSelected(component)
+                            }
                             addComponentToCell={props.addComponentToCell}
                             component={component}
                         >
@@ -98,10 +104,12 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
                         </BrowserItem>
                     </Grid>
                 ))}
-            <AddComponent
-                components={props.components}
-                createComponent={createComponent}
-            />
+            {props.isCreateable && (
+                <AddComponent
+                    components={props.components}
+                    createComponent={createComponent}
+                />
+            )}
         </>
     )
 }

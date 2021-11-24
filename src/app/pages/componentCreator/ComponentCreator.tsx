@@ -24,7 +24,7 @@ export const ComponentCreator: React.FC = () => {
             </Helmet>
             <CurrentEditedComponentContextProvider>
                 <CurrentEditedGridCellContextProvider>
-                    <ComponentBrowser />
+                    <ComponentBrowser isCreateable />
                     <Grid container style={{ minHeight: '70vh' }}>
                         <Grid item xs={2}>
                             <SidebarLeft>

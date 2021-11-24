@@ -39,6 +39,7 @@ function a11yProps(index: number) {
 
 interface ComponentBrowserProps {
     organisms?: boolean
+    isCreateable?: boolean | undefined
 }
 
 export const ComponentBrowser: React.FC<ComponentBrowserProps> = (
@@ -74,13 +75,13 @@ export const ComponentBrowser: React.FC<ComponentBrowserProps> = (
                 </Tabs>
             </Box>
             <TabPanel value={value} index={0}>
-                <ComponentList components='atoms' />
+                <ComponentList components='atoms' isCreateable={props.isCreateable} />
             </TabPanel>
             <TabPanel value={value} index={1}>
-                <ComponentList components='molecules' />
+                <ComponentList components='molecules' isCreateable={props.isCreateable} />
             </TabPanel>
             <TabPanel value={value} index={2}>
-                <ComponentList components='organisms' />
+                <ComponentList components='organisms' isCreateable={props.isCreateable} />
             </TabPanel>
         </Box>
     )

@@ -11,6 +11,7 @@ import { builderApiUrl } from '../../../services/builderApiUrl'
 
 interface Props {
     components: 'atoms' | 'molecules' | 'organisms'
+    isCreateable: boolean | undefined
 }
 
 export const ComponentList: React.FC<Props> = (props: Props) => {
@@ -78,6 +79,7 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
                         components={props.components}
                         isAddAble={isAddAble(props.components)}
                         addComponentToCell={addComponentToCell}
+                        isCreateable={props.isCreateable}
                     />
                 </Grid>
             </Box>
