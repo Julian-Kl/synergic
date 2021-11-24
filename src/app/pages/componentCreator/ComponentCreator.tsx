@@ -27,17 +27,17 @@ export const ComponentCreator: React.FC = () => {
                     <ComponentBrowser />
                     <Grid container style={{ minHeight: '70vh' }}>
                         <Grid item xs={2}>
-                            <SidebarRight>
+                            <SidebarLeft>
                                 <SidebarLeftSettings />
-                            </SidebarRight>
+                            </SidebarLeft>
                         </Grid>
                         <Grid item xs={8}>
                             <GridComposer />
                         </Grid>
                         <Grid item xs={2}>
-                            <SidebarLeft>
+                            <SidebarRight>
                                 <SidebarRightSettings />
-                            </SidebarLeft>
+                            </SidebarRight>
                         </Grid>
                     </Grid>
                 </CurrentEditedGridCellContextProvider>

@@ -37,8 +37,14 @@ function a11yProps(index: number) {
     }
 }
 
-export const ComponentBrowser: React.FC = () => {
-    const [value, setValue] = React.useState(0)
+interface ComponentBrowserProps {
+    organisms?: boolean
+}
+
+export const ComponentBrowser: React.FC<ComponentBrowserProps> = (
+    props: ComponentBrowserProps
+) => {
+    const [value, setValue] = React.useState(props.organisms ? 2 : 0)
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setValue(newValue)
@@ -62,8 +68,8 @@ export const ComponentBrowser: React.FC = () => {
                     orientation='vertical'
                     aria-label='component browser'
                 >
-                    <Tab label='Atoms' {...a11yProps(0)} />
-                    <Tab label='Molecules' {...a11yProps(1)} />
+                    <Tab label='Atoms' {...a11yProps(0)} disabled={props.organisms} />
+                    <Tab label='Molecules' {...a11yProps(1)} disabled={props.organisms} />
                     <Tab label='Organisms' {...a11yProps(2)} />
                 </Tabs>
             </Box>
