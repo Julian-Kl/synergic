@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async'
 import { ComponentBrowser } from '../../components/componentBrowser/ComponentBrowser'
 import { SidebarLeft } from '../../components/molecules/Sidebar/Sidebar'
 import { TemplateBrowser } from '../../components/TemplateBrowser/TemplateBrowser'
+import { CurrentEditedTemplateContextProvider } from '../../contexts/CurrentEditedTemplate'
 
 export const TemplateEditor: React.FC = () => {
     return (
@@ -15,20 +16,22 @@ export const TemplateEditor: React.FC = () => {
                     content='This is the Template Editor'
                 />
             </Helmet>
-            <ComponentBrowser organisms />
-            <Grid container style={{ minHeight: '90vh' }}>
-                <Grid item xs={2}>
-                    <SidebarLeft>
-                        <Typography variant='h6' component='h3'>
-                            Templates
-                        </Typography>
-                        <TemplateBrowser />
-                    </SidebarLeft>
+            <CurrentEditedTemplateContextProvider>
+                <ComponentBrowser organisms />
+                <Grid container style={{ minHeight: '90vh' }}>
+                    <Grid item xs={2}>
+                        <SidebarLeft>
+                            <Typography variant='h6' component='h3'>
+                                Templates
+                            </Typography>
+                            <TemplateBrowser />
+                        </SidebarLeft>
+                    </Grid>
+                    <Grid item xs={10}>
+                        Editor
+                    </Grid>
                 </Grid>
-                <Grid item xs={10}>
-                    Editor
-                </Grid>
-            </Grid>
+            </CurrentEditedTemplateContextProvider>
         </>
     )
 }
