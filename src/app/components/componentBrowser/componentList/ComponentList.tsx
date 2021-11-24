@@ -8,6 +8,9 @@ import { ComponentData } from '../../../types/ComponentData'
 import { atomMetadata } from '../../../../builder/types/atomMetadata'
 import { fetchApi } from '../../../services/fetchApi'
 import { builderApiUrl } from '../../../services/builderApiUrl'
+import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
+import { TemplateData } from '../../../types/TemplateData'
+
 
 interface Props {
     components: 'atoms' | 'molecules' | 'organisms'
@@ -17,11 +20,12 @@ interface Props {
 export const ComponentList: React.FC<Props> = (props: Props) => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
+    const currentEditedTemplate = useContext(CurrentEditedTemplateContext)
 
     const isAddAble = (
         components: 'atoms' | 'molecules' | 'organisms'
     ): boolean => {
-        if (currentEditedGridCell?.component) {
+        if (currentEditedGridCell?.component || currentEditedTemplate?.template) {
             if (
                 currentEditedComponent?.component?.type === 'molecules' &&
                 components === 'atoms'
@@ -32,6 +36,8 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
                 (components === 'atoms' || components === 'molecules')
             ) {
                 return true
+            } else if (currentEditedTemplate?.template?.type === 'templates') {
+                return true
             } else {
                 return false
             }
@@ -40,11 +46,20 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
         }
     }
 
-    const addComponentToCell = async (component: atomMetadata | ComponentData) => {
-        if(currentEditedComponent?.component && currentEditedGridCell?.id != null) {
-
-            const updatedCurrentEditedComponent: ComponentData = Object.assign({}, currentEditedComponent?.component)
-            updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components.push(component)
+    const addComponentToCell = async (
+        component: atomMetadata | ComponentData
+    ) => {
+        if (
+            currentEditedComponent?.component &&
+            currentEditedGridCell?.id != null
+        ) {
+            const updatedCurrentEditedComponent: ComponentData = Object.assign(
+                {},
+                currentEditedComponent?.component
+            )
+            updatedCurrentEditedComponent.grid[
+                currentEditedGridCell?.id
+            ].components.push(component)
 
             const response = await fetchApi(
                 `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
@@ -55,8 +70,29 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
             )
 
             if (!response.loading) {
-                currentEditedComponent?.setComponent(updatedCurrentEditedComponent)
+                currentEditedComponent?.setComponent(
+                    updatedCurrentEditedComponent
+                )
             }
+        }
+    }
+
+    const addComponentToTemplate = async (component: atomMetadata | ComponentData) => {
+        const updatedEditedTemplate: TemplateData = Object.assign({}, currentEditedTemplate?.template)
+        updatedEditedTemplate.organisms.push(component as ComponentData)
+        
+        const response = await fetchApi(
+            `${builderApiUrl}/templates/${currentEditedTemplate?.template?.id}`,
+            'PUT',
+            {
+                organisms: updatedEditedTemplate.organisms,
+            }
+        )
+
+        if (!response.loading) {
+            currentEditedTemplate?.setTemplate(
+                updatedEditedTemplate
+            )
         }
     }
 
@@ -78,7 +114,7 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
                     <BuilderComponentList
                         components={props.components}
                         isAddAble={isAddAble(props.components)}
-                        addComponentToCell={addComponentToCell}
+                        addComponentToCell={currentEditedComponent?.component ? addComponentToCell : addComponentToTemplate}
                         isCreateable={props.isCreateable}
                     />
                 </Grid>

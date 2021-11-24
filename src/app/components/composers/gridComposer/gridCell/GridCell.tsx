@@ -7,7 +7,6 @@ import DeleteIcon from '@mui/icons-material/Delete'
 export const DefaultItem = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    textAlign: 'center',
     color: theme.palette.text.secondary,
     boxShadow: 'none',
     ':hover': {
@@ -20,7 +19,6 @@ export const DefaultItem = styled(Paper)(({ theme }) => ({
 export const ActiveItem = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
-    textAlign: 'center',
     color: theme.palette.text.secondary,
     boxShadow: 'none',
     border: 'solid 1px rgba(25,118,210, 1)',

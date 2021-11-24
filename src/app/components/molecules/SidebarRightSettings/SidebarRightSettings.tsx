@@ -1,10 +1,10 @@
-import { Button, Divider, GridSize, Slider, Typography } from '@mui/material'
+import { Button, Divider, Typography } from '@mui/material'
 import React, { useContext } from 'react'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
-import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
+import { ComponentData } from '../../../types/ComponentData'
 import DeleteIcon from '@mui/icons-material/Delete'
 
 interface ComponentListItemProps {

@@ -3,14 +3,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedTemplateContext } from '../../contexts/CurrentEditedTemplate'
 import { builderApiUrl } from '../../services/builderApiUrl'
 import { fetchApi } from '../../services/fetchApi'
-import { ComponentData } from '../../types/ComponentData'
+import { TemplateData } from '../../types/TemplateData'
 import { AddTemplate } from '../atoms/AddTemplate/AddTemplate'
 import { LoadingBackdrop } from '../atoms/LoadingBackdrop/LoadingBackdrop'
 import { TemplateBrowserItem } from './TemplateBrowserItem/TemplateBrowserItem'
 
 export const TemplateBrowser: React.FC = () => {
     const currentEditedTemplate = useContext(CurrentEditedTemplateContext)
-    const [data, setData] = useState<ComponentData[]>([])
+    const [data, setData] = useState<TemplateData[]>([])
     const [loading, setLoading] = useState(true)
 
     const loadData = async () => {
@@ -31,7 +31,7 @@ export const TemplateBrowser: React.FC = () => {
                 {
                     name: name,
                     settings: [],
-                    grid: [],
+                    organisms: [],
                 }
             )
             data.push(response.data)
@@ -46,20 +46,20 @@ export const TemplateBrowser: React.FC = () => {
                 'DELETE'
             )
 
-            const updatedData: ComponentData[] = data.filter(function (value) {
+            const updatedData: TemplateData[] = data.filter(function (value) {
                 return value.id != response.data.id
             })
 
             setData([...updatedData])
-            // unselect template
+            currentEditedTemplate?.setTemplate(null)
         }
     }
 
-    const selectTemplate = (template: ComponentData) => {
+    const selectTemplate = (template: TemplateData) => {
         currentEditedTemplate?.setTemplate(template)
     }
 
-    const isSelected = (template: ComponentData) => {
+    const isSelected = (template: TemplateData) => {
         return (
             template.id === currentEditedTemplate?.template?.id
         )
@@ -70,7 +70,7 @@ export const TemplateBrowser: React.FC = () => {
             {loading && <LoadingBackdrop />}
             <Grid container spacing={2}>
                 {data &&
-                    data.map((template: ComponentData, index) => (
+                    data.map((template: TemplateData, index) => (
                         <Grid key={template.id} item xs={12} onClick={() => selectTemplate(template)}>
                             <TemplateBrowserItem
                                 id={template.id}

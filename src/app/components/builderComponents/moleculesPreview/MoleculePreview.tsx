@@ -41,7 +41,7 @@ export const MoleculePreview: React.FC<Props> = (props: Props) => {
     const renderError = () => {
         return (
             <div style={{ color: 'red' }}>
-                Organism {props.component.name} is empty
+                Molecule {props.component.name} is empty
             </div>
         )
     }

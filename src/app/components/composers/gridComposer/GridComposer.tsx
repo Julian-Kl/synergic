@@ -14,7 +14,6 @@ import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGri
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
-    textAlign: 'center',
     color: theme.palette.text.secondary,
     boxShadow: 'none',
     padding: 0,
