@@ -6,6 +6,9 @@ import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
 import { ComponentData } from '../../../types/ComponentData'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
+import { atomMetadata } from '../../../../builder/types/atomMetadata'
+import { TemplateData } from '../../../types/TemplateData'
 
 interface ComponentListItemProps {
     name: string
@@ -33,8 +36,20 @@ const ComponentListItem: React.FC<ComponentListItemProps> = (
 export const SidebarRightSettings: React.FC = () => {
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
+    const currentEditedTemplate = useContext(CurrentEditedTemplateContext)
 
-    const deleteChildren = async (id: number) => {
+    let components: (atomMetadata | ComponentData)[] = []
+    let isOrganism: boolean
+
+    if (currentEditedGridCell?.component?.components) {
+        components = currentEditedGridCell?.component?.components
+        isOrganism = false
+    } else if (currentEditedTemplate?.template?.organisms) {
+        components = currentEditedTemplate?.template?.organisms
+        isOrganism = true
+    }
+
+    const deleteNestedComponent = async (id: number) => {
         const updatedCellComponents = currentEditedGridCell?.component?.components.filter(
             function (value, index, arr) {
                 return index != id
@@ -64,7 +79,40 @@ export const SidebarRightSettings: React.FC = () => {
             )
 
             if (!response.loading) {
-                currentEditedComponent?.setComponent(updatedCurrentEditedComponent)
+                currentEditedComponent?.setComponent(
+                    updatedCurrentEditedComponent
+                )
+            }
+        }
+    }
+
+    const deleteNestedOrganism = async (id: number) => {
+        if (currentEditedTemplate?.template) {
+            const updatedTemplateOrganisms = currentEditedTemplate?.template?.organisms.filter(
+                function (value, index, arr) {
+                    return index != id
+                }
+            )
+
+            const updatedCurrentEditedTemplate: TemplateData = Object.assign(
+                {},
+                currentEditedTemplate?.template
+            )
+
+            updatedCurrentEditedTemplate.organisms = updatedTemplateOrganisms
+
+            const response = await fetchApi(
+                `${builderApiUrl}/templates/${currentEditedTemplate?.template?.id}`,
+                'PUT',
+                {
+                    organisms: updatedCurrentEditedTemplate.organisms,
+                }
+            )
+
+            if (!response.loading) {
+                currentEditedTemplate?.setTemplate(
+                    updatedCurrentEditedTemplate
+                )
             }
         }
     }
@@ -75,18 +123,20 @@ export const SidebarRightSettings: React.FC = () => {
                 Cell Children
             </Typography>
             <Divider />
-            {currentEditedGridCell?.component?.components.map(
-                (component, index) => (
-                    <React.Fragment key={index}>
-                        <ComponentListItem
-                            name={component.name}
-                            id={index}
-                            deleteFunction={() => deleteChildren(index)}
-                        />
-                        <Divider />
-                    </React.Fragment>
-                )
-            )}
+            {components.map((component, index) => (
+                <React.Fragment key={index}>
+                    <ComponentListItem
+                        name={component.name}
+                        id={index}
+                        deleteFunction={
+                            isOrganism
+                                ? () => deleteNestedOrganism(index)
+                                : () => deleteNestedComponent(index)
+                        }
+                    />
+                    <Divider />
+                </React.Fragment>
+            ))}
         </>
     )
 }

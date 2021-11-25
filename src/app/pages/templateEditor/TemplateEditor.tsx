@@ -7,6 +7,7 @@ import {
     SidebarLeft,
     SidebarRight,
 } from '../../components/molecules/Sidebar/Sidebar'
+import { SidebarRightSettings } from '../../components/molecules/SidebarRightSettings/SidebarRightSettings'
 import { TemplateBrowser } from '../../components/TemplateBrowser/TemplateBrowser'
 import { CurrentEditedTemplateContextProvider } from '../../contexts/CurrentEditedTemplate'
 import { CurrentEditedTemplateComponentContextProvider } from '../../contexts/CurrentEditedTemplateComponent'
@@ -37,7 +38,7 @@ export const TemplateEditor: React.FC = () => {
                         <TemplateComposer />
                     </Grid>
                     <SidebarRight>
-                        Some Settings
+                        <SidebarRightSettings />
                     </SidebarRight>
                 </Grid>
                 </CurrentEditedTemplateComponentContextProvider>
