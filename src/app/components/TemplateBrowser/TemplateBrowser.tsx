@@ -60,9 +60,7 @@ export const TemplateBrowser: React.FC = () => {
     }
 
     const isSelected = (template: TemplateData) => {
-        return (
-            template.id === currentEditedTemplate?.template?.id
-        )
+        return template.id === currentEditedTemplate?.template?.id
     }
 
     return (
@@ -70,8 +68,13 @@ export const TemplateBrowser: React.FC = () => {
             {loading && <LoadingBackdrop />}
             <Grid container spacing={2}>
                 {data &&
-                    data.map((template: TemplateData, index) => (
-                        <Grid key={template.id} item xs={12} onClick={() => selectTemplate(template)}>
+                    data.map((template: TemplateData) => (
+                        <Grid
+                            key={template.id}
+                            item
+                            xs={12}
+                            onClick={() => selectTemplate(template)}
+                        >
                             <TemplateBrowserItem
                                 id={template.id}
                                 deleteTemplate={deleteTemplate}

@@ -1,0 +1,1 @@
+export const contentApiUrl = 'http://localhost:1338'

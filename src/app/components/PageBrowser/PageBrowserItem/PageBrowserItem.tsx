@@ -29,13 +29,13 @@ interface Props {
     children: string
     id?: number
     selected?: boolean
-    deleteTemplate?: (id: number) => void
+    deletePage?: (id: number) => void
 }
 
-export const TemplateBrowserItem: React.FC<Props> = (props: Props) => {
+export const PageBrowserItem: React.FC<Props> = (props: Props) => {
     const handleDelete = () => {
-        if (props.id && props.deleteTemplate) {
-            props.deleteTemplate(props.id)
+        if (props.id && props.deletePage) {
+            props.deletePage(props.id)
         }
     }
 
