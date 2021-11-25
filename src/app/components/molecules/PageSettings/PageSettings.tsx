@@ -55,85 +55,102 @@ export const PageSettings: React.FC = () => {
         }
     }
 
-    const changeRoute = async (route: string) => {
-        const updatedCurrentEditedPage: PageData = Object.assign(
-            {},
-            currentEditedPage?.page
-        )
+    type property = 'route' | 'title'
 
-        updatedCurrentEditedPage.route = route
+    const changeProperty = async (property: property, value: string) => {
+        const updatedPage: PageData = Object.assign({}, currentEditedPage?.page)
+
+        updatedPage[property] = value
 
         const response = await fetchApi(
             `${contentApiUrl}/pages/${currentEditedPage?.page?.id}`,
             'PUT',
             {
-                route: updatedCurrentEditedPage.route,
+                [property]: updatedPage[property],
             }
         )
 
         if (!response.loading) {
-            currentEditedPage?.setPage(updatedCurrentEditedPage)
+            currentEditedPage?.setPage(updatedPage)
         }
     }
 
     return (
         <>
             {loading && <LoadingBackdrop />}
-            <Box
-                sx={{
-                    flexGrow: 1,
-                    bgcolor: 'background.paper',
-                    display: 'flex',
-                    height: 'auto',
-                    padding: 2,
-                    borderBottom: 2,
-                    borderColor: '#1565c0',
-                }}
-            >
-                <Box sx={{ minWidth: 120 }}>
-                    <Typography variant='h6' component='h3'>
-                        Settings
-                    </Typography>
-                </Box>
-                <Box sx={{ minWidth: 240 }}>
-                    <FormControl fullWidth>
-                        <InputLabel id='demo-simple-select-label'>
-                            Template
-                        </InputLabel>
-                        <Select
-                            labelId='demo-simple-select-label'
-                            id='demo-simple-select'
+            {currentEditedPage?.page && (
+                <Box
+                    sx={{
+                        flexGrow: 1,
+                        bgcolor: 'background.paper',
+                        display: 'flex',
+                        height: 'auto',
+                        padding: 2,
+                        borderBottom: 2,
+                        borderColor: '#1565c0',
+                    }}
+                >
+                    <Box sx={{ minWidth: 120 }}>
+                        <Typography variant='h6' component='h3'>
+                            Settings
+                        </Typography>
+                    </Box>
+                    <Box sx={{ minWidth: 240 }}>
+                        <FormControl fullWidth>
+                            <InputLabel id='demo-simple-select-label'>
+                                Template
+                            </InputLabel>
+                            <Select
+                                labelId='demo-simple-select-label'
+                                id='demo-simple-select'
+                                value={
+                                    currentEditedPage?.page?.template
+                                        ? currentEditedPage?.page?.template
+                                        : ''
+                                }
+                                label='Template'
+                                onChange={(event: SelectChangeEvent) =>
+                                    changeTemplate(event)
+                                }
+                            >
+                                {data.map((template, index) => (
+                                    <MenuItem key={index} value={template.name}>
+                                        {template.name}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Box>
+                    <Box sx={{ marginLeft: 4 }}>
+                        <TextField
+                            label='Route'
+                            color='primary'
                             value={
-                                currentEditedPage?.page?.template
-                                    ? currentEditedPage?.page?.template
+                                currentEditedPage?.page?.route
+                                    ? currentEditedPage?.page?.route
                                     : ''
                             }
-                            label='Template'
-                            onChange={(event: SelectChangeEvent) =>
-                                changeTemplate(event)
+                            onChange={(e) =>
+                                changeProperty('route', e.target.value)
                             }
-                        >
-                            {data.map((template, index) => (
-                                <MenuItem key={index} value={template.name}>
-                                    {template.name}
-                                </MenuItem>
-                            ))}
-                        </Select>
-                    </FormControl>
+                        />
+                    </Box>
+                    <Box sx={{ marginLeft: 4 }}>
+                        <TextField
+                            label='Title'
+                            color='primary'
+                            value={
+                                currentEditedPage?.page?.title
+                                    ? currentEditedPage?.page?.title
+                                    : ''
+                            }
+                            onChange={(e) =>
+                                changeProperty('title', e.target.value)
+                            }
+                        />
+                    </Box>
                 </Box>
-                <Box sx={{ minWidth: 240, marginLeft: 10 }}>
-                    <TextField
-                        label='Route'
-                        color='primary'
-                        value={
-                            currentEditedPage?.page?.route
-                                ? currentEditedPage?.page?.route
-                                : ''
-                        }
-                        onChange={(e) => changeRoute(e.target.value)}
-                    />
-                </Box>
-            </Box>
+            )}
         </>
     )
 }

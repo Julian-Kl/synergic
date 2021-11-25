@@ -27,6 +27,7 @@ export const PageBrowser: React.FC = () => {
         if (name) {
             const response = await fetchApi(`${contentApiUrl}/pages`, 'POST', {
                 name: name,
+                title: name,
                 route: encodeURIComponent(name),
                 template: '',
                 structure: [],

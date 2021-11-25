@@ -1,6 +1,7 @@
 export interface PageData {
     id: number
     name: string
+    title: string
     route: string
     template: string
     structure: object

@@ -1,8 +1,7 @@
-import { Start } from '../pages/start/Start'
 import { ComponentCreator } from '../pages/componentCreator/ComponentCreator'
-import { TemplateEditor } from '../pages/templateEditor/TemplateEditor'
-import { NavigationEditor } from '../pages/navigationEditor/NavigationEditor'
 import { PageEditor } from '../pages/pageEditor/PageEditor'
+import { Start } from '../pages/start/Start'
+import { TemplateEditor } from '../pages/templateEditor/TemplateEditor'
 
 export interface routeObject {
     path: string
@@ -19,29 +18,23 @@ const routes: routeObject[] = [
         component: Start,
     },
     {
-        path: '/component-creator',
+        path: '/components',
         name: 'Components',
         exact: true,
         component: ComponentCreator,
     },
     {
-        path: '/template-editor',
+        path: '/templates',
         name: 'Templates',
         exact: true,
         component: TemplateEditor,
     },
     {
-        path: '/page-editor',
+        path: '/pages',
         name: 'Pages',
         exact: true,
         component: PageEditor,
     },
-    {
-        path: '/navigation-editor',
-        name: 'Navigation',
-        exact: true,
-        component: NavigationEditor,
-    }
 ]
 
 export default routes
