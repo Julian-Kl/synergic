@@ -24,23 +24,23 @@ export const TemplateEditor: React.FC = () => {
             </Helmet>
             <CurrentEditedTemplateContextProvider>
                 <CurrentEditedTemplateComponentContextProvider>
-                <ComponentBrowser organisms />
-                <Grid container style={{ minHeight: '90vh' }}>
-                    <Grid item xs={2}>
-                        <SidebarLeft>
-                            <Typography variant='h6' component='h3'>
-                                Templates
-                            </Typography>
-                            <TemplateBrowser />
-                        </SidebarLeft>
+                    <ComponentBrowser organisms />
+                    <Grid container style={{ minHeight: '90vh' }}>
+                        <Grid item xs={2}>
+                            <SidebarLeft>
+                                <Typography variant='h6' component='h3'>
+                                    Templates
+                                </Typography>
+                                <TemplateBrowser />
+                            </SidebarLeft>
+                        </Grid>
+                        <Grid item xs={8}>
+                            <TemplateComposer />
+                        </Grid>
+                        <SidebarRight>
+                            <SidebarRightSettings />
+                        </SidebarRight>
                     </Grid>
-                    <Grid item xs={8}>
-                        <TemplateComposer />
-                    </Grid>
-                    <SidebarRight>
-                        <SidebarRightSettings />
-                    </SidebarRight>
-                </Grid>
                 </CurrentEditedTemplateComponentContextProvider>
             </CurrentEditedTemplateContextProvider>
         </>
