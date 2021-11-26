@@ -1,13 +1,11 @@
 import {
     Box,
-    FormControl,
-    GridSize,
-    InputLabel,
+    FormControl, InputLabel,
     MenuItem,
     Select,
     SelectChangeEvent,
     TextField,
-    Typography,
+    Typography
 } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { atomMetadata } from '../../../../builder/types/atomMetadata'
@@ -16,7 +14,7 @@ import { builderApiUrl } from '../../../services/builderApiUrl'
 import { contentApiUrl } from '../../../services/contentApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
 import { ComponentData } from '../../../types/ComponentData'
-import { PageData } from '../../../types/PageData'
+import { PageData, structureAtom, StructureComponentData, structureComponentGrid } from '../../../types/PageData'
 import { TemplateData } from '../../../types/TemplateData'
 import { LoadingBackdrop } from '../../atoms/LoadingBackdrop/LoadingBackdrop'
 
@@ -46,21 +44,9 @@ export const PageSettings: React.FC = () => {
         }
     }
 
-    const transformTemplateData = (templateData: TemplateData) => {
-        type structureAtom = {
-            name: string
-            props: object
-        }
-
-        interface structureComponentGrid {
-            size: GridSize
-            components: (structureAtom | StructureComponentData)[]
-        }
-
-        interface StructureComponentData {
-            grid: structureComponentGrid[]
-        }
-
+    const transformTemplateData = (
+        templateData: TemplateData
+    ): StructureComponentData[] => {
         const transformAtom = (atom: atomMetadata): structureAtom => {
             const structureAtom: structureAtom = {
                 name: atom.name,
@@ -145,9 +131,7 @@ export const PageSettings: React.FC = () => {
             return transformedOrganismList
         }
 
-        console.log(templateData)
-        console.log('_________________________')
-        console.log(transformOrganisms(templateData.organisms))
+        return transformOrganisms(templateData.organisms)
     }
 
     const changeTemplate = async (event: SelectChangeEvent) => {
@@ -161,6 +145,7 @@ export const PageSettings: React.FC = () => {
         )
 
         updatedCurrentEditedPage.templateId = String(templateData.id)
+        updatedCurrentEditedPage.content = transformTemplateData(templateData)
 
         transformTemplateData(templateData)
 
@@ -169,8 +154,7 @@ export const PageSettings: React.FC = () => {
             'PUT',
             {
                 templateId: updatedCurrentEditedPage.templateId,
-                content: updatedCurrentEditedPage.content, // Load Default content
-                structure: updatedCurrentEditedPage.structure, // Load Structure
+                content: updatedCurrentEditedPage.content,
             }
         )
 
