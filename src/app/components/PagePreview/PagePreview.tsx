@@ -11,7 +11,7 @@ export const PagePreview: React.FC = () => {
     return (
         <>
             {currentEditedPage?.page?.content.map((component, index) => (
-                <PagePreviewGrid key={index} component={component} />
+                <PagePreviewGrid key={index} component={component} locator={['content', index]}/>
             ))}
         </>
     )

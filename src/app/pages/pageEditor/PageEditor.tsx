@@ -6,6 +6,7 @@ import { SidebarLeft } from '../../components/molecules/Sidebar/Sidebar'
 import { PageBrowser } from '../../components/PageBrowser/PageBrowser'
 import { PagePreview } from '../../components/PagePreview/PagePreview'
 import { CurrentEditedPageContextProvider } from '../../contexts/CurrentEditedPage'
+import { CurrentEditedPageAtomContextProvider } from '../../contexts/CurrentEditedPageAtom'
 
 export const PageEditor: React.FC = () => {
     return (
@@ -15,20 +16,22 @@ export const PageEditor: React.FC = () => {
                 <meta name='description' content='This is the Page Editor' />
             </Helmet>
             <CurrentEditedPageContextProvider>
-                <Grid container style={{ minHeight: '90vh' }}>
-                    <Grid item xs={2}>
-                        <SidebarLeft>
-                            <Typography variant='h6' component='h3'>
-                                Pages
-                            </Typography>
-                            <PageBrowser />
-                        </SidebarLeft>
+                <CurrentEditedPageAtomContextProvider>
+                    <Grid container style={{ minHeight: '90vh' }}>
+                        <Grid item xs={2}>
+                            <SidebarLeft>
+                                <Typography variant='h6' component='h3'>
+                                    Pages
+                                </Typography>
+                                <PageBrowser />
+                            </SidebarLeft>
+                        </Grid>
+                        <Grid item xs={10}>
+                            <PageSettings />
+                            <PagePreview />
+                        </Grid>
                     </Grid>
-                    <Grid item xs={10}>
-                        <PageSettings />
-                        <PagePreview />
-                    </Grid>
-                </Grid>
+                </CurrentEditedPageAtomContextProvider>
             </CurrentEditedPageContextProvider>
         </>
     )

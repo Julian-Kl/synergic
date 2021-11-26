@@ -21,6 +21,4 @@ export interface PageData {
     route: string
     templateId: string
     content:  StructureComponentData[]
-    created_at: string
-    updated_at: string
 }
