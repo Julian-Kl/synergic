@@ -55,24 +55,26 @@ export const OrganismPreview: React.FC<Props> = (props: Props) => {
             // Molecule has only one cell full width
             return (
                 <>
-                {props.organism.grid[0].components.map((component, index) => {
-                                if (component.type === 'atoms') {
-                                    return (
-                                        <AtomPreview
-                                            key={index}
-                                            component={component as atomMetadata}
-                                        />
-                                    )
-                                }
-                                if (component.type === 'molecules') {
-                                    return (
-                                        <MoleculePreview
-                                            key={index}
-                                            component={component as ComponentData}
-                                        />
-                                    )
-                                }
-                })}
+                    {props.organism.grid[0].components.map(
+                        (component, index) => {
+                            if (component.type === 'atoms') {
+                                return (
+                                    <AtomPreview
+                                        key={index}
+                                        component={component as atomMetadata}
+                                    />
+                                )
+                            }
+                            if (component.type === 'molecules') {
+                                return (
+                                    <MoleculePreview
+                                        key={index}
+                                        component={component as ComponentData}
+                                    />
+                                )
+                            }
+                        }
+                    )}
                 </>
             )
         } else {

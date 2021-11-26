@@ -15,5 +15,5 @@ export interface ComponentData {
     published_at: string
     settings: object
     updated_at: string
-    type: string
+    type: 'molecules' | 'organisms'
 }

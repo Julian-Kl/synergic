@@ -3,7 +3,7 @@ export interface PageData {
     name: string
     title: string
     route: string
-    template: string
+    templateId: string
     structure: object
     content: object
     created_at: string
