@@ -1,0 +1,6 @@
+@use '../../../styles' as *;
+
+.paragraph {
+    @include paragraph;
+    margin: 0;
+}

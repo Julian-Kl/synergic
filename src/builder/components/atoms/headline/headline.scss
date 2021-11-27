@@ -1,0 +1,83 @@
+@use '../../../styles' as *;
+
+
+.headline {
+    @include headline;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        background-color: $color-secondary-light;
+        width: 30%;
+    }
+}
+
+.headline-h1 {
+    font-size: rem(42px);
+
+    &::after {
+        height: rem(7px);
+        border-radius: rem(5px);
+        left: rem(10px);
+        bottom: rem(-10px);
+    }
+}
+
+.headline-h2 {
+    font-size: rem(36px);
+
+    &::after {
+        height: rem(6px);
+        border-radius: rem(5px);
+        left: rem(8px);
+        bottom: rem(-8px);
+    }
+}
+
+.headline-h3 {
+    font-size: rem(30px);
+
+    &::after {
+        height: rem(5px);
+        border-radius: rem(4px);
+        left: rem(6px);
+        bottom: rem(-6px);
+    }
+}
+
+.headline-h4 {
+    font-size: rem(24px);
+
+    &::after {
+        height: rem(4px);
+        border-radius: rem(4px);
+        left: rem(4);
+        bottom: rem(-4);
+        width: 24%;
+    }
+}
+
+.headline-h5 {
+    font-size: rem(20px);
+
+    &::after {
+        height: rem(4px);
+        border-radius: rem(4px);
+        left: rem(2px);
+        bottom: rem(-2px);
+        width: 20%;
+    }
+}
+
+.headline-h6 {
+    font-size: rem(18px);
+
+    &::after {
+        height: rem(2px);
+        border-radius: rem(2px);
+        left: 0;
+        bottom: 0;
+        width: 16%;
+    }
+}

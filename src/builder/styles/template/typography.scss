@@ -1,0 +1,16 @@
+@use '../config/fonts' as *;
+@use '../config/colors' as *;
+@use '../functions/rem-convert' as *;
+
+@mixin headline {
+    font-family: $main-font;
+    font-weight: 900;
+    color: $color-primary-light;
+}
+
+@mixin paragraph {
+    font: $main-font;
+    font-weight: 300;
+    font-size: rem(16px);
+    color: $color-darkgray;
+}

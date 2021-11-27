@@ -1,8 +1,8 @@
+import DeleteIcon from '@mui/icons-material/Delete'
 import { Button, Grid, Paper, styled } from '@mui/material'
 import React from 'react'
 import { ComponentGrid } from '../../../../types/ComponentData'
 import { GridCellChildren } from './gridCellChildren/GridCellChildren'
-import DeleteIcon from '@mui/icons-material/Delete'
 
 export const DefaultItem = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -36,8 +36,9 @@ const SettingsPopup: React.FC<SettingsPopupProps> = (props: SettingsPopupProps) 
             style={{
                 position: 'absolute',
                 border: 'solid 1px rgba(25,118,210, 1)',
-                borderRadius: 2,
+                borderRadius: 4,
                 padding: 4,
+                backgroundColor: '#d5d5d5'
             }}
         >
             <Grid container>

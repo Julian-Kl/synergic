@@ -1,14 +1,16 @@
-import * as React from 'react'
-import Typography from '@mui/material/Typography'
+import React from 'react'
+import './paragraph.scss'
 
 interface Props {
     text: string
 }
 
 export const Paragraph: React.FC<Props> = (props: Props) => {
+    const classes = 'paragraph'
+
     return (
-        <Typography variant='body1' gutterBottom>
+        <p className={classes}>
             {props.text}
-        </Typography>
+        </p>
     )
 }
