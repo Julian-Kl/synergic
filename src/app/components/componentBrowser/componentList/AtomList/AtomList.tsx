@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material'
-import { atomRegistry } from '../../../../../builder/components/atoms/atomRegistry'
 import React from 'react'
-import { BrowserItem } from '../BrowserItem/BrowserItem'
+import { atomRegistry } from '../../../../../builder/components/atoms/atomRegistry'
 import { atomMetadata } from '../../../../../builder/types/atomMetadata'
 import { ComponentData } from '../../../../types/ComponentData'
+import { BrowserItem } from '../BrowserItem/BrowserItem'
 
 interface Props {
     isAddAble: boolean

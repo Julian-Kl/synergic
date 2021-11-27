@@ -7,6 +7,7 @@ import { MoleculePreview } from '../../../../builderComponents/moleculesPreview/
 
 interface Props {
     components: (atomMetadata | ComponentData)[]
+    selected?: boolean
 }
 
 export const GridCellChildren: React.FC<Props> = (props: Props) => {
@@ -15,16 +16,30 @@ export const GridCellChildren: React.FC<Props> = (props: Props) => {
             <>
                 {props.components.map((component, index) => {
                     if (component.type === 'atoms') {
-                        return <AtomPreview key={index} component={component as atomMetadata}/>
+                        return (
+                            <AtomPreview
+                                key={index}
+                                component={component as atomMetadata}
+                                selected={props.selected}
+                                selectAble={true}
+                                id={index}
+                            />
+                        )
                     } else {
-                        return <MoleculePreview key={index} component={component as ComponentData}/>
+                        return (
+                            <MoleculePreview
+                                key={index}
+                                selected={props.selected}
+                                component={component as ComponentData}
+                                selectAble={true}
+                                id={index}
+                            />
+                        )
                     }
                 })}
             </>
         )
     } else {
-        return (
-            <Skeleton variant="text" animation={false} />
-        )
+        return <Skeleton variant='text' animation={false} />
     }
 }

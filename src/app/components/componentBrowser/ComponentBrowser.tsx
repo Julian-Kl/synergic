@@ -1,7 +1,7 @@
-import React from 'react'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
+import Tab from '@mui/material/Tab'
+import Tabs from '@mui/material/Tabs'
+import React from 'react'
 import { ComponentList } from './componentList/ComponentList'
 
 interface TabPanelProps {

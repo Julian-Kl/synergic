@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
-import Paper from '@mui/material/Paper'
-import Grid, { GridSize } from '@mui/material/Grid'
-import { Button, Slider, Typography } from '@mui/material'
 import AddCircleIcon from '@mui/icons-material/AddCircle'
-import { GridCell } from './gridCell/GridCell'
+import { Button, Slider, Typography } from '@mui/material'
+import Box from '@mui/material/Box'
+import Grid, { GridSize } from '@mui/material/Grid'
+import Paper from '@mui/material/Paper'
+import { styled } from '@mui/material/styles'
+import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
-import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
+import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
-import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
+import { ComponentGrid } from '../../../types/ComponentData'
+import { GridCell } from './gridCell/GridCell'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -64,30 +64,6 @@ export const GridComposer: React.FC = () => {
 
         if (!response.loading) {
             setGridElements([...gridElements])
-        }
-    }
-
-    const deleteGridElement = async () => {
-
-        const updatedGrid = gridElements.filter(function (value, index, arr) {
-            return index != currentEditedGridCell?.id
-        })
-
-        const response = await fetchApi(
-            `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
-            'PUT',
-            {
-                grid: updatedGrid,
-            }
-        )
-
-        if (!response.loading) {
-            const updatedCurrentEditedComponent: ComponentData = Object.assign({}, currentEditedComponent?.component)
-            updatedCurrentEditedComponent.grid  = updatedGrid
-            currentEditedComponent?.setComponent(updatedCurrentEditedComponent)
-
-            currentEditedGridCell?.setComponent(null)
-            currentEditedGridCell?.setId(null)
         }
     }
 
@@ -191,9 +167,6 @@ export const GridComposer: React.FC = () => {
                                                                 index ===
                                                                 currentEditedGridCell?.id
                                                             }
-                                                            deleteGridElement={() =>
-                                                                deleteGridElement()
-                                                            }
                                                         />
                                                     </Grid>
                                                 )
@@ -216,9 +189,6 @@ export const GridComposer: React.FC = () => {
                                                             selected={
                                                                 index ===
                                                                 currentEditedGridCell?.id
-                                                            }
-                                                            deleteGridElement={() =>
-                                                                deleteGridElement()
                                                             }
                                                         />
                                                     </Grid>

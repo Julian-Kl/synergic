@@ -2,7 +2,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import { Button, Grid, Paper, styled } from '@mui/material'
 import React from 'react'
 
-export const DefaultItem = styled(Paper)(({ theme }) => ({
+const DefaultItem = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
@@ -16,7 +16,7 @@ export const DefaultItem = styled(Paper)(({ theme }) => ({
     },
 }))
 
-export const SelectedItem = styled(Paper)(({ theme }) => ({
+const SelectedItem = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     textAlign: 'center',
     boxShadow: 'none',
