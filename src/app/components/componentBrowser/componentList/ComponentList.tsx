@@ -1,15 +1,15 @@
-import React, { useContext } from 'react'
 import { Box, Grid } from '@mui/material'
-import { BuilderComponentList } from './BuilderComponentList/BuilderComponentList'
-import { AtomList } from './AtomList/AtomList'
+import React, { useContext } from 'react'
+import { atomMetadata } from '../../../../builder/types/atomMetadata'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
-import { ComponentData } from '../../../types/ComponentData'
-import { atomMetadata } from '../../../../builder/types/atomMetadata'
-import { fetchApi } from '../../../services/fetchApi'
-import { builderApiUrl } from '../../../services/builderApiUrl'
 import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
+import { builderApiUrl } from '../../../services/builderApiUrl'
+import { fetchApi } from '../../../services/fetchApi'
+import { ComponentData } from '../../../types/ComponentData'
 import { TemplateData } from '../../../types/TemplateData'
+import { AtomList } from './AtomList/AtomList'
+import { BuilderComponentList } from './BuilderComponentList/BuilderComponentList'
 
 
 interface Props {
@@ -57,6 +57,11 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
                 {},
                 currentEditedComponent?.component
             )
+
+            if(component.type === 'atoms') {
+                component.props = component.defaultProps
+            }
+            
             updatedCurrentEditedComponent.grid[
                 currentEditedGridCell?.id
             ].components.push(component)

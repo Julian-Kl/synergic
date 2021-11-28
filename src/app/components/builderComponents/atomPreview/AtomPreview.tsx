@@ -27,7 +27,7 @@ export const AtomPreview: React.FC<Props> = (props: Props) => {
         const componentName = props.component.name
         if (componentName in atomRegistry) {
             const block = atomRegistry[componentName]
-            return React.createElement(block.component, block.defaultProps)
+            return React.createElement(block.component, props.component.props)
         } else {
             console.log(`Component with name ${props.component.name} not found`)
         }

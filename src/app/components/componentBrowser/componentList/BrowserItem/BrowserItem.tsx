@@ -1,7 +1,7 @@
-import React from 'react'
-import { Button, Grid, Paper, styled } from '@mui/material'
-import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Button, Grid, Paper, styled } from '@mui/material';
+import React from 'react';
 import { atomMetadata } from '../../../../../builder/types/atomMetadata';
 import { ComponentData } from '../../../../types/ComponentData';
 

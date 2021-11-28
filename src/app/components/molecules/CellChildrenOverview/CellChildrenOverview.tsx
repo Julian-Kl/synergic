@@ -1,13 +1,13 @@
+import DeleteIcon from '@mui/icons-material/Delete'
 import { Button, Divider, Typography } from '@mui/material'
 import React, { useContext } from 'react'
+import { atomMetadata } from '../../../../builder/types/atomMetadata'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
+import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
 import { ComponentData } from '../../../types/ComponentData'
-import DeleteIcon from '@mui/icons-material/Delete'
-import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
-import { atomMetadata } from '../../../../builder/types/atomMetadata'
 import { TemplateData } from '../../../types/TemplateData'
 
 interface ComponentListItemProps {
@@ -33,7 +33,7 @@ const ComponentListItem: React.FC<ComponentListItemProps> = (
     )
 }
 
-export const SidebarRightSettings: React.FC = () => {
+export const CellChildrenOverview: React.FC = () => {
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
     const currentEditedTemplate = useContext(CurrentEditedTemplateContext)

@@ -3,14 +3,18 @@ import { Button, Divider, GridSize, Slider, Typography } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
+import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
 import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
 
-export const SidebarLeftSettings: React.FC = () => {
+export const GridCellSettings: React.FC = () => {
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
     const [gridElements, setGridElements] = useState<ComponentGrid[]>([])
+    const currentEditedGridCellComponent = useContext(
+        CurrentEditedGridCellComponentContext
+    )
     const gridContainerDenominator = 12
 
     useEffect(() => {
@@ -79,18 +83,20 @@ export const SidebarLeftSettings: React.FC = () => {
 
             currentEditedGridCell?.setComponent(null)
             currentEditedGridCell?.setId(null)
+            currentEditedGridCellComponent?.setComponent(null)
+            currentEditedGridCellComponent?.setId(null)
         }
     }
 
     return (
         <>
-            <Typography variant='h6' component='h3'>
-                Cell Settings
-            </Typography>
-            <Divider />
             {currentEditedGridCell?.component?.size && (
                 <>
-                    <Typography variant='h6' component='p'>
+                    <Typography variant='h6' component='h3'>
+                        Cell Settings
+                    </Typography>
+                    <Divider />
+                    <Typography variant='body1' component='p'>
                         GridSize
                     </Typography>
                     <Slider

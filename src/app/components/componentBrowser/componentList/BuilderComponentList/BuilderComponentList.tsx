@@ -1,14 +1,15 @@
 import { Grid } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
-import { builderApiUrl } from '../../../../services/builderApiUrl'
-import { BrowserItem } from '../BrowserItem/BrowserItem'
-import { LoadingBackdrop } from '../../../atoms/LoadingBackdrop/LoadingBackdrop'
-import { AddComponent } from '../../../atoms/AddComponent/AddComponent'
-import { fetchApi } from '../../../../services/fetchApi'
-import { ComponentData } from '../../../../types/ComponentData'
+import { atomMetadata } from '../../../../../builder/types/atomMetadata'
 import { CurrentEditedComponentContext } from '../../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../../contexts/CurrentEditedGridCell'
-import { atomMetadata } from '../../../../../builder/types/atomMetadata'
+import { CurrentEditedGridCellComponentContext } from '../../../../contexts/CurrentEditedGridCellComponent'
+import { builderApiUrl } from '../../../../services/builderApiUrl'
+import { fetchApi } from '../../../../services/fetchApi'
+import { ComponentData } from '../../../../types/ComponentData'
+import { AddComponent } from '../../../atoms/AddComponent/AddComponent'
+import { LoadingBackdrop } from '../../../atoms/LoadingBackdrop/LoadingBackdrop'
+import { BrowserItem } from '../BrowserItem/BrowserItem'
 
 interface Props {
     components: 'molecules' | 'organisms'
@@ -20,6 +21,9 @@ interface Props {
 export const BuilderComponentList: React.FC<Props> = (props: Props) => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
+    const currentEditedGridCellComponent = useContext(
+        CurrentEditedGridCellComponentContext
+    )
     const [data, setData] = useState<ComponentData[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -62,6 +66,8 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
 
             setData([...updatedData])
             currentEditedComponent?.setComponent(null)
+            currentEditedGridCellComponent?.setComponent(null)
+            currentEditedGridCellComponent?.setId(null)
         }
     }
 
@@ -69,6 +75,8 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
         currentEditedComponent?.setComponent(component)
         currentEditedGridCell?.setComponent(null)
         currentEditedGridCell?.setId(null)
+        currentEditedGridCellComponent?.setComponent(null)
+        currentEditedGridCellComponent?.setId(null)
     }
 
     const isSelected = (component: ComponentData) => {

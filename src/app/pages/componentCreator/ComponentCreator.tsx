@@ -1,14 +1,13 @@
-import { Grid } from '@mui/material'
+import { Divider, Grid } from '@mui/material'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { ComponentBrowser } from '../../components/componentBrowser/ComponentBrowser'
 import { GridComposer } from '../../components/composers/gridComposer/GridComposer'
+import { GridCellComponentSettings } from '../../components/molecules/GridCellComponentSettings/GridCellComponentSettings'
+import { GridCellSettings } from '../../components/molecules/GridCellSettings/GridCellSettings'
 import {
-    SidebarLeft,
-    SidebarRight
+    SidebarLeft
 } from '../../components/molecules/Sidebar/Sidebar'
-import { SidebarLeftSettings } from '../../components/molecules/SidebarLeftSettings/SidebarLeftSettings'
-import { SidebarRightSettings } from '../../components/molecules/SidebarRightSettings/SidebarRightSettings'
 import { CurrentEditedComponentContextProvider } from '../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContextProvider } from '../../contexts/CurrentEditedGridCell'
 import { CurrentEditedGridCellComponentContextProvider } from '../../contexts/CurrentEditedGridCellComponent'
@@ -30,16 +29,13 @@ export const ComponentCreator: React.FC = () => {
                         <Grid container style={{ minHeight: '70vh' }}>
                             <Grid item xs={2}>
                                 <SidebarLeft>
-                                    <SidebarLeftSettings />
+                                    <GridCellSettings />
+                                    <Divider variant='fullWidth' />
+                                    <GridCellComponentSettings />
                                 </SidebarLeft>
                             </Grid>
-                            <Grid item xs={8}>
+                            <Grid item xs={10}>
                                 <GridComposer />
-                            </Grid>
-                            <Grid item xs={2}>
-                                <SidebarRight>
-                                    <SidebarRightSettings />
-                                </SidebarRight>
                             </Grid>
                         </Grid>
                     </CurrentEditedGridCellComponentContextProvider>

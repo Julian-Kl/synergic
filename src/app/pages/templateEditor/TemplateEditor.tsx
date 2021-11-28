@@ -3,11 +3,11 @@ import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { ComponentBrowser } from '../../components/componentBrowser/ComponentBrowser'
 import { TemplateComposer } from '../../components/composers/templateComposer/TemplateComposer'
+import { CellChildrenOverview } from '../../components/molecules/CellChildrenOverview/CellChildrenOverview'
 import {
     SidebarLeft,
-    SidebarRight,
+    SidebarRight
 } from '../../components/molecules/Sidebar/Sidebar'
-import { SidebarRightSettings } from '../../components/molecules/SidebarRightSettings/SidebarRightSettings'
 import { TemplateBrowser } from '../../components/TemplateBrowser/TemplateBrowser'
 import { CurrentEditedTemplateContextProvider } from '../../contexts/CurrentEditedTemplate'
 import { CurrentEditedTemplateComponentContextProvider } from '../../contexts/CurrentEditedTemplateComponent'
@@ -38,7 +38,7 @@ export const TemplateEditor: React.FC = () => {
                             <TemplateComposer />
                         </Grid>
                         <SidebarRight>
-                            <SidebarRightSettings />
+                            <CellChildrenOverview />
                         </SidebarRight>
                     </Grid>
                 </CurrentEditedTemplateComponentContextProvider>
