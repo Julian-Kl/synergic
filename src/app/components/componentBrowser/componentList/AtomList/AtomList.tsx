@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import React from 'react'
 import { atomRegistry } from '../../../../../builder/components/atoms/atomRegistry'
-import { atomMetadata } from '../../../../../builder/types/atomMetadata'
+import { atomMetadata } from '../../../../types/atomMetadata'
 import { ComponentData } from '../../../../types/ComponentData'
 import { BrowserItem } from '../BrowserItem/BrowserItem'
 

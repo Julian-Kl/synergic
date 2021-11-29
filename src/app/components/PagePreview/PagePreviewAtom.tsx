@@ -4,9 +4,11 @@ import React, { useContext } from 'react'
 import { atomRegistry } from '../../../builder/components/atoms/atomRegistry'
 import { CurrentEditedPageContext } from '../../contexts/CurrentEditedPage'
 import { CurrentEditedPageAtomContext } from '../../contexts/CurrentEditedPageAtom'
+import { contentApiUrl } from '../../services/contentApiUrl'
+import { fetchApi } from '../../services/fetchApi'
 import { structureAtom } from '../../types/PageData'
 
-export const DefaultAtomPreviewContainer= styled(Paper)(() => ({
+export const DefaultAtomPreviewContainer = styled(Paper)(() => ({
     boxShadow: 'none',
     ':hover': {
         border: 'solid 1px rgba(25,118,210, .5)',
@@ -20,7 +22,6 @@ export const ActiveAtomPreviewContainer = styled(Paper)(() => ({
     border: 'solid 1px rgba(25,118,210, .5)',
     borderRadius: 0,
 }))
-
 
 interface Props {
     component: structureAtom
@@ -51,23 +52,53 @@ export const PageAtomPreview: React.FC<Props> = (props: Props) => {
 
                 if (currentEditedPage?.page) {
                     let entry: any = currentEditedPage?.page
-                    props.locator.forEach((locatorEntry, index) => {
-                        entry = entry[props.locator[index]]
+                    const steps: any[] = []
+                    steps.push(entry)
+
+                    props.locator.forEach((locatorEntry) => {
+                        entry = entry[locatorEntry]
+                        steps.push(entry)
                     })
 
-
-                    // TODO Add different rendering for the currently edited component
-                    console.log('Atom Props:')
-                    console.log(entry.props)
-
+                    let component: React.FC<any>
                     if ('text' in entry.props) {
-                        console.log(entry.props.text)
+                        component = block.editableComponent
 
-                        
+                        const saveChanges = async (value: string) => {
+                            entry.props.text = value
+
+                            const stepsInverted = [...steps].reverse()
+
+                            let newStepValue: any = entry.props
+                            stepsInverted.forEach((stepValue) => {
+                                newStepValue = stepValue
+                            })
+
+                            const updatedCurrentEditedPage = newStepValue
+
+                            const response = await fetchApi(
+                                `${contentApiUrl}/pages/${currentEditedPage?.page?.id}`,
+                                'PUT',
+                                {
+                                    content: updatedCurrentEditedPage.content,
+                                }
+                            )
+
+                            if (!response.loading) {
+                                currentEditedPage?.setPage(
+                                    updatedCurrentEditedPage
+                                )
+                                currentEditedPageAtomContext.setAtom(null)
+                                currentEditedPageAtomContext.setLocator(null)
+                            }
+                        }
+
+                        entry.props.saveChanges = saveChanges
+
+                    } else {
+                        component = block.component
                     }
-                    return React.createElement(block.component, entry.props)
-
-
+                    return React.createElement(component, entry.props)
                 } else {
                     console.log('No page currently edited')
                 }

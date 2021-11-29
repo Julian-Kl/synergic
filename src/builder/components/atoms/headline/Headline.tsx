@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { SettingsPopup } from '../../../../app/components/PagePreview/SaveSettingsPopup'
 import './headline.scss'
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
 export const Headline: React.FC<Props> = (props: Props) => {
     const classes = `headline headline-${props.variant}`
 
-    switch(props.element) {
+    switch (props.element) {
         case 'h1':
             return <h1 className={classes}>{props.text}</h1>
         case 'h2':
@@ -26,4 +27,26 @@ export const Headline: React.FC<Props> = (props: Props) => {
         default:
             return <h1 className={classes}>{props.text}</h1>
     }
+}
+
+interface EditableProps extends Props {
+    saveChanges: (value: string) => void
+}
+
+export const EditableHeadline: React.FC<EditableProps> = (
+    props: EditableProps
+) => {
+    const [value, setValue] = useState(props.text)
+    const classes = `headline headline-${props.variant} headline-editor`
+
+    return (
+        <>
+            <textarea
+                className={classes}
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+            ></textarea>
+            <SettingsPopup saveCanges={() => props.saveChanges(value)} />
+        </>
+    )
 }

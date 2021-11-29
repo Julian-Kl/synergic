@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import React, { useContext } from 'react'
-import { atomMetadata } from '../../../../builder/types/atomMetadata'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
+import { atomMetadata } from '../../../types/atomMetadata'
 import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
 import { ActiveItemSecondary, DefaultItemSecondary } from '../../atoms/ItemSecondary/ItemSecondary'
 import { AtomPreview } from '../atomPreview/AtomPreview'

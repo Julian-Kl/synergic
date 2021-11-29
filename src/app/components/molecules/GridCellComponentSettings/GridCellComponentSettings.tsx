@@ -10,12 +10,12 @@ import {
 } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { atomRegistry } from '../../../../builder/components/atoms/atomRegistry'
-import { atomMetadata, savedAtomMetadata } from '../../../../builder/types/atomMetadata'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
+import { atomMetadata, savedAtomMetadata } from '../../../types/atomMetadata'
 import { ComponentData } from '../../../types/ComponentData'
 
 export const GridCellComponentSettings: React.FC = () => {

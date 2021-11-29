@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { atomMetadata } from '../../../../builder/types/atomMetadata'
+import { atomMetadata } from '../../../types/atomMetadata'
 import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
 import { AtomPreview } from '../atomPreview/AtomPreview'
 import { MoleculePreview } from '../moleculesPreview/MoleculePreview'

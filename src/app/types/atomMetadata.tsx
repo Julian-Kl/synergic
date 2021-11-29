@@ -1,10 +1,9 @@
-import React from 'react';
-
 export interface atomMetadata {
     name: string
     type: 'atoms'
     props: object
     defaultProps: object
+    editableComponent: React.FC<any>
     component: React.FC<any>
 }
 

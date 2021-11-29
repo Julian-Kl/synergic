@@ -1,12 +1,12 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Button, Divider, Typography } from '@mui/material'
 import React, { useContext } from 'react'
-import { atomMetadata } from '../../../../builder/types/atomMetadata'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
+import { atomMetadata } from '../../../types/atomMetadata'
 import { ComponentData } from '../../../types/ComponentData'
 import { TemplateData } from '../../../types/TemplateData'
 

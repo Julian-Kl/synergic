@@ -9,7 +9,7 @@
 }
 
 @mixin paragraph {
-    font: $main-font;
+    font-family: $main-font;
     font-weight: 300;
     font-size: rem(16px);
     color: $color-darkgray;

@@ -8,11 +8,11 @@ import {
     Typography
 } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
-import { atomMetadata } from '../../../../builder/types/atomMetadata'
 import { CurrentEditedPageContext } from '../../../contexts/CurrentEditedPage'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { contentApiUrl } from '../../../services/contentApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
+import { atomMetadata } from '../../../types/atomMetadata'
 import { ComponentData } from '../../../types/ComponentData'
 import { PageData, structureAtom, StructureComponentData, structureComponentGrid } from '../../../types/PageData'
 import { TemplateData } from '../../../types/TemplateData'
@@ -50,7 +50,7 @@ export const PageSettings: React.FC = () => {
         const transformAtom = (atom: atomMetadata): structureAtom => {
             const structureAtom: structureAtom = {
                 name: atom.name,
-                props: atom.defaultProps,
+                props: atom.props,
             }
 
             return structureAtom

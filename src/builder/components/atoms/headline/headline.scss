@@ -82,3 +82,7 @@
         width: 16%;
     }
 }
+
+.headline-editor {
+    @include editor-textarea
+}

@@ -1,0 +1,9 @@
+@mixin editor-textarea {
+    border: unset;
+    width: 100%;
+    resize: none;
+
+    &:focus-visible {
+        outline: unset;
+    }
+}

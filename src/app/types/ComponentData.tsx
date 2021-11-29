@@ -1,5 +1,5 @@
 import { GridSize } from '@mui/material/Grid'
-import { atomMetadata } from '../../builder/types/atomMetadata'
+import { atomMetadata } from './atomMetadata'
 
 export interface ComponentGrid {
     size: GridSize

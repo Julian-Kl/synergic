@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { atomRegistry } from '../../../../builder/components/atoms/atomRegistry'
-import { atomMetadata } from '../../../../builder/types/atomMetadata'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
+import { atomMetadata } from '../../../types/atomMetadata'
 import { ActiveItemSecondary, DefaultItemSecondary } from "../../atoms/ItemSecondary/ItemSecondary"
 
 interface Props {

@@ -5,3 +5,7 @@
     padding: spacing(1);
     margin: 0;
 }
+
+.paragraph-editor {
+    @include editor-textarea
+}

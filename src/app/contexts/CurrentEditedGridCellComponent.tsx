@@ -1,5 +1,5 @@
 import React, { createContext, useMemo, useState } from 'react'
-import { atomMetadata } from '../../builder/types/atomMetadata'
+import { atomMetadata } from '../types/atomMetadata'
 import { ComponentData } from '../types/ComponentData'
 
 interface CurrentEditedGridCellComponentContext {
