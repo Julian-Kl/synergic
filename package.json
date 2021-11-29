@@ -10,7 +10,8 @@
         "start:server": "webpack -w --config-name clientConfig --config-name serverConfig & nodemon ./public/server.js",
         "watch:server": "webpack -w --config-name clientConfig --config-name serverConfig",
         "build:server": "webpack --config-name clientConfig --config-name serverConfig",
-        "start:all": "(cd .. && cd synergic-editor-cms && npm run strapi develop) & (cd .. && cd synergic-content-cms && npm run strapi develop) & webpack serve --config-name devConfig",
+        "start:allDev": "(cd .. && cd synergic-editor-cms && npm run strapi develop) & (cd .. && cd synergic-content-cms && npm run strapi develop) & webpack serve --config-name devConfig",
+        "start:allServer": "(cd .. && cd synergic-editor-cms && npm run strapi develop) & (cd .. && cd synergic-content-cms && npm run strapi develop) & webpack -w --config-name clientConfig --config-name serverConfig & nodemon ./public/server.js",
         "lint": "eslint ./src && stylelint ./src",
         "test": "echo \"Error: no test specified\" && exit 1"
     },

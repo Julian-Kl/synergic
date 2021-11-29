@@ -1,23 +1,19 @@
-import React, { useState } from 'react'
-import Tabs from '@mui/material/Tabs'
-import Tab from '@mui/material/Tab'
 import Box from '@mui/material/Box'
-import { routeObject } from '../../router/routes'
+import Tab from '@mui/material/Tab'
+import Tabs from '@mui/material/Tabs'
+import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import { routeObject } from '../../router/routes'
 
 interface Props {
     routes: routeObject[]
 }
 
 export const Navbar: React.FC<Props> = (props: Props) => {
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth ? window.innerWidth : '100%')
-
     const location = useLocation()
 
-    window.addEventListener('resize', () => {setWindowWidth(window.innerWidth ? window.innerWidth : '100%')})
-
     return (
-        <Box sx={{ maxWidth: windowWidth, borderBottom: 2, borderColor: 'divider' }}>
+        <Box sx={{ maxWidth: '100%', borderBottom: 2, borderColor: 'divider' }}>
             <Tabs
                 value={location.pathname}
                 variant='scrollable'

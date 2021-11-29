@@ -1,3 +1,4 @@
+import { App } from '../../website/App'
 import { ComponentCreator } from '../pages/componentCreator/ComponentCreator'
 import { PageEditor } from '../pages/pageEditor/PageEditor'
 import { Start } from '../pages/start/Start'
@@ -34,6 +35,12 @@ const routes: routeObject[] = [
         name: 'Pages',
         exact: true,
         component: PageEditor,
+    },
+    {
+        path: '/preview',
+        name: 'Preview',
+        exact: false,
+        component: App,
     },
 ]
 
