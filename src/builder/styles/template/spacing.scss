@@ -1,0 +1,16 @@
+@use '../functions/rem-convert' as *;
+@use "sass:map";
+
+$spacer: 4px;
+
+$default-spaces: (
+    1: $spacer * 1,
+    2: $spacer * 2,
+    3: $spacer * 3,
+    4: $spacer * 4,
+);
+
+@function spacing($index, $spaces: $default-spaces) {
+    $space: map.get($spaces, $index);
+    @return if($space != 0, $space, null);
+}

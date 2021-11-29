@@ -4,6 +4,7 @@
 .headline {
     @include headline;
     position: relative;
+    padding: spacing(1);
 
     &::after {
         content: '';
