@@ -1,7 +1,7 @@
 import { Grow, Typography } from '@mui/material'
-import ParticlesBg from 'particles-bg'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
+import { Background } from '../../components/atoms/Background/Background'
 
 export const Start: React.FC = () => {
     return (
@@ -10,7 +10,7 @@ export const Start: React.FC = () => {
                 <title>Synergic</title>
                 <meta name='description' content='This is Home' />
             </Helmet>
-            <ParticlesBg type='cobweb' color='#1976d2' bg />
+            <Background />
             <div style={{ position: 'absolute', top: 200, left: 80 }}>
                 <Grow in {...{ timeout: 1500 }}>
                     <Typography variant='h1' component='h1'>
