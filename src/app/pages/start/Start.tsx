@@ -1,7 +1,6 @@
 import { Grow, Typography } from '@mui/material'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { Background } from '../../components/atoms/Background/Background'
 
 export const Start: React.FC = () => {
     return (
@@ -10,7 +9,6 @@ export const Start: React.FC = () => {
                 <title>Synergic</title>
                 <meta name='description' content='This is Home' />
             </Helmet>
-            <Background />
             <div style={{ position: 'absolute', top: 200, left: 80 }}>
                 <Grow in {...{ timeout: 1500 }}>
                     <Typography variant='h1' component='h1'>
