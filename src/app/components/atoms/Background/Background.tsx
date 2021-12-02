@@ -13,7 +13,7 @@ export const Background: React.FC = () => {
                         value: '#fff',
                     },
                 },
-                fpsLimit: 60,
+                fpsLimit: 10,
                 interactivity: {
                     detectsOn: 'canvas',
                     events: {
