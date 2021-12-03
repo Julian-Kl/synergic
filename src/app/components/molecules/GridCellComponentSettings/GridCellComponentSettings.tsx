@@ -15,7 +15,7 @@ import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGri
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
-import { atomMetadata, savedAtomMetadata } from '../../../types/atomMetadata'
+import { atomProps, pageAtomProps } from '../../../types/atomProps'
 import { ComponentData } from '../../../types/ComponentData'
 
 export const GridCellComponentSettings: React.FC = () => {
@@ -47,9 +47,9 @@ export const GridCellComponentSettings: React.FC = () => {
         )
             if(currentEditedGridCell?.id != undefined) {
                 if(updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id].type === 'atoms') {
-                    const updatedComponent = updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id] as savedAtomMetadata
+                    const updatedComponent = updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id] as pageAtomProps
                     updatedComponent.props[optionName] = value
-                    updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id] = updatedComponent as atomMetadata
+                    updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id] = updatedComponent as atomProps
                 }
             }
 
@@ -117,7 +117,9 @@ export const GridCellComponentSettings: React.FC = () => {
                 currentEditedGridCellComponent?.component?.props
             )) {
                 if (prop[0] === option.name) {
-                    currentValue = prop[1]
+                    if(typeof(prop[1]) === 'string') {
+                        currentValue = prop[1]
+                    }
                 }
             }
         }

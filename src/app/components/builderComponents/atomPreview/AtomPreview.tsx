@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
 import { atomRegistry } from '../../../../builder/components/atoms/atomRegistry'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
-import { atomMetadata } from '../../../types/atomMetadata'
+import { atomProps } from '../../../types/atomProps'
 import { ActiveItemSecondary, DefaultItemSecondary } from "../../atoms/ItemSecondary/ItemSecondary"
 
 interface Props {
-    component: atomMetadata
+    component: atomProps
     selected?: boolean
     selectAble?: boolean
     id?: number

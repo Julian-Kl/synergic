@@ -6,7 +6,7 @@ import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGri
 import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
-import { atomMetadata } from '../../../types/atomMetadata'
+import { atomProps } from '../../../types/atomProps'
 import { ComponentData } from '../../../types/ComponentData'
 import { TemplateData } from '../../../types/TemplateData'
 
@@ -38,7 +38,7 @@ export const CellChildrenOverview: React.FC = () => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
     const currentEditedTemplate = useContext(CurrentEditedTemplateContext)
 
-    let components: (atomMetadata | ComponentData)[] = []
+    let components: (atomProps | ComponentData)[] = []
     let isOrganism: boolean
 
     if (currentEditedGridCell?.component?.components) {

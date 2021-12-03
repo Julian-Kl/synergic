@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { atomMetadata } from '../../../types/atomMetadata'
+import { atomProps } from '../../../types/atomProps'
 import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
 import { AtomPreview } from '../atomPreview/AtomPreview'
 import { MoleculePreview } from '../moleculesPreview/MoleculePreview'
@@ -20,7 +20,7 @@ export const OrganismPreview: React.FC<Props> = (props: Props) => {
                                 return (
                                     <AtomPreview
                                         key={index}
-                                        component={component as atomMetadata}
+                                        component={component as atomProps}
                                     />
                                 )
                             }
@@ -61,7 +61,7 @@ export const OrganismPreview: React.FC<Props> = (props: Props) => {
                                 return (
                                     <AtomPreview
                                         key={index}
-                                        component={component as atomMetadata}
+                                        component={component as atomProps}
                                     />
                                 )
                             }

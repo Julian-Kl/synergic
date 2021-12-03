@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import React, { useContext } from 'react'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
-import { atomMetadata } from '../../../types/atomMetadata'
+import { atomProps } from '../../../types/atomProps'
 import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
 import { ActiveItemSecondary, DefaultItemSecondary } from '../../atoms/ItemSecondary/ItemSecondary'
 import { AtomPreview } from '../atomPreview/AtomPreview'
@@ -18,7 +18,7 @@ export const MoleculePreview: React.FC<Props> = (props: Props) => {
         CurrentEditedGridCellComponentContext
     )
 
-    const renderCellAtoms = (components: (ComponentData | atomMetadata)[]) => {
+    const renderCellAtoms = (components: (ComponentData | atomProps)[]) => {
         return (
             <>
                 {components.map((component, index) => {
@@ -26,7 +26,7 @@ export const MoleculePreview: React.FC<Props> = (props: Props) => {
                         return (
                             <AtomPreview
                                 key={index}
-                                component={component as atomMetadata}
+                                component={component as atomProps}
                                 selectAble={false}
                             />
                         )

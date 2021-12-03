@@ -12,7 +12,7 @@ import { CurrentEditedPageContext } from '../../../contexts/CurrentEditedPage'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { contentApiUrl } from '../../../services/contentApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
-import { atomMetadata } from '../../../types/atomMetadata'
+import { atomProps } from '../../../types/atomProps'
 import { ComponentData } from '../../../types/ComponentData'
 import { PageData, structureAtom, StructureComponentData, structureComponentGrid } from '../../../types/PageData'
 import { TemplateData } from '../../../types/TemplateData'
@@ -47,7 +47,7 @@ export const PageSettings: React.FC = () => {
     const transformTemplateData = (
         templateData: TemplateData
     ): StructureComponentData[] => {
-        const transformAtom = (atom: atomMetadata): structureAtom => {
+        const transformAtom = (atom: atomProps): structureAtom => {
             const structureAtom: structureAtom = {
                 name: atom.name,
                 props: atom.props,
@@ -76,10 +76,10 @@ export const PageSettings: React.FC = () => {
         }
 
         const transformSelect = (
-            component: ComponentData | atomMetadata
+            component: ComponentData | atomProps
         ): StructureComponentData | structureAtom | void => {
             if (component.type === 'atoms') {
-                return transformAtom(component as atomMetadata)
+                return transformAtom(component as atomProps)
             } else if (component.type === 'molecules') {
                 return transformMolecule(component as ComponentData)
             } else if (component.type === 'organisms') {
@@ -88,7 +88,7 @@ export const PageSettings: React.FC = () => {
         }
 
         const mapComponents = (
-            components: (ComponentData | atomMetadata)[]
+            components: (ComponentData | atomProps)[]
         ): (StructureComponentData | structureAtom)[] => {
             const transformedComponentData: (
                 | StructureComponentData
