@@ -1,8 +1,8 @@
 import { Grid } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedTemplateContext } from '../../contexts/CurrentEditedTemplate'
-import { builderApiUrl } from '../../services/builderApiUrl'
-import { fetchApi } from '../../services/fetchApi'
+import { builderApiUrl } from '../../services/base/builderApiUrl'
+import { fetchApi } from '../../services/base/fetchApi'
 import { Template } from '../../types/Template'
 import { AddTemplate } from '../atoms/AddTemplate/AddTemplate'
 import { LoadingBackdrop } from '../atoms/LoadingBackdrop/LoadingBackdrop'
@@ -30,7 +30,6 @@ export const TemplateBrowser: React.FC = () => {
                 'POST',
                 {
                     name: name,
-                    settings: [],
                     organisms: [],
                 }
             )
