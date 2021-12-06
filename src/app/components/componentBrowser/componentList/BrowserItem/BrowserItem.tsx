@@ -2,8 +2,8 @@ import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, Grid, Paper, styled } from '@mui/material';
 import React from 'react';
+import { AtomicCompound } from '../../../../types/AtomicCompound';
 import { AtomProps } from '../../../../types/AtomProps';
-import { ComponentData } from '../../../../types/ComponentData';
 
 export const DefaultItem = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -40,12 +40,12 @@ export const AddAbleItem = styled(Paper)(({ theme }) => ({
 interface Props {
     children: string
     isAddAble: boolean
-    addComponentToCell: (component: AtomProps | ComponentData) => void
+    addComponentToCell: (component: AtomProps | AtomicCompound) => void
     id?: number
     selected?: boolean
     deleteComponent?: (id: number) => void
     index?: number
-    component: AtomProps | ComponentData
+    component: AtomProps | AtomicCompound
 }
 
 export const BrowserItem: React.FC<Props> = (props: Props) => {

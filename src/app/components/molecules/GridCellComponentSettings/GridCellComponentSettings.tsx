@@ -15,8 +15,8 @@ import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGri
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
+import { AtomicCompound } from '../../../types/AtomicCompound'
 import { AtomProps, PageAtomProps } from '../../../types/AtomProps'
-import { ComponentData } from '../../../types/ComponentData'
 
 export const GridCellComponentSettings: React.FC = () => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
@@ -41,7 +41,7 @@ export const GridCellComponentSettings: React.FC = () => {
         optionName: string,
         value: string
     ) => {
-        const updatedCurrentEditedComponent: ComponentData = Object.assign(
+        const updatedCurrentEditedComponent: AtomicCompound = Object.assign(
             {},
             currentEditedComponent?.component
         )
@@ -80,7 +80,7 @@ export const GridCellComponentSettings: React.FC = () => {
             updatedCellComponents &&
             currentEditedGridCell
         ) {
-            const updatedCurrentEditedComponent: ComponentData = Object.assign(
+            const updatedCurrentEditedComponent: AtomicCompound = Object.assign(
                 {},
                 currentEditedComponent?.component
             )

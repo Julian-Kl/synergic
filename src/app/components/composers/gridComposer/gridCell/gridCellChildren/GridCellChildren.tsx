@@ -1,12 +1,12 @@
 import { Skeleton } from '@mui/material'
 import React from 'react'
+import { AtomicCompound } from '../../../../../types/AtomicCompound'
 import { AtomProps } from '../../../../../types/AtomProps'
-import { ComponentData } from '../../../../../types/ComponentData'
 import { AtomPreview } from '../../../../builderComponents/atomPreview/AtomPreview'
 import { MoleculePreview } from '../../../../builderComponents/moleculesPreview/MoleculePreview'
 
 interface Props {
-    components: (AtomProps | ComponentData)[]
+    components: (AtomProps | AtomicCompound)[]
     selected?: boolean
 }
 
@@ -30,7 +30,7 @@ export const GridCellChildren: React.FC<Props> = (props: Props) => {
                             <MoleculePreview
                                 key={index}
                                 selected={props.selected}
-                                component={component as ComponentData}
+                                component={component as AtomicCompound}
                                 selectAble={true}
                                 id={index}
                             />

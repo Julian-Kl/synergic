@@ -12,8 +12,8 @@ import { CurrentEditedPageContext } from '../../../contexts/CurrentEditedPage'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { contentApiUrl } from '../../../services/contentApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
+import { AtomicCompound } from '../../../types/AtomicCompound'
 import { AtomProps } from '../../../types/AtomProps'
-import { ComponentData } from '../../../types/ComponentData'
 import { PageData, structureAtom, StructureComponentData, structureComponentGrid } from '../../../types/PageData'
 import { TemplateData } from '../../../types/TemplateData'
 import { LoadingBackdrop } from '../../atoms/LoadingBackdrop/LoadingBackdrop'
@@ -57,7 +57,7 @@ export const PageSettings: React.FC = () => {
         }
 
         const transformMolecule = (
-            molecule: ComponentData
+            molecule: AtomicCompound
         ): StructureComponentData => {
             const transformedMolecule: StructureComponentData = {
                 grid: [],
@@ -76,19 +76,19 @@ export const PageSettings: React.FC = () => {
         }
 
         const transformSelect = (
-            component: ComponentData | AtomProps
+            component: AtomicCompound | AtomProps
         ): StructureComponentData | structureAtom | void => {
             if (component.type === 'atoms') {
                 return transformAtom(component as AtomProps)
             } else if (component.type === 'molecules') {
-                return transformMolecule(component as ComponentData)
+                return transformMolecule(component as AtomicCompound)
             } else if (component.type === 'organisms') {
                 console.log('error, componente is organism')
             }
         }
 
         const mapComponents = (
-            components: (ComponentData | AtomProps)[]
+            components: (AtomicCompound | AtomProps)[]
         ): (StructureComponentData | structureAtom)[] => {
             const transformedComponentData: (
                 | StructureComponentData
@@ -108,7 +108,7 @@ export const PageSettings: React.FC = () => {
         }
 
         const transformOrganisms = (
-            organisms: ComponentData[]
+            organisms: AtomicCompound[]
         ): StructureComponentData[] => {
             const transformedOrganismList: StructureComponentData[] = []
 

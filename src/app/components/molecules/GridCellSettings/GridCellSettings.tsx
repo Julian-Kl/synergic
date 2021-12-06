@@ -6,7 +6,7 @@ import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGri
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
-import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
+import { AtomicCompound, ComponentGrid } from '../../../types/AtomicCompound'
 
 export const GridCellSettings: React.FC = () => {
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
@@ -36,7 +36,7 @@ export const GridCellSettings: React.FC = () => {
             currentEditedGridCell.setComponent(updatedCellComponent)
 
             if (cellId != null) {
-                const updatedCurrentEditedComponent: ComponentData = Object.assign(
+                const updatedCurrentEditedComponent: AtomicCompound = Object.assign(
                     {},
                     currentEditedComponent?.component
                 )
@@ -74,7 +74,7 @@ export const GridCellSettings: React.FC = () => {
         )
 
         if (!response.loading) {
-            const updatedCurrentEditedComponent: ComponentData = Object.assign(
+            const updatedCurrentEditedComponent: AtomicCompound = Object.assign(
                 {},
                 currentEditedComponent?.component
             )

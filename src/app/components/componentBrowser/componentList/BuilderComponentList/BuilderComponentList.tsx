@@ -5,8 +5,8 @@ import { CurrentEditedGridCellContext } from '../../../../contexts/CurrentEdited
 import { CurrentEditedGridCellComponentContext } from '../../../../contexts/CurrentEditedGridCellComponent'
 import { builderApiUrl } from '../../../../services/builderApiUrl'
 import { fetchApi } from '../../../../services/fetchApi'
+import { AtomicCompound } from '../../../../types/AtomicCompound'
 import { AtomProps } from '../../../../types/AtomProps'
-import { ComponentData } from '../../../../types/ComponentData'
 import { AddComponent } from '../../../atoms/AddComponent/AddComponent'
 import { LoadingBackdrop } from '../../../atoms/LoadingBackdrop/LoadingBackdrop'
 import { BrowserItem } from '../BrowserItem/BrowserItem'
@@ -14,7 +14,7 @@ import { BrowserItem } from '../BrowserItem/BrowserItem'
 interface Props {
     components: 'molecules' | 'organisms'
     isAddAble: boolean
-    addComponentToCell: (component: AtomProps | ComponentData) => void
+    addComponentToCell: (component: AtomProps | AtomicCompound) => void
     isCreateable: boolean | undefined
 }
 
@@ -24,7 +24,7 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
     const currentEditedGridCellComponent = useContext(
         CurrentEditedGridCellComponentContext
     )
-    const [data, setData] = useState<ComponentData[]>([])
+    const [data, setData] = useState<AtomicCompound[]>([])
     const [loading, setLoading] = useState(true)
 
     const loadData = async () => {
@@ -60,7 +60,7 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
                 'DELETE'
             )
 
-            const updatedData: ComponentData[] = data.filter(function (value) {
+            const updatedData: AtomicCompound[] = data.filter(function (value) {
                 return value.id != response.data.id
             })
 
@@ -71,7 +71,7 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
         }
     }
 
-    const selectComponent = (component: ComponentData) => {
+    const selectComponent = (component: AtomicCompound) => {
         currentEditedComponent?.setComponent(component)
         currentEditedGridCell?.setComponent(null)
         currentEditedGridCell?.setId(null)
@@ -79,7 +79,7 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
         currentEditedGridCellComponent?.setId(null)
     }
 
-    const isSelected = (component: ComponentData) => {
+    const isSelected = (component: AtomicCompound) => {
         return (
             component.id === currentEditedComponent?.component?.id &&
             component.type === currentEditedComponent?.component?.type
@@ -90,7 +90,7 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
         <>
             {loading && <LoadingBackdrop />}
             {data &&
-                data.map((component: ComponentData, index) => (
+                data.map((component: AtomicCompound, index) => (
                     <Grid
                         key={component.id}
                         item

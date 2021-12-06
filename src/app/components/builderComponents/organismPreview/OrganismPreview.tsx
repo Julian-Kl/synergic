@@ -1,12 +1,12 @@
 import { Grid } from '@mui/material'
 import React from 'react'
+import { AtomicCompound, ComponentGrid } from '../../../types/AtomicCompound'
 import { AtomProps } from '../../../types/AtomProps'
-import { ComponentData, ComponentGrid } from '../../../types/ComponentData'
 import { AtomPreview } from '../atomPreview/AtomPreview'
 import { MoleculePreview } from '../moleculesPreview/MoleculePreview'
 
 interface Props {
-    organism: ComponentData
+    organism: AtomicCompound
 }
 
 export const OrganismPreview: React.FC<Props> = (props: Props) => {
@@ -29,7 +29,7 @@ export const OrganismPreview: React.FC<Props> = (props: Props) => {
                                 return (
                                     <MoleculePreview
                                         key={index}
-                                        component={component as ComponentData}
+                                        component={component as AtomicCompound}
                                     />
                                 )
                             }
@@ -69,7 +69,7 @@ export const OrganismPreview: React.FC<Props> = (props: Props) => {
                                 return (
                                     <MoleculePreview
                                         key={index}
-                                        component={component as ComponentData}
+                                        component={component as AtomicCompound}
                                     />
                                 )
                             }

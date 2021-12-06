@@ -4,10 +4,10 @@ import { AtomProps } from './AtomProps'
 export interface ComponentGrid {
     size: GridSize
     settings: object
-    components: (AtomProps | ComponentData)[]
+    components: (AtomProps | AtomicCompound)[]
 }
 
-export interface ComponentData {
+export interface AtomicCompound {
     id: number
     name: string
     created_at: string

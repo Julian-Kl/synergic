@@ -1,9 +1,9 @@
 import React, { createContext, useMemo, useState } from 'react'
-import { ComponentData } from '../types/ComponentData'
+import { AtomicCompound } from '../types/AtomicCompound'
 
 interface CurrentEditedComponentContextInterface {
-    component: ComponentData | null
-    setComponent: React.Dispatch<React.SetStateAction<ComponentData | null>>
+    component: AtomicCompound | null
+    setComponent: React.Dispatch<React.SetStateAction<AtomicCompound | null>>
 }
 
 export const CurrentEditedComponentContext = createContext<CurrentEditedComponentContextInterface | null>(
@@ -17,7 +17,7 @@ interface Props {
 export const CurrentEditedComponentContextProvider: React.FC<Props> = (
     props: Props
 ) => {
-    const [component, setComponent] = useState<ComponentData | null>(null)
+    const [component, setComponent] = useState<AtomicCompound | null>(null)
 
     const value = useMemo(() => ({ component, setComponent }), [
         component,

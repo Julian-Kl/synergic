@@ -1,10 +1,10 @@
 import React, { createContext, useMemo, useState } from 'react'
+import { AtomicCompound } from '../types/AtomicCompound'
 import { AtomProps } from '../types/AtomProps'
-import { ComponentData } from '../types/ComponentData'
 
 interface CurrentEditedGridCellComponentContext {
-    component: AtomProps | ComponentData | null
-    setComponent: React.Dispatch<React.SetStateAction<AtomProps | ComponentData | null>>
+    component: AtomProps | AtomicCompound | null
+    setComponent: React.Dispatch<React.SetStateAction<AtomProps | AtomicCompound | null>>
     id: number | null
     setId: React.Dispatch<React.SetStateAction<number | null>>
 }
@@ -20,7 +20,7 @@ interface Props {
 export const CurrentEditedGridCellComponentContextProvider: React.FC<Props> = (
     props: Props
 ) => {
-    const [component, setComponent] = useState<AtomProps | ComponentData | null>(null)
+    const [component, setComponent] = useState<AtomProps | AtomicCompound | null>(null)
     const [id, setId] = useState<number| null>(null)
 
     const value = useMemo(() => ({ component, setComponent, id, setId }), [

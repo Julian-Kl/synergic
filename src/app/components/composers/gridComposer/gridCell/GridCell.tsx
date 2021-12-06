@@ -1,5 +1,5 @@
 import React from 'react'
-import { ComponentGrid } from '../../../../types/ComponentData'
+import { ComponentGrid } from '../../../../types/AtomicCompound'
 import { ActiveItemPrimary, DefaultItemPrimary } from '../../../atoms/ItemPrimary/ItemPrimary'
 import { GridCellChildren } from './gridCellChildren/GridCellChildren'
 
