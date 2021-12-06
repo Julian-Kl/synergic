@@ -1,12 +1,12 @@
 import React from 'react'
-import { PageData } from '../../app/types/PageData'
+import { Page } from '../../app/types/Page'
 import { PageGrid } from './PageGrid'
 
 interface Props {
-    page: PageData
+    page: Page
 }
 
-export const Page: React.FC<Props> = (props: Props) => {
+export const PageRender: React.FC<Props> = (props: Props) => {
     return (
         <>
             {props.page.content.map((component, index) => (

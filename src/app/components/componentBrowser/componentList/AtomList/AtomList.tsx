@@ -1,13 +1,13 @@
 import { Grid } from '@mui/material'
 import React from 'react'
 import { atomRegistry } from '../../../../../builder/components/atoms/atomRegistry'
+import { Atom } from '../../../../types/Atom'
 import { AtomicCompound } from '../../../../types/AtomicCompound'
-import { AtomProps } from '../../../../types/AtomProps'
 import { BrowserItem } from '../BrowserItem/BrowserItem'
 
 interface Props {
     isAddAble: boolean
-    addComponentToCell: (component: AtomProps | AtomicCompound) => void
+    addComponentToCell: (component: Atom | AtomicCompound) => void
 }
 
 export const AtomList: React.FC<Props> = (props: Props) => {

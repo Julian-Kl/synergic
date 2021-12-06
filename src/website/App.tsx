@@ -6,11 +6,11 @@ import { BrowserRouter } from 'react-router-dom'
 import { LoadingBackdrop } from '../app/components/atoms/LoadingBackdrop/LoadingBackdrop'
 import { contentApiUrl } from '../app/services/contentApiUrl'
 import { fetchApi } from '../app/services/fetchApi'
-import { PageData } from '../app/types/PageData'
-import { Page } from './pageRender/Page'
+import { Page } from '../app/types/Page'
+import { PageRender } from './pageRender/PageRender'
 
 export const App: React.FC = () => {
-    const [pages, setPages] = useState<PageData[]>([])
+    const [pages, setPages] = useState<Page[]>([])
     const [loading, setLoading] = useState(true)
     const { path, url } = useRouteMatch()
 
@@ -39,7 +39,7 @@ export const App: React.FC = () => {
                                     content='This is the Page Editor'
                                 />
                             </Helmet>
-                            <Page page={page} />
+                            <PageRender page={page} />
                         </Route>
                     ))}
                 </Switch>

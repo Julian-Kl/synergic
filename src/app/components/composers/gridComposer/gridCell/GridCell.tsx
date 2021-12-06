@@ -1,11 +1,11 @@
 import React from 'react'
-import { ComponentGrid } from '../../../../types/AtomicCompound'
+import { CompoundGrid } from '../../../../types/AtomicCompound'
 import { ActiveItemPrimary, DefaultItemPrimary } from '../../../atoms/ItemPrimary/ItemPrimary'
 import { GridCellChildren } from './gridCellChildren/GridCellChildren'
 
 interface GridCellProps {
     selected?: boolean
-    gridElement: ComponentGrid
+    gridElement: CompoundGrid
 }
 
 export const GridCell: React.FC<GridCellProps> = (props: GridCellProps) => {

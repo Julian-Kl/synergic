@@ -1,9 +1,9 @@
 import React from 'react'
-import { structureAtom } from '../../app/types/PageData'
+import { PageAtom as PageAtomType } from '../../app/types/Page'
 import { atomRegistry } from '../../builder/components/atoms/atomRegistry'
 
 interface Props {
-    component: structureAtom
+    component: PageAtomType
 }
 
 export const PageAtom: React.FC<Props> = (props: Props) => {

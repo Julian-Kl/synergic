@@ -5,8 +5,8 @@ import { CurrentEditedGridCellContext } from '../../../../contexts/CurrentEdited
 import { CurrentEditedGridCellComponentContext } from '../../../../contexts/CurrentEditedGridCellComponent'
 import { builderApiUrl } from '../../../../services/builderApiUrl'
 import { fetchApi } from '../../../../services/fetchApi'
+import { Atom } from '../../../../types/Atom'
 import { AtomicCompound } from '../../../../types/AtomicCompound'
-import { AtomProps } from '../../../../types/AtomProps'
 import { AddComponent } from '../../../atoms/AddComponent/AddComponent'
 import { LoadingBackdrop } from '../../../atoms/LoadingBackdrop/LoadingBackdrop'
 import { BrowserItem } from '../BrowserItem/BrowserItem'
@@ -14,7 +14,7 @@ import { BrowserItem } from '../BrowserItem/BrowserItem'
 interface Props {
     components: 'molecules' | 'organisms'
     isAddAble: boolean
-    addComponentToCell: (component: AtomProps | AtomicCompound) => void
+    addComponentToCell: (component: Atom | AtomicCompound) => void
     isCreateable: boolean | undefined
 }
 

@@ -3,14 +3,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedTemplateContext } from '../../contexts/CurrentEditedTemplate'
 import { builderApiUrl } from '../../services/builderApiUrl'
 import { fetchApi } from '../../services/fetchApi'
-import { TemplateData } from '../../types/TemplateData'
+import { Template } from '../../types/Template'
 import { AddTemplate } from '../atoms/AddTemplate/AddTemplate'
 import { LoadingBackdrop } from '../atoms/LoadingBackdrop/LoadingBackdrop'
 import { TemplateBrowserItem } from './TemplateBrowserItem/TemplateBrowserItem'
 
 export const TemplateBrowser: React.FC = () => {
     const currentEditedTemplate = useContext(CurrentEditedTemplateContext)
-    const [data, setData] = useState<TemplateData[]>([])
+    const [data, setData] = useState<Template[]>([])
     const [loading, setLoading] = useState(true)
 
     const loadData = async () => {
@@ -46,7 +46,7 @@ export const TemplateBrowser: React.FC = () => {
                 'DELETE'
             )
 
-            const updatedData: TemplateData[] = data.filter(function (value) {
+            const updatedData: Template[] = data.filter(function (value) {
                 return value.id != response.data.id
             })
 
@@ -55,11 +55,11 @@ export const TemplateBrowser: React.FC = () => {
         }
     }
 
-    const selectTemplate = (template: TemplateData) => {
+    const selectTemplate = (template: Template) => {
         currentEditedTemplate?.setTemplate(template)
     }
 
-    const isSelected = (template: TemplateData) => {
+    const isSelected = (template: Template) => {
         return template.id === currentEditedTemplate?.template?.id
     }
 
@@ -68,7 +68,7 @@ export const TemplateBrowser: React.FC = () => {
             {loading && <LoadingBackdrop />}
             <Grid container spacing={2}>
                 {data &&
-                    data.map((template: TemplateData) => (
+                    data.map((template: Template) => (
                         <Grid
                             key={template.id}
                             item

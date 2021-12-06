@@ -1,9 +1,9 @@
 import React, { createContext, useMemo, useState } from 'react'
-import { ComponentGrid } from '../types/AtomicCompound'
+import { CompoundGrid } from '../types/AtomicCompound'
 
 interface CurrentEditedGridCellContextInterface {
-    component: ComponentGrid | null
-    setComponent: React.Dispatch<React.SetStateAction<ComponentGrid | null>>
+    component: CompoundGrid | null
+    setComponent: React.Dispatch<React.SetStateAction<CompoundGrid | null>>
     id: number | null
     setId: React.Dispatch<React.SetStateAction<number | null>>
 }
@@ -19,7 +19,7 @@ interface Props {
 export const CurrentEditedGridCellContextProvider: React.FC<Props> = (
     props: Props
 ) => {
-    const [component, setComponent] = useState<ComponentGrid | null>(null)
+    const [component, setComponent] = useState<CompoundGrid | null>(null)
     const [id, setId] = useState<number | null>(null)
 
     const value = useMemo(() => ({ component, setComponent, id, setId }), [

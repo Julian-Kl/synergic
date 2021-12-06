@@ -1,9 +1,9 @@
 import React, { createContext, useMemo, useState } from 'react'
-import { PageData } from '../types/PageData'
+import { Page } from '../types/Page'
 
 interface CurrentEditedPageContextInterface {
-    page: PageData | null
-    setPage: React.Dispatch<React.SetStateAction<PageData | null>>
+    page: Page | null
+    setPage: React.Dispatch<React.SetStateAction<Page | null>>
 }
 
 export const CurrentEditedPageContext = createContext<CurrentEditedPageContextInterface | null>(
@@ -17,7 +17,7 @@ interface Props {
 export const CurrentEditedPageContextProvider: React.FC<Props> = (
     props: Props
 ) => {
-    const [page, setPage] = useState<PageData | null>(null)
+    const [page, setPage] = useState<Page | null>(null)
 
     const value = useMemo(() => ({ page, setPage }), [page, setPage])
 

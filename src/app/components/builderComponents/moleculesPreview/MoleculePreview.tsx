@@ -1,8 +1,8 @@
 import { Grid } from '@mui/material'
 import React, { useContext } from 'react'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
-import { AtomicCompound, ComponentGrid } from '../../../types/AtomicCompound'
-import { AtomProps } from '../../../types/AtomProps'
+import { Atom } from '../../../types/Atom'
+import { AtomicCompound, CompoundGrid } from '../../../types/AtomicCompound'
 import { ActiveItemSecondary, DefaultItemSecondary } from '../../atoms/ItemSecondary/ItemSecondary'
 import { AtomPreview } from '../atomPreview/AtomPreview'
 
@@ -18,7 +18,7 @@ export const MoleculePreview: React.FC<Props> = (props: Props) => {
         CurrentEditedGridCellComponentContext
     )
 
-    const renderCellAtoms = (components: (AtomicCompound | AtomProps)[]) => {
+    const renderCellAtoms = (components: (AtomicCompound | Atom)[]) => {
         return (
             <>
                 {components.map((component, index) => {
@@ -26,7 +26,7 @@ export const MoleculePreview: React.FC<Props> = (props: Props) => {
                         return (
                             <AtomPreview
                                 key={index}
-                                component={component as AtomProps}
+                                component={component as Atom}
                                 selectAble={false}
                             />
                         )
@@ -36,10 +36,10 @@ export const MoleculePreview: React.FC<Props> = (props: Props) => {
         )
     }
 
-    const renderGrid = (ComponentGrid: ComponentGrid[]) => {
+    const renderGrid = (CompoundGrid: CompoundGrid[]) => {
         return (
             <Grid container spacing={2}>
-                {ComponentGrid.map((grid, index) => (
+                {CompoundGrid.map((grid, index) => (
                     <Grid  key={index} item xs={grid.size}>
                         {renderCellAtoms(grid.components)}
                     </Grid>

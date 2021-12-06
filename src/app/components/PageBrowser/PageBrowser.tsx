@@ -3,14 +3,14 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedPageContext } from '../../contexts/CurrentEditedPage'
 import { contentApiUrl } from '../../services/contentApiUrl'
 import { fetchApi } from '../../services/fetchApi'
-import { PageData } from '../../types/PageData'
+import { Page } from '../../types/Page'
 import { AddTemplate } from '../atoms/AddTemplate/AddTemplate'
 import { LoadingBackdrop } from '../atoms/LoadingBackdrop/LoadingBackdrop'
 import { PageBrowserItem } from './PageBrowserItem/PageBrowserItem'
 
 export const PageBrowser: React.FC = () => {
     const currentEditedPage = useContext(CurrentEditedPageContext)
-    const [data, setData] = useState<PageData[]>([])
+    const [data, setData] = useState<Page[]>([])
     const [loading, setLoading] = useState(true)
 
     const loadData = async () => {
@@ -45,7 +45,7 @@ export const PageBrowser: React.FC = () => {
                 'DELETE'
             )
 
-            const updatedData: PageData[] = data.filter(function (value) {
+            const updatedData: Page[] = data.filter(function (value) {
                 return value.id != response.data.id
             })
 
@@ -54,11 +54,11 @@ export const PageBrowser: React.FC = () => {
         }
     }
 
-    const selectPage = (page: PageData) => {
+    const selectPage = (page: Page) => {
         currentEditedPage?.setPage(page)
     }
 
-    const isSelected = (page: PageData) => {
+    const isSelected = (page: Page) => {
         return page.id === currentEditedPage?.page?.id
     }
 
@@ -67,7 +67,7 @@ export const PageBrowser: React.FC = () => {
             {loading && <LoadingBackdrop />}
             <Grid container spacing={2}>
                 {data &&
-                    data.map((page: PageData) => (
+                    data.map((page: Page) => (
                         <Grid
                             key={page.id}
                             item

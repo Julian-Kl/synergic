@@ -1,19 +1,14 @@
 import { GridSize } from '@mui/material/Grid'
-import { AtomProps } from './AtomProps'
+import { Atom } from './Atom'
 
-export interface ComponentGrid {
+export interface CompoundGrid {
     size: GridSize
-    settings: object
-    components: (AtomProps | AtomicCompound)[]
+    components: (Atom | AtomicCompound)[]
 }
 
 export interface AtomicCompound {
     id: number
     name: string
-    created_at: string
-    grid: ComponentGrid[]
-    published_at: string
-    settings: object
-    updated_at: string
+    grid: CompoundGrid[]
     type: 'molecules' | 'organisms'
 }

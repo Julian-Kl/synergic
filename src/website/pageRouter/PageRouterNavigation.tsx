@@ -2,18 +2,19 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { PageData } from '../../app/types/PageData'
+import { Page } from '../../app/types/Page'
 
 interface Props {
     pageName: string
     setPageName: (name: string) => void
-    pages: PageData[]
+    pages: Page[]
     url: string
 }
 
 export const PageRouterNavigation: React.FC<Props> = (props: Props) => {
     
     return (
+        
         
             <Box sx={{ width: '100%', backgroundColor: 'lightgray' }}>
                 <Box sx={{ maxWidth: 240, marginLeft: 2 }}>

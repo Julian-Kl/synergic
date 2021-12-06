@@ -6,7 +6,7 @@ import { CurrentEditedPageContext } from '../../contexts/CurrentEditedPage'
 import { CurrentEditedPageAtomContext } from '../../contexts/CurrentEditedPageAtom'
 import { contentApiUrl } from '../../services/contentApiUrl'
 import { fetchApi } from '../../services/fetchApi'
-import { structureAtom } from '../../types/PageData'
+import { PageAtom } from '../../types/Page'
 
 export const DefaultAtomPreviewContainer = styled(Paper)(() => ({
     boxShadow: 'none',
@@ -24,7 +24,7 @@ export const ActiveAtomPreviewContainer = styled(Paper)(() => ({
 }))
 
 interface Props {
-    component: structureAtom
+    component: PageAtom
     locator: (string | number)[]
 }
 

@@ -12,20 +12,20 @@ import { CurrentEditedPageContext } from '../../../contexts/CurrentEditedPage'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { contentApiUrl } from '../../../services/contentApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
+import { Atom } from '../../../types/Atom'
 import { AtomicCompound } from '../../../types/AtomicCompound'
-import { AtomProps } from '../../../types/AtomProps'
-import { PageData, structureAtom, StructureComponentData, structureComponentGrid } from '../../../types/PageData'
-import { TemplateData } from '../../../types/TemplateData'
+import { Page, PageAtom, PageAtomicCompound, PageCompoundGrid } from '../../../types/Page'
+import { Template } from '../../../types/Template'
 import { LoadingBackdrop } from '../../atoms/LoadingBackdrop/LoadingBackdrop'
 
 export const PageSettings: React.FC = () => {
     const currentEditedPage = useContext(CurrentEditedPageContext)
-    const [templateData, setTemplateData] = useState<TemplateData[]>([])
+    const [Template, setTemplate] = useState<Template[]>([])
     const [loading, setLoading] = useState(true)
 
     const loadData = async () => {
         const response = await fetchApi(`${builderApiUrl}/templates`)
-        setTemplateData(response.data)
+        setTemplate(response.data)
         setLoading(false)
     }
 
@@ -33,7 +33,7 @@ export const PageSettings: React.FC = () => {
         loadData()
     }, [])
 
-    const loadTemplateData = async (id: string) => {
+    const loadTemplate = async (id: string) => {
         const response = await fetchApi(
             `${builderApiUrl}/templates/${id}`,
             'GET'
@@ -44,27 +44,27 @@ export const PageSettings: React.FC = () => {
         }
     }
 
-    const transformTemplateData = (
-        templateData: TemplateData
-    ): StructureComponentData[] => {
-        const transformAtom = (atom: AtomProps): structureAtom => {
-            const structureAtom: structureAtom = {
+    const transformTemplate = (
+        Template: Template
+    ): PageAtomicCompound[] => {
+        const transformAtom = (atom: Atom): PageAtom => {
+            const PageAtom: PageAtom = {
                 name: atom.name,
                 props: atom.props,
             }
 
-            return structureAtom
+            return PageAtom
         }
 
         const transformMolecule = (
             molecule: AtomicCompound
-        ): StructureComponentData => {
-            const transformedMolecule: StructureComponentData = {
+        ): PageAtomicCompound => {
+            const transformedMolecule: PageAtomicCompound = {
                 grid: [],
             }
 
             molecule.grid.map((gridItem) => {
-                const transformedGridItem: structureComponentGrid = {
+                const transformedGridItem: PageCompoundGrid = {
                     size: gridItem.size,
                     components: mapComponents(gridItem.components),
                 }
@@ -76,10 +76,10 @@ export const PageSettings: React.FC = () => {
         }
 
         const transformSelect = (
-            component: AtomicCompound | AtomProps
-        ): StructureComponentData | structureAtom | void => {
+            component: AtomicCompound | Atom
+        ): PageAtomicCompound | PageAtom | void => {
             if (component.type === 'atoms') {
-                return transformAtom(component as AtomProps)
+                return transformAtom(component as Atom)
             } else if (component.type === 'molecules') {
                 return transformMolecule(component as AtomicCompound)
             } else if (component.type === 'organisms') {
@@ -88,17 +88,17 @@ export const PageSettings: React.FC = () => {
         }
 
         const mapComponents = (
-            components: (AtomicCompound | AtomProps)[]
-        ): (StructureComponentData | structureAtom)[] => {
+            components: (AtomicCompound | Atom)[]
+        ): (PageAtomicCompound | PageAtom)[] => {
             const transformedComponentData: (
-                | StructureComponentData
-                | structureAtom
+                | PageAtomicCompound
+                | PageAtom
             )[] = []
 
             components.map((component) => {
                 const result:
-                    | StructureComponentData
-                    | structureAtom
+                    | PageAtomicCompound
+                    | PageAtom
                     | void = transformSelect(component)
                 if (result) {
                     transformedComponentData.push(result)
@@ -109,16 +109,16 @@ export const PageSettings: React.FC = () => {
 
         const transformOrganisms = (
             organisms: AtomicCompound[]
-        ): StructureComponentData[] => {
-            const transformedOrganismList: StructureComponentData[] = []
+        ): PageAtomicCompound[] => {
+            const transformedOrganismList: PageAtomicCompound[] = []
 
             organisms.map((organism) => {
-                const transformedOrganism: StructureComponentData = {
+                const transformedOrganism: PageAtomicCompound = {
                     grid: [],
                 }
 
                 organism.grid.map((gridItem) => {
-                    const transformedGridItem: structureComponentGrid = {
+                    const transformedGridItem: PageCompoundGrid = {
                         size: gridItem.size,
                         components: mapComponents(gridItem.components),
                     }
@@ -131,23 +131,23 @@ export const PageSettings: React.FC = () => {
             return transformedOrganismList
         }
 
-        return transformOrganisms(templateData.organisms)
+        return transformOrganisms(Template.organisms)
     }
 
     const changeTemplate = async (event: SelectChangeEvent) => {
-        const templateData: TemplateData = await loadTemplateData(
+        const Template: Template = await loadTemplate(
             event.target.value
         )
 
-        const updatedCurrentEditedPage: PageData = Object.assign(
+        const updatedCurrentEditedPage: Page = Object.assign(
             {},
             currentEditedPage?.page
         )
 
-        updatedCurrentEditedPage.templateId = String(templateData.id)
-        updatedCurrentEditedPage.content = transformTemplateData(templateData)
+        updatedCurrentEditedPage.templateId = String(Template.id)
+        updatedCurrentEditedPage.content = transformTemplate(Template)
 
-        transformTemplateData(templateData)
+        transformTemplate(Template)
 
         const response = await fetchApi(
             `${contentApiUrl}/pages/${currentEditedPage?.page?.id}`,
@@ -166,7 +166,7 @@ export const PageSettings: React.FC = () => {
     type property = 'route' | 'title'
 
     const changeProperty = async (property: property, value: string) => {
-        const updatedPage: PageData = Object.assign({}, currentEditedPage?.page)
+        const updatedPage: Page = Object.assign({}, currentEditedPage?.page)
 
         updatedPage[property] = value
 
@@ -221,7 +221,7 @@ export const PageSettings: React.FC = () => {
                                     changeTemplate(event)
                                 }
                             >
-                                {templateData.map((template, index) => (
+                                {Template.map((template, index) => (
                                     <MenuItem key={index} value={template.id}>
                                         {template.name}
                                     </MenuItem>

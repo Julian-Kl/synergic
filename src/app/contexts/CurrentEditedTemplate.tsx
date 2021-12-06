@@ -1,9 +1,9 @@
 import React, { createContext, useMemo, useState } from 'react'
-import { TemplateData } from '../types/TemplateData'
+import { Template } from '../types/Template'
 
 interface CurrentEditedTemplateContextInterface {
-    template: TemplateData | null
-    setTemplate: React.Dispatch<React.SetStateAction<TemplateData | null>>
+    template: Template | null
+    setTemplate: React.Dispatch<React.SetStateAction<Template | null>>
 }
 
 export const CurrentEditedTemplateContext = createContext<CurrentEditedTemplateContextInterface | null>(
@@ -17,7 +17,7 @@ interface Props {
 export const CurrentEditedTemplateContextProvider: React.FC<Props> = (
     props: Props
 ) => {
-    const [template, setTemplate] = useState<TemplateData | null>(null)
+    const [template, setTemplate] = useState<Template | null>(null)
 
     const value = useMemo(() => ({ template, setTemplate }), [
         template,

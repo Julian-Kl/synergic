@@ -1,13 +1,10 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import {
-    StructureComponentData,
-    structureComponentGrid
-} from '../../types/PageData'
+import { PageAtomicCompound, PageCompoundGrid } from '../../types/Page'
 import { PageAtomPreview } from './PagePreviewAtom'
 
 interface GridElementProps {
-    gridItem: structureComponentGrid
+    gridItem: PageCompoundGrid
     locator: (string | number)[]
 }
 
@@ -30,7 +27,7 @@ const GridElement: React.FC<GridElementProps> = (props: GridElementProps) => {
 }
 
 interface PagePreviewGridProps {
-    component: StructureComponentData
+    component: PageAtomicCompound
     locator: (string | number)[]
 }
 

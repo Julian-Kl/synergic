@@ -9,7 +9,7 @@ import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedCo
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
-import { ComponentGrid } from '../../../types/AtomicCompound'
+import { CompoundGrid } from '../../../types/AtomicCompound'
 import { GridCell } from './gridCell/GridCell'
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -23,7 +23,7 @@ const Item = styled(Paper)(({ theme }) => ({
 export const GridComposer: React.FC = () => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
-    const [gridElements, setGridElements] = useState<ComponentGrid[]>([])
+    const [gridElements, setGridElements] = useState<CompoundGrid[]>([])
     const [
         gridContainerNumerator,
         setGridContainerNumerator,
@@ -45,14 +45,12 @@ export const GridComposer: React.FC = () => {
         if (gridElements != null) {
             gridElements.push({
                 size: 3,
-                settings: [],
                 components: [],
             })
         } else {
             setGridElements([
                 {
                     size: 3,
-                    settings: [],
                     components: [],
                 },
             ])
@@ -71,7 +69,7 @@ export const GridComposer: React.FC = () => {
         }
     }
 
-    const selectGridCell = (component: ComponentGrid, index: number) => {
+    const selectGridCell = (component: CompoundGrid, index: number) => {
         currentEditedGridCell?.setComponent(component)
         currentEditedGridCell?.setId(index)
     }
@@ -137,7 +135,7 @@ export const GridComposer: React.FC = () => {
                                             ?.grid &&
                                             currentEditedComponent?.component?.grid.map(
                                                 (
-                                                    gridElement: ComponentGrid,
+                                                    gridElement: CompoundGrid,
                                                     index
                                                 ) => {
                                                     if (

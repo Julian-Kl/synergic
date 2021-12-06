@@ -15,8 +15,8 @@ import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGri
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
+import { Atom, TemplateAtom } from '../../../types/Atom'
 import { AtomicCompound } from '../../../types/AtomicCompound'
-import { AtomProps, PageAtomProps } from '../../../types/AtomProps'
 
 export const GridCellComponentSettings: React.FC = () => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
@@ -47,9 +47,9 @@ export const GridCellComponentSettings: React.FC = () => {
         )
             if(currentEditedGridCell?.id != undefined) {
                 if(updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id].type === 'atoms') {
-                    const updatedComponent = updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id] as PageAtomProps
+                    const updatedComponent = updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id] as TemplateAtom
                     updatedComponent.props[optionName] = value
-                    updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id] = updatedComponent as AtomProps
+                    updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id] = updatedComponent as Atom
                 }
             }
 

@@ -6,7 +6,7 @@ interface VariableStringProps {
     [key: string]: string
 }
 
-export interface AtomProps {
+export interface Atom {
     name: string
     type: 'atoms'
     props: VariableStringArrayProps
@@ -15,7 +15,7 @@ export interface AtomProps {
     component: React.FC<any>
 }
 
-export interface PageAtomProps {
+export interface TemplateAtom {
     name: string
     type: 'atoms'
     props: VariableStringProps
