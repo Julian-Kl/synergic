@@ -1,11 +1,15 @@
+export interface Response {
+    data: any
+    loading: boolean
+}
+
 interface fetchApi {
     (
         url: string,
         method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | null,
         // eslint-disable-next-line @typescript-eslint/ban-types
         body?: object | null
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ): any
+    ): Promise<Response>
 }
 
 interface fetchOptions {

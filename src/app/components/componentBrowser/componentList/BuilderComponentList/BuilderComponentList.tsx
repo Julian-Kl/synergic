@@ -3,8 +3,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedComponentContext } from '../../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../../contexts/CurrentEditedGridCell'
 import { CurrentEditedGridCellComponentContext } from '../../../../contexts/CurrentEditedGridCellComponent'
-import { builderApiUrl } from '../../../../services/builderApiUrl'
-import { fetchApi } from '../../../../services/fetchApi'
+import { builderApiUrl } from '../../../../services/base/builderApiUrl'
+import { fetchApi } from '../../../../services/base/fetchApi'
 import { Atom } from '../../../../types/Atom'
 import { Compound } from '../../../../types/Compound'
 import { AddComponent } from '../../../atoms/AddComponent/AddComponent'
@@ -44,7 +44,6 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
                 'POST',
                 {
                     name: name,
-                    settings: [],
                     grid: [],
                 }
             )

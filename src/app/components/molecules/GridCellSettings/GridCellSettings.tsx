@@ -4,8 +4,8 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
-import { builderApiUrl } from '../../../services/builderApiUrl'
-import { fetchApi } from '../../../services/fetchApi'
+import { builderApiUrl } from '../../../services/base/builderApiUrl'
+import { fetchApi } from '../../../services/base/fetchApi'
 import { Compound, CompoundGrid } from '../../../types/Compound'
 
 export const GridCellSettings: React.FC = () => {

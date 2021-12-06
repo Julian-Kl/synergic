@@ -4,8 +4,8 @@ import React, { useContext } from 'react'
 import { atomRegistry } from '../../../builder/components/atoms/atomRegistry'
 import { CurrentEditedPageContext } from '../../contexts/CurrentEditedPage'
 import { CurrentEditedPageAtomContext } from '../../contexts/CurrentEditedPageAtom'
-import { contentApiUrl } from '../../services/contentApiUrl'
-import { fetchApi } from '../../services/fetchApi'
+import { contentApiUrl } from '../../services/base/contentApiUrl'
+import { fetchApi } from '../../services/base/fetchApi'
 import { PageAtom } from '../../types/Page'
 
 export const DefaultAtomPreviewContainer = styled(Paper)(() => ({
