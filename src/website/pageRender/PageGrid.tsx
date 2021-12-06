@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { PageAtomicCompound, PageCompoundGrid } from '../../app/types/Page'
+import { PageCompound, PageCompoundGrid } from '../../app/types/Page'
 import { PageAtom } from './PageAtom'
 
 interface GridElementProps {
@@ -24,7 +24,7 @@ const GridElement: React.FC<GridElementProps> = (props: GridElementProps) => {
 }
 
 interface PageGridProps {
-    component: PageAtomicCompound
+    component: PageCompound
 }
 
 export const PageGrid: React.FC<PageGridProps> = (props: PageGridProps) => {

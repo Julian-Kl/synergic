@@ -3,10 +3,10 @@ import { Atom } from './Atom'
 
 export interface CompoundGrid {
     size: GridSize
-    components: (Atom | AtomicCompound)[]
+    components: (Atom | Compound)[]
 }
 
-export interface AtomicCompound {
+export interface Compound {
     id: number
     name: string
     grid: CompoundGrid[]

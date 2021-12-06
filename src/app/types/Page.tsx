@@ -7,10 +7,10 @@ export type PageAtom = {
 
 export interface PageCompoundGrid {
     size: GridSize
-    components: (PageAtom | PageAtomicCompound)[]
+    components: (PageAtom | PageCompound)[]
 }
 
-export interface PageAtomicCompound {
+export interface PageCompound {
     grid: PageCompoundGrid[]
 }
 
@@ -20,5 +20,5 @@ export interface Page {
     title: string
     route: string
     templateId: string
-    content:  PageAtomicCompound[]
+    content:  PageCompound[]
 }

@@ -1,5 +1,5 @@
 import React, { createContext, useMemo, useState } from 'react'
-import { CompoundGrid } from '../types/AtomicCompound'
+import { CompoundGrid } from '../types/Compound'
 
 interface CurrentEditedGridCellContextInterface {
     component: CompoundGrid | null

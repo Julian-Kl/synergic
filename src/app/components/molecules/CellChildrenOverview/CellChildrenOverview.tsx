@@ -7,7 +7,7 @@ import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTem
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
 import { Atom } from '../../../types/Atom'
-import { AtomicCompound } from '../../../types/AtomicCompound'
+import { Compound } from '../../../types/Compound'
 import { Template } from '../../../types/Template'
 
 interface ComponentListItemProps {
@@ -38,7 +38,7 @@ export const CellChildrenOverview: React.FC = () => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
     const currentEditedTemplate = useContext(CurrentEditedTemplateContext)
 
-    let components: (Atom | AtomicCompound)[] = []
+    let components: (Atom | Compound)[] = []
     let isOrganism: boolean
 
     if (currentEditedGridCell?.component?.components) {
@@ -61,7 +61,7 @@ export const CellChildrenOverview: React.FC = () => {
             updatedCellComponents &&
             currentEditedGridCell
         ) {
-            const updatedCurrentEditedComponent: AtomicCompound = Object.assign(
+            const updatedCurrentEditedComponent: Compound = Object.assign(
                 {},
                 currentEditedComponent?.component
             )

@@ -2,12 +2,12 @@ import { Grid } from '@mui/material'
 import React, { useContext } from 'react'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
 import { Atom } from '../../../types/Atom'
-import { AtomicCompound, CompoundGrid } from '../../../types/AtomicCompound'
+import { Compound, CompoundGrid } from '../../../types/Compound'
 import { ActiveItemSecondary, DefaultItemSecondary } from '../../atoms/ItemSecondary/ItemSecondary'
 import { AtomPreview } from '../atomPreview/AtomPreview'
 
 interface Props {
-    component: AtomicCompound
+    component: Compound
     selectAble?: boolean
     selected?: boolean
     id?: number
@@ -18,7 +18,7 @@ export const MoleculePreview: React.FC<Props> = (props: Props) => {
         CurrentEditedGridCellComponentContext
     )
 
-    const renderCellAtoms = (components: (AtomicCompound | Atom)[]) => {
+    const renderCellAtoms = (components: (Compound | Atom)[]) => {
         return (
             <>
                 {components.map((component, index) => {

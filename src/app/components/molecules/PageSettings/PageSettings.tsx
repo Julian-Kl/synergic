@@ -13,8 +13,8 @@ import { builderApiUrl } from '../../../services/builderApiUrl'
 import { contentApiUrl } from '../../../services/contentApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
 import { Atom } from '../../../types/Atom'
-import { AtomicCompound } from '../../../types/AtomicCompound'
-import { Page, PageAtom, PageAtomicCompound, PageCompoundGrid } from '../../../types/Page'
+import { Compound } from '../../../types/Compound'
+import { Page, PageAtom, PageCompound, PageCompoundGrid } from '../../../types/Page'
 import { Template } from '../../../types/Template'
 import { LoadingBackdrop } from '../../atoms/LoadingBackdrop/LoadingBackdrop'
 
@@ -46,7 +46,7 @@ export const PageSettings: React.FC = () => {
 
     const transformTemplate = (
         Template: Template
-    ): PageAtomicCompound[] => {
+    ): PageCompound[] => {
         const transformAtom = (atom: Atom): PageAtom => {
             const PageAtom: PageAtom = {
                 name: atom.name,
@@ -57,9 +57,9 @@ export const PageSettings: React.FC = () => {
         }
 
         const transformMolecule = (
-            molecule: AtomicCompound
-        ): PageAtomicCompound => {
-            const transformedMolecule: PageAtomicCompound = {
+            molecule: Compound
+        ): PageCompound => {
+            const transformedMolecule: PageCompound = {
                 grid: [],
             }
 
@@ -76,28 +76,28 @@ export const PageSettings: React.FC = () => {
         }
 
         const transformSelect = (
-            component: AtomicCompound | Atom
-        ): PageAtomicCompound | PageAtom | void => {
+            component: Compound | Atom
+        ): PageCompound | PageAtom | void => {
             if (component.type === 'atoms') {
                 return transformAtom(component as Atom)
             } else if (component.type === 'molecules') {
-                return transformMolecule(component as AtomicCompound)
+                return transformMolecule(component as Compound)
             } else if (component.type === 'organisms') {
                 console.log('error, componente is organism')
             }
         }
 
         const mapComponents = (
-            components: (AtomicCompound | Atom)[]
-        ): (PageAtomicCompound | PageAtom)[] => {
+            components: (Compound | Atom)[]
+        ): (PageCompound | PageAtom)[] => {
             const transformedComponentData: (
-                | PageAtomicCompound
+                | PageCompound
                 | PageAtom
             )[] = []
 
             components.map((component) => {
                 const result:
-                    | PageAtomicCompound
+                    | PageCompound
                     | PageAtom
                     | void = transformSelect(component)
                 if (result) {
@@ -108,12 +108,12 @@ export const PageSettings: React.FC = () => {
         }
 
         const transformOrganisms = (
-            organisms: AtomicCompound[]
-        ): PageAtomicCompound[] => {
-            const transformedOrganismList: PageAtomicCompound[] = []
+            organisms: Compound[]
+        ): PageCompound[] => {
+            const transformedOrganismList: PageCompound[] = []
 
             organisms.map((organism) => {
-                const transformedOrganism: PageAtomicCompound = {
+                const transformedOrganism: PageCompound = {
                     grid: [],
                 }
 

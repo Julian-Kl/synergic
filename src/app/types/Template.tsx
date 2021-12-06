@@ -1,8 +1,8 @@
-import { AtomicCompound } from './AtomicCompound';
+import { Compound } from './Compound';
 
 export interface Template {
     id: number
     name: string
-    organisms: AtomicCompound[]
+    organisms: Compound[]
     type: 'templates'
 }

@@ -6,7 +6,7 @@ import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTem
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
 import { Atom } from '../../../types/Atom'
-import { AtomicCompound } from '../../../types/AtomicCompound'
+import { Compound } from '../../../types/Compound'
 import { Template } from '../../../types/Template'
 import { AtomList } from './AtomList/AtomList'
 import { BuilderComponentList } from './BuilderComponentList/BuilderComponentList'
@@ -47,13 +47,13 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
     }
 
     const addComponentToCell = async (
-        component: Atom | AtomicCompound
+        component: Atom | Compound
     ) => {
         if (
             currentEditedComponent?.component &&
             currentEditedGridCell?.id != null
         ) {
-            const updatedCurrentEditedComponent: AtomicCompound = Object.assign(
+            const updatedCurrentEditedComponent: Compound = Object.assign(
                 {},
                 currentEditedComponent?.component
             )
@@ -82,9 +82,9 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
         }
     }
 
-    const addComponentToTemplate = async (component: Atom | AtomicCompound) => {
+    const addComponentToTemplate = async (component: Atom | Compound) => {
         const updatedEditedTemplate: Template = Object.assign({}, currentEditedTemplate?.template)
-        updatedEditedTemplate.organisms.push(component as AtomicCompound)
+        updatedEditedTemplate.organisms.push(component as Compound)
         
         const response = await fetchApi(
             `${builderApiUrl}/templates/${currentEditedTemplate?.template?.id}`,

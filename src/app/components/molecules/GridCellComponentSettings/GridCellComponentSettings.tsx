@@ -16,7 +16,7 @@ import { CurrentEditedGridCellComponentContext } from '../../../contexts/Current
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
 import { Atom, TemplateAtom } from '../../../types/Atom'
-import { AtomicCompound } from '../../../types/AtomicCompound'
+import { Compound } from '../../../types/Compound'
 
 export const GridCellComponentSettings: React.FC = () => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
@@ -41,7 +41,7 @@ export const GridCellComponentSettings: React.FC = () => {
         optionName: string,
         value: string
     ) => {
-        const updatedCurrentEditedComponent: AtomicCompound = Object.assign(
+        const updatedCurrentEditedComponent: Compound = Object.assign(
             {},
             currentEditedComponent?.component
         )
@@ -80,7 +80,7 @@ export const GridCellComponentSettings: React.FC = () => {
             updatedCellComponents &&
             currentEditedGridCell
         ) {
-            const updatedCurrentEditedComponent: AtomicCompound = Object.assign(
+            const updatedCurrentEditedComponent: Compound = Object.assign(
                 {},
                 currentEditedComponent?.component
             )

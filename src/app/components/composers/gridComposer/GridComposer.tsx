@@ -9,7 +9,7 @@ import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedCo
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
-import { CompoundGrid } from '../../../types/AtomicCompound'
+import { CompoundGrid } from '../../../types/Compound'
 import { GridCell } from './gridCell/GridCell'
 
 const Item = styled(Paper)(({ theme }) => ({
