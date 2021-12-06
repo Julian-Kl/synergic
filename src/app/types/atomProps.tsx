@@ -1,23 +1,23 @@
-interface variableStringArrayProps {
+interface VariableStringArrayProps {
     [key: string]: string[] | string
 }
 
-interface variableStringProps {
+interface VariableStringProps {
     [key: string]: string
 }
 
-export interface atomProps {
+export interface AtomProps {
     name: string
     type: 'atoms'
-    props: variableStringArrayProps
-    defaultProps: variableStringArrayProps
+    props: VariableStringArrayProps
+    defaultProps: VariableStringArrayProps
     editableComponent: React.FC<any>
     component: React.FC<any>
 }
 
-export interface pageAtomProps {
+export interface PageAtomProps {
     name: string
     type: 'atoms'
-    props: variableStringProps
-    defaultProps: variableStringProps
+    props: VariableStringProps
+    defaultProps: VariableStringProps
 }

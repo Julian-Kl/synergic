@@ -5,7 +5,7 @@ import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGri
 import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
 import { builderApiUrl } from '../../../services/builderApiUrl'
 import { fetchApi } from '../../../services/fetchApi'
-import { atomProps } from '../../../types/atomProps'
+import { AtomProps } from '../../../types/AtomProps'
 import { ComponentData } from '../../../types/ComponentData'
 import { TemplateData } from '../../../types/TemplateData'
 import { AtomList } from './AtomList/AtomList'
@@ -47,7 +47,7 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
     }
 
     const addComponentToCell = async (
-        component: atomProps | ComponentData
+        component: AtomProps | ComponentData
     ) => {
         if (
             currentEditedComponent?.component &&
@@ -82,7 +82,7 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
         }
     }
 
-    const addComponentToTemplate = async (component: atomProps | ComponentData) => {
+    const addComponentToTemplate = async (component: AtomProps | ComponentData) => {
         const updatedEditedTemplate: TemplateData = Object.assign({}, currentEditedTemplate?.template)
         updatedEditedTemplate.organisms.push(component as ComponentData)
         

@@ -1,9 +1,9 @@
-import { atomProps } from '../../../app/types/atomProps'
+import { AtomProps } from '../../../app/types/AtomProps'
 import { EditableHeadline, Headline } from './headline/Headline'
 import { EditableParagraph, Paragraph } from './paragraph/Paragraph'
 
 export interface AtomRegistry {
-    [key: string]: atomProps
+    [key: string]: AtomProps
 }
 
 export const atomRegistry: AtomRegistry = {
