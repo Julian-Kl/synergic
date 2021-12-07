@@ -1,7 +1,7 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { PageCompound, PageCompoundGrid } from '../../editor/types/Page'
-import { PageAtom } from './PageAtom'
+import { PageAtom, PageCompound, PageCompoundGrid } from '../../editor/types/Page'
+import { PageAtomRender } from './PageAtomRender'
 
 interface GridElementProps {
     gridItem: PageCompoundGrid
@@ -12,11 +12,9 @@ const GridElement: React.FC<GridElementProps> = (props: GridElementProps) => {
         <Grid item xs={props.gridItem.size}>
             {props.gridItem.components.map((component, index) => {
                 if ('grid' in component) {
-                    // Component has grid
-                    return <PageGrid key={index} component={component} />
-                } else if ('name' in component) {
-                    // Component is atom
-                    return <PageAtom key={index} component={component} />
+                    return <PageGridRender key={index} compound={component as PageCompound} />
+                } else {
+                    return <PageAtomRender key={index} atom={component as PageAtom} />
                 }
             })}
         </Grid>
@@ -24,13 +22,13 @@ const GridElement: React.FC<GridElementProps> = (props: GridElementProps) => {
 }
 
 interface PageGridProps {
-    component: PageCompound
+    compound: PageCompound
 }
 
-export const PageGrid: React.FC<PageGridProps> = (props: PageGridProps) => {
+export const PageGridRender: React.FC<PageGridProps> = (props: PageGridProps) => {
     return (
         <Grid container spacing={2}>
-            {props.component.grid.map((gridItem, index) => (
+            {props.compound.grid.map((gridItem, index) => (
                 <GridElement key={index} gridItem={gridItem} />
             ))}
         </Grid>
