@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedPageContext } from '../../contexts/CurrentEditedPage'
 import { contentApiUrl } from '../../services/base/contentApiUrl'
 import { fetchApi } from '../../services/base/fetchApi'
+import { deletePage } from '../../services/pages/deletePage'
 import { Page } from '../../types/Page'
 import { AddTemplate } from '../atoms/AddTemplate/AddTemplate'
 import { LoadingBackdrop } from '../atoms/LoadingBackdrop/LoadingBackdrop'
@@ -10,12 +11,12 @@ import { PageBrowserItem } from './PageBrowserItem/PageBrowserItem'
 
 export const PageBrowser: React.FC = () => {
     const currentEditedPage = useContext(CurrentEditedPageContext)
-    const [data, setData] = useState<Page[]>([])
+    const [pages, setPages] = useState<Page[]>([])
     const [loading, setLoading] = useState(true)
 
     const loadData = async () => {
         const response = await fetchApi(`${contentApiUrl}/pages`)
-        setData(response.data)
+        setPages(response.data)
         setLoading(false)
     }
 
@@ -33,25 +34,20 @@ export const PageBrowser: React.FC = () => {
                 structure: [],
                 content: [],
             })
-            data.push(response.data)
-            setData([...data])
+            pages.push(response.data)
+            setPages([...pages])
         }
     }
 
-    const deletePage = async (id: number) => {
-        if (id) {
-            const response = await fetchApi(
-                `${contentApiUrl}/pages/${id}`,
-                'DELETE'
-            )
+    const removePage = async (id: number) => {
+        const response = await deletePage(id)
 
-            const updatedData: Page[] = data.filter(function (value) {
-                return value.id != response.data.id
-            })
+        const updatedData: Page[] = pages.filter(function (value) {
+            return value.id != response.data.id
+        })
 
-            setData([...updatedData])
-            currentEditedPage?.setPage(null)
-        }
+        setPages([...updatedData])
+        currentEditedPage?.setPage(null)
     }
 
     const selectPage = (page: Page) => {
@@ -66,8 +62,8 @@ export const PageBrowser: React.FC = () => {
         <>
             {loading && <LoadingBackdrop />}
             <Grid container spacing={2}>
-                {data &&
-                    data.map((page: Page) => (
+                {pages &&
+                    pages.map((page: Page) => (
                         <Grid
                             key={page.id}
                             item
@@ -76,7 +72,7 @@ export const PageBrowser: React.FC = () => {
                         >
                             <PageBrowserItem
                                 id={page.id}
-                                deletePage={deletePage}
+                                deletePage={removePage}
                                 selected={isSelected(page)}
                             >
                                 {page.name}

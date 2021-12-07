@@ -6,7 +6,7 @@ export interface Response {
 interface fetchApi {
     (
         url: string,
-        method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | null,
+        method?: 'GET' | 'POST' | 'PUT' | 'DELETE',
         // eslint-disable-next-line @typescript-eslint/ban-types
         body?: object | null
     ): Promise<Response>

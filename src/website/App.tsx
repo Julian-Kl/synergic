@@ -4,18 +4,17 @@ import { Helmet, HelmetProvider } from 'react-helmet-async'
 import { Route, Switch, useRouteMatch } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
 import { LoadingBackdrop } from '../app/components/atoms/LoadingBackdrop/LoadingBackdrop'
-import { contentApiUrl } from '../app/services/base/contentApiUrl'
-import { fetchApi } from '../app/services/base/fetchApi'
+import { getPages } from '../app/services/pages/getPages'
 import { Page } from '../app/types/Page'
 import { PageRender } from './pageRender/PageRender'
 
 export const App: React.FC = () => {
     const [pages, setPages] = useState<Page[]>([])
     const [loading, setLoading] = useState(true)
-    const { path, url } = useRouteMatch()
+    const { path } = useRouteMatch()
 
     const loadData = async () => {
-        const response = await fetchApi(`${contentApiUrl}/pages`)
+        const response = await getPages();
         setPages(response.data)
         setLoading(false)
     }
@@ -36,7 +35,7 @@ export const App: React.FC = () => {
                                 <title>{page.title}</title>
                                 <meta
                                     name='description'
-                                    content='This is the Page Editor'
+                                    content='This is the Page'
                                 />
                             </Helmet>
                             <PageRender page={page} />

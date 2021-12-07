@@ -3,8 +3,9 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedComponentContext } from '../../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../../contexts/CurrentEditedGridCell'
 import { CurrentEditedGridCellComponentContext } from '../../../../contexts/CurrentEditedGridCellComponent'
-import { builderApiUrl } from '../../../../services/base/builderApiUrl'
-import { fetchApi } from '../../../../services/base/fetchApi'
+import { createCompound } from '../../../../services/compounds/createCompound'
+import { deleteCompound } from '../../../../services/compounds/deleteCompound'
+import { getCompounds } from '../../../../services/compounds/getCompounds'
 import { Atom } from '../../../../types/Atom'
 import { Compound } from '../../../../types/Compound'
 import { AddComponent } from '../../../atoms/AddComponent/AddComponent'
@@ -24,12 +25,12 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
     const currentEditedGridCellComponent = useContext(
         CurrentEditedGridCellComponentContext
     )
-    const [data, setData] = useState<Compound[]>([])
+    const [compounds, setCompounds] = useState<Compound[]>([])
     const [loading, setLoading] = useState(true)
 
     const loadData = async () => {
-        const response = await fetchApi(`${builderApiUrl}/${props.components}`)
-        setData(response.data)
+        const response = await getCompounds(props.components)
+        setCompounds(response.data)
         setLoading(false)
     }
 
@@ -37,37 +38,21 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
         loadData()
     }, [])
 
-    const createComponent = async (name: string) => {
-        if (name) {
-            const response = await fetchApi(
-                `${builderApiUrl}/${props.components}`,
-                'POST',
-                {
-                    name: name,
-                    grid: [],
-                }
-            )
-            data.push(response.data)
-            setData([...data])
-        }
+    const addCompound = async (name: string) => {
+        const response  = await createCompound(name, props.components)
+        compounds.push(response.data)
+        setCompounds([...compounds])
     }
 
-    const deleteComponent = async (id: number) => {
-        if (id) {
-            const response = await fetchApi(
-                `${builderApiUrl}/${props.components}/${id}`,
-                'DELETE'
-            )
-
-            const updatedData: Compound[] = data.filter(function (value) {
-                return value.id != response.data.id
-            })
-
-            setData([...updatedData])
-            currentEditedComponent?.setComponent(null)
-            currentEditedGridCellComponent?.setComponent(null)
-            currentEditedGridCellComponent?.setId(null)
-        }
+    const removeCompound = async (id: number) => {
+        const response = await deleteCompound(id, props.components)
+        const updatedCompounds: Compound[] = compounds.filter(function (value) {
+            return value.id != response.data.id
+        })
+        setCompounds([...updatedCompounds])
+        currentEditedComponent?.setComponent(null)
+        currentEditedGridCellComponent?.setComponent(null)
+        currentEditedGridCellComponent?.setId(null)
     }
 
     const selectComponent = (component: Compound) => {
@@ -88,8 +73,8 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
     return (
         <>
             {loading && <LoadingBackdrop />}
-            {data &&
-                data.map((component: Compound, index) => (
+            {compounds &&
+                compounds.map((component: Compound, index) => (
                     <Grid
                         key={component.id}
                         item
@@ -98,7 +83,7 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
                     >
                         <BrowserItem
                             selected={isSelected(component)}
-                            deleteComponent={deleteComponent}
+                            deleteComponent={removeCompound}
                             index={index}
                             id={component.id}
                             isAddAble={
@@ -114,7 +99,7 @@ export const BuilderComponentList: React.FC<Props> = (props: Props) => {
             {props.isCreateable && (
                 <AddComponent
                     components={props.components}
-                    createComponent={createComponent}
+                    createComponent={addCompound}
                 />
             )}
         </>

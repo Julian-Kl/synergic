@@ -9,9 +9,10 @@ import {
 } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedPageContext } from '../../../contexts/CurrentEditedPage'
-import { builderApiUrl } from '../../../services/base/builderApiUrl'
 import { contentApiUrl } from '../../../services/base/contentApiUrl'
 import { fetchApi } from '../../../services/base/fetchApi'
+import { getTemplate } from '../../../services/templates/getTemplate'
+import { getTemplates } from '../../../services/templates/getTemplates'
 import { Atom } from '../../../types/Atom'
 import { Compound } from '../../../types/Compound'
 import { Page, PageAtom, PageCompound, PageCompoundGrid } from '../../../types/Page'
@@ -20,11 +21,11 @@ import { LoadingBackdrop } from '../../atoms/LoadingBackdrop/LoadingBackdrop'
 
 export const PageSettings: React.FC = () => {
     const currentEditedPage = useContext(CurrentEditedPageContext)
-    const [Template, setTemplate] = useState<Template[]>([])
+    const [template, setTemplate] = useState<Template[]>([])
     const [loading, setLoading] = useState(true)
 
     const loadData = async () => {
-        const response = await fetchApi(`${builderApiUrl}/templates`)
+        const response = await getTemplates()
         setTemplate(response.data)
         setLoading(false)
     }
@@ -32,17 +33,6 @@ export const PageSettings: React.FC = () => {
     useEffect(() => {
         loadData()
     }, [])
-
-    const loadTemplate = async (id: string) => {
-        const response = await fetchApi(
-            `${builderApiUrl}/templates/${id}`,
-            'GET'
-        )
-
-        if (!response.loading) {
-            return response.data
-        }
-    }
 
     const transformTemplate = (
         Template: Template
@@ -135,31 +125,35 @@ export const PageSettings: React.FC = () => {
     }
 
     const changeTemplate = async (event: SelectChangeEvent) => {
-        const Template: Template = await loadTemplate(
-            event.target.value
-        )
 
-        const updatedCurrentEditedPage: Page = Object.assign(
-            {},
-            currentEditedPage?.page
-        )
+        const templateResponse = await getTemplate(event.target.value)
 
-        updatedCurrentEditedPage.templateId = String(Template.id)
-        updatedCurrentEditedPage.content = transformTemplate(Template)
+        if (!templateResponse.loading) {
+            const template = templateResponse.data
 
-        transformTemplate(Template)
 
-        const response = await fetchApi(
-            `${contentApiUrl}/pages/${currentEditedPage?.page?.id}`,
-            'PUT',
-            {
-                templateId: updatedCurrentEditedPage.templateId,
-                content: updatedCurrentEditedPage.content,
+            const updatedCurrentEditedPage: Page = Object.assign(
+                {},
+                currentEditedPage?.page
+            )
+    
+            updatedCurrentEditedPage.templateId = String(template.id)
+            updatedCurrentEditedPage.content = transformTemplate(template)
+    
+            transformTemplate(template)
+    
+            const response = await fetchApi(
+                `${contentApiUrl}/pages/${currentEditedPage?.page?.id}`,
+                'PUT',
+                {
+                    templateId: updatedCurrentEditedPage.templateId,
+                    content: updatedCurrentEditedPage.content,
+                }
+            )
+    
+            if (!response.loading) {
+                currentEditedPage?.setPage(updatedCurrentEditedPage)
             }
-        )
-
-        if (!response.loading) {
-            currentEditedPage?.setPage(updatedCurrentEditedPage)
         }
     }
 
@@ -221,7 +215,7 @@ export const PageSettings: React.FC = () => {
                                     changeTemplate(event)
                                 }
                             >
-                                {Template.map((template, index) => (
+                                {template.map((template, index) => (
                                     <MenuItem key={index} value={template.id}>
                                         {template.name}
                                     </MenuItem>
