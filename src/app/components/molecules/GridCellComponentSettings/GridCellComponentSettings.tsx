@@ -13,8 +13,7 @@ import { atomRegistry } from '../../../../builder/components/atoms/atomRegistry'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
-import { builderApiUrl } from '../../../services/base/builderApiUrl'
-import { fetchApi } from '../../../services/base/fetchApi'
+import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
 import { Atom, TemplateAtom } from '../../../types/Atom'
 import { Compound } from '../../../types/Compound'
 
@@ -41,66 +40,74 @@ export const GridCellComponentSettings: React.FC = () => {
         optionName: string,
         value: string
     ) => {
-        const updatedCurrentEditedComponent: Compound = Object.assign(
-            {},
-            currentEditedComponent?.component
-        )
-            if(currentEditedGridCell?.id != undefined) {
-                if(updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id].type === 'atoms') {
-                    const updatedComponent = updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id] as TemplateAtom
-                    updatedComponent.props[optionName] = value
-                    updatedCurrentEditedComponent.grid[currentEditedGridCell?.id].components[id] = updatedComponent as Atom
-                }
-            }
-
-            const response = await fetchApi(
-                `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
-                'PUT',
-                {
-                    grid: updatedCurrentEditedComponent.grid,
-                }
-            )
-
-            if (!response.loading) {
-                currentEditedComponent?.setComponent(
-                    updatedCurrentEditedComponent
-                )
-            }
-    }
-
-    const deleteGridCellComponent = async (id: number) => {
-        const updatedCellComponents = currentEditedGridCell?.component?.components.filter(
-            function (value, index, arr) {
-                return index != id
-            }
-        )
-
-        if (
-            currentEditedGridCell?.id != null &&
-            updatedCellComponents &&
-            currentEditedGridCell
-        ) {
+        if (currentEditedComponent?.component) {
             const updatedCurrentEditedComponent: Compound = Object.assign(
                 {},
                 currentEditedComponent?.component
             )
-
-            updatedCurrentEditedComponent.grid[
-                currentEditedGridCell?.id
-            ].components = updatedCellComponents
-
-            const response = await fetchApi(
-                `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
-                'PUT',
-                {
-                    grid: updatedCurrentEditedComponent.grid,
+            if (currentEditedGridCell?.id != undefined) {
+                if (
+                    updatedCurrentEditedComponent.grid[
+                        currentEditedGridCell?.id
+                    ].components[id].type === 'atoms'
+                ) {
+                    const updatedComponent = updatedCurrentEditedComponent.grid[
+                        currentEditedGridCell?.id
+                    ].components[id] as TemplateAtom
+                    updatedComponent.props[optionName] = value
+                    updatedCurrentEditedComponent.grid[
+                        currentEditedGridCell?.id
+                    ].components[id] = updatedComponent as Atom
                 }
+            }
+
+            const response = await updateCompoundGrid(
+                currentEditedComponent?.component?.id,
+                currentEditedComponent?.component?.type,
+                updatedCurrentEditedComponent.grid
             )
 
             if (!response.loading) {
                 currentEditedComponent?.setComponent(
                     updatedCurrentEditedComponent
                 )
+            }
+        }
+    }
+
+    const deleteGridCellComponent = async (id: number) => {
+        if (currentEditedComponent?.component) {
+            const updatedCellComponents = currentEditedGridCell?.component?.components.filter(
+                function (value, index, arr) {
+                    return index != id
+                }
+            )
+
+            if (
+                currentEditedGridCell?.id != null &&
+                updatedCellComponents &&
+                currentEditedGridCell
+            ) {
+                const updatedCurrentEditedComponent: Compound = Object.assign(
+                    {},
+                    currentEditedComponent?.component
+                )
+
+                updatedCurrentEditedComponent.grid[
+                    currentEditedGridCell?.id
+                ].components = updatedCellComponents
+
+                const response = await updateCompoundGrid(
+                    currentEditedComponent?.component?.id,
+                    currentEditedComponent?.component?.type,
+                    updatedCurrentEditedComponent.grid
+                )
+
+                if (!response.loading) {
+                    currentEditedComponent?.setComponent(
+                        updatedCurrentEditedComponent
+                    )
+                }
             }
         }
     }
@@ -117,7 +124,7 @@ export const GridCellComponentSettings: React.FC = () => {
                 currentEditedGridCellComponent?.component?.props
             )) {
                 if (prop[0] === option.name) {
-                    if(typeof(prop[1]) === 'string') {
+                    if (typeof prop[1] === 'string') {
                         currentValue = prop[1]
                     }
                 }

@@ -3,14 +3,13 @@ import React, { useContext } from 'react'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
-import { builderApiUrl } from '../../../services/base/builderApiUrl'
-import { fetchApi } from '../../../services/base/fetchApi'
+import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
+import { updateTemplateOrganisms } from '../../../services/templates/updateTemplateOrganisms'
 import { Atom } from '../../../types/Atom'
 import { Compound } from '../../../types/Compound'
 import { Template } from '../../../types/Template'
 import { AtomList } from './AtomList/AtomList'
 import { BuilderComponentList } from './BuilderComponentList/BuilderComponentList'
-
 
 interface Props {
     components: 'atoms' | 'molecules' | 'organisms'
@@ -25,7 +24,10 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
     const isAddAble = (
         components: 'atoms' | 'molecules' | 'organisms'
     ): boolean => {
-        if (currentEditedGridCell?.component || currentEditedTemplate?.template) {
+        if (
+            currentEditedGridCell?.component ||
+            currentEditedTemplate?.template
+        ) {
             if (
                 currentEditedComponent?.component?.type === 'molecules' &&
                 components === 'atoms'
@@ -46,9 +48,7 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
         }
     }
 
-    const addComponentToCell = async (
-        component: Atom | Compound
-    ) => {
+    const addComponentToCell = async (component: Atom | Compound) => {
         if (
             currentEditedComponent?.component &&
             currentEditedGridCell?.id != null
@@ -58,20 +58,18 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
                 currentEditedComponent?.component
             )
 
-            if(component.type === 'atoms') {
+            if (component.type === 'atoms') {
                 component.props = component.defaultProps
             }
-            
+
             updatedCurrentEditedComponent.grid[
                 currentEditedGridCell?.id
             ].components.push(component)
 
-            const response = await fetchApi(
-                `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
-                'PUT',
-                {
-                    grid: updatedCurrentEditedComponent.grid,
-                }
+            const response = await updateCompoundGrid(
+                currentEditedComponent?.component?.id,
+                currentEditedComponent?.component?.type,
+                updatedCurrentEditedComponent.grid
             )
 
             if (!response.loading) {
@@ -83,21 +81,21 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
     }
 
     const addComponentToTemplate = async (component: Atom | Compound) => {
-        const updatedEditedTemplate: Template = Object.assign({}, currentEditedTemplate?.template)
-        updatedEditedTemplate.organisms.push(component as Compound)
-        
-        const response = await fetchApi(
-            `${builderApiUrl}/templates/${currentEditedTemplate?.template?.id}`,
-            'PUT',
-            {
-                organisms: updatedEditedTemplate.organisms,
-            }
-        )
-
-        if (!response.loading) {
-            currentEditedTemplate?.setTemplate(
-                updatedEditedTemplate
+        if (currentEditedTemplate?.template) {
+            const updatedEditedTemplate: Template = Object.assign(
+                {},
+                currentEditedTemplate?.template
             )
+            updatedEditedTemplate.organisms.push(component as Compound)
+            
+            const response = await updateTemplateOrganisms(
+                currentEditedTemplate?.template?.id,
+                updatedEditedTemplate.organisms
+            )
+
+            if (!response.loading) {
+                currentEditedTemplate?.setTemplate(updatedEditedTemplate)
+            }
         }
     }
 
@@ -119,7 +117,11 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
                     <BuilderComponentList
                         components={props.components}
                         isAddAble={isAddAble(props.components)}
-                        addComponentToCell={currentEditedComponent?.component ? addComponentToCell : addComponentToTemplate}
+                        addComponentToCell={
+                            currentEditedComponent?.component
+                                ? addComponentToCell
+                                : addComponentToTemplate
+                        }
                         isCreateable={props.isCreateable}
                     />
                 </Grid>

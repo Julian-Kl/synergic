@@ -4,8 +4,7 @@ import React, { useContext } from 'react'
 import { atomRegistry } from '../../../builder/components/atoms/atomRegistry'
 import { CurrentEditedPageContext } from '../../contexts/CurrentEditedPage'
 import { CurrentEditedPageAtomContext } from '../../contexts/CurrentEditedPageAtom'
-import { contentApiUrl } from '../../services/base/contentApiUrl'
-import { fetchApi } from '../../services/base/fetchApi'
+import { updatePageContent } from '../../services/pages/updatePageContent'
 import { PageAtom } from '../../types/Page'
 
 export const DefaultAtomPreviewContainer = styled(Paper)(() => ({
@@ -76,25 +75,25 @@ export const PageAtomPreview: React.FC<Props> = (props: Props) => {
 
                             const updatedCurrentEditedPage = newStepValue
 
-                            const response = await fetchApi(
-                                `${contentApiUrl}/pages/${currentEditedPage?.page?.id}`,
-                                'PUT',
-                                {
-                                    content: updatedCurrentEditedPage.content,
-                                }
-                            )
-
-                            if (!response.loading) {
-                                currentEditedPage?.setPage(
-                                    updatedCurrentEditedPage
+                            if (currentEditedPage?.page) {
+                                const response = await updatePageContent(
+                                    currentEditedPage.page.id,
+                                    updatedCurrentEditedPage.content
                                 )
-                                currentEditedPageAtomContext.setAtom(null)
-                                currentEditedPageAtomContext.setLocator(null)
+
+                                if (!response.loading) {
+                                    currentEditedPage?.setPage(
+                                        updatedCurrentEditedPage
+                                    )
+                                    currentEditedPageAtomContext.setAtom(null)
+                                    currentEditedPageAtomContext.setLocator(
+                                        null
+                                    )
+                                }
                             }
                         }
 
                         entry.props.saveChanges = saveChanges
-
                     } else {
                         component = block.component
                     }

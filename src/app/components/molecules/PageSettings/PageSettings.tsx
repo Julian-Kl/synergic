@@ -1,6 +1,7 @@
 import {
     Box,
-    FormControl, InputLabel,
+    FormControl,
+    InputLabel,
     MenuItem,
     Select,
     SelectChangeEvent,
@@ -9,13 +10,18 @@ import {
 } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedPageContext } from '../../../contexts/CurrentEditedPage'
-import { contentApiUrl } from '../../../services/base/contentApiUrl'
-import { fetchApi } from '../../../services/base/fetchApi'
+import { updatePageProperty } from '../../../services/pages/updatePageProperty'
+import { updatePageTemplate } from '../../../services/pages/updatePageTemplate'
 import { getTemplate } from '../../../services/templates/getTemplate'
 import { getTemplates } from '../../../services/templates/getTemplates'
 import { Atom } from '../../../types/Atom'
 import { Compound } from '../../../types/Compound'
-import { Page, PageAtom, PageCompound, PageCompoundGrid } from '../../../types/Page'
+import {
+    Page,
+    PageAtom,
+    PageCompound,
+    PageCompoundGrid
+} from '../../../types/Page'
 import { Template } from '../../../types/Template'
 import { LoadingBackdrop } from '../../atoms/LoadingBackdrop/LoadingBackdrop'
 
@@ -34,9 +40,7 @@ export const PageSettings: React.FC = () => {
         loadData()
     }, [])
 
-    const transformTemplate = (
-        Template: Template
-    ): PageCompound[] => {
+    const transformTemplate = (Template: Template): PageCompound[] => {
         const transformAtom = (atom: Atom): PageAtom => {
             const PageAtom: PageAtom = {
                 name: atom.name,
@@ -46,9 +50,7 @@ export const PageSettings: React.FC = () => {
             return PageAtom
         }
 
-        const transformMolecule = (
-            molecule: Compound
-        ): PageCompound => {
+        const transformMolecule = (molecule: Compound): PageCompound => {
             const transformedMolecule: PageCompound = {
                 grid: [],
             }
@@ -80,16 +82,12 @@ export const PageSettings: React.FC = () => {
         const mapComponents = (
             components: (Compound | Atom)[]
         ): (PageCompound | PageAtom)[] => {
-            const transformedComponentData: (
-                | PageCompound
-                | PageAtom
-            )[] = []
+            const transformedComponentData: (PageCompound | PageAtom)[] = []
 
             components.map((component) => {
-                const result:
-                    | PageCompound
-                    | PageAtom
-                    | void = transformSelect(component)
+                const result: PageCompound | PageAtom | void = transformSelect(
+                    component
+                )
                 if (result) {
                     transformedComponentData.push(result)
                 }
@@ -97,9 +95,7 @@ export const PageSettings: React.FC = () => {
             return transformedComponentData
         }
 
-        const transformOrganisms = (
-            organisms: Compound[]
-        ): PageCompound[] => {
+        const transformOrganisms = (organisms: Compound[]): PageCompound[] => {
             const transformedOrganismList: PageCompound[] = []
 
             organisms.map((organism) => {
@@ -125,34 +121,31 @@ export const PageSettings: React.FC = () => {
     }
 
     const changeTemplate = async (event: SelectChangeEvent) => {
+        if (currentEditedPage?.page) {
+            const templateResponse = await getTemplate(event.target.value)
 
-        const templateResponse = await getTemplate(event.target.value)
+            if (!templateResponse.loading) {
+                const template = templateResponse.data
 
-        if (!templateResponse.loading) {
-            const template = templateResponse.data
+                const updatedCurrentEditedPage: Page = Object.assign(
+                    {},
+                    currentEditedPage?.page
+                )
 
+                updatedCurrentEditedPage.templateId = String(template.id)
+                updatedCurrentEditedPage.content = transformTemplate(template)
 
-            const updatedCurrentEditedPage: Page = Object.assign(
-                {},
-                currentEditedPage?.page
-            )
-    
-            updatedCurrentEditedPage.templateId = String(template.id)
-            updatedCurrentEditedPage.content = transformTemplate(template)
-    
-            transformTemplate(template)
-    
-            const response = await fetchApi(
-                `${contentApiUrl}/pages/${currentEditedPage?.page?.id}`,
-                'PUT',
-                {
-                    templateId: updatedCurrentEditedPage.templateId,
-                    content: updatedCurrentEditedPage.content,
+                transformTemplate(template)
+
+                const response = await updatePageTemplate(
+                    currentEditedPage?.page?.id,
+                    updatedCurrentEditedPage.templateId,
+                    updatedCurrentEditedPage.content
+                )
+
+                if (!response.loading) {
+                    currentEditedPage?.setPage(updatedCurrentEditedPage)
                 }
-            )
-    
-            if (!response.loading) {
-                currentEditedPage?.setPage(updatedCurrentEditedPage)
             }
         }
     }
@@ -160,20 +153,20 @@ export const PageSettings: React.FC = () => {
     type property = 'route' | 'title'
 
     const changeProperty = async (property: property, value: string) => {
-        const updatedPage: Page = Object.assign({}, currentEditedPage?.page)
+        if (currentEditedPage?.page) {
+            const updatedPage: Page = Object.assign({}, currentEditedPage?.page)
 
-        updatedPage[property] = value
+            updatedPage[property] = value
 
-        const response = await fetchApi(
-            `${contentApiUrl}/pages/${currentEditedPage?.page?.id}`,
-            'PUT',
-            {
-                [property]: updatedPage[property],
+            const response = await updatePageProperty(
+                currentEditedPage?.page?.id,
+                property,
+                updatedPage[property]
+            )
+
+            if (!response.loading) {
+                currentEditedPage?.setPage(updatedPage)
             }
-        )
-
-        if (!response.loading) {
-            currentEditedPage?.setPage(updatedPage)
         }
     }
 

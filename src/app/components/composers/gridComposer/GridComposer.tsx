@@ -7,8 +7,7 @@ import { styled } from '@mui/material/styles'
 import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
-import { builderApiUrl } from '../../../services/base/builderApiUrl'
-import { fetchApi } from '../../../services/base/fetchApi'
+import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
 import { CompoundGrid } from '../../../types/Compound'
 import { GridCell } from './gridCell/GridCell'
 
@@ -42,30 +41,30 @@ export const GridComposer: React.FC = () => {
     }, [currentEditedComponent?.component])
 
     const addGridElement = async () => {
-        if (gridElements != null) {
-            gridElements.push({
-                size: 3,
-                components: [],
-            })
-        } else {
-            setGridElements([
-                {
+        if (currentEditedComponent?.component) {
+            if (gridElements != null) {
+                gridElements.push({
                     size: 3,
                     components: [],
-                },
-            ])
-        }
-
-        const response = await fetchApi(
-            `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
-            'PUT',
-            {
-                grid: gridElements,
+                })
+            } else {
+                setGridElements([
+                    {
+                        size: 3,
+                        components: [],
+                    },
+                ])
             }
-        )
 
-        if (!response.loading) {
-            setGridElements([...gridElements])
+            const response = await updateCompoundGrid(
+                currentEditedComponent?.component?.id,
+                currentEditedComponent?.component?.type,
+                gridElements
+            )
+
+            if (!response.loading) {
+                setGridElements([...gridElements])
+            }
         }
     }
 
@@ -78,7 +77,7 @@ export const GridComposer: React.FC = () => {
         <>
             {currentEditedComponent?.component && (
                 <>
-                    <Box sx={{ flexGrow: 1}}>
+                    <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={1}>
                             <Grid item xs='auto'>
                                 <Typography variant='body1'>
@@ -86,7 +85,7 @@ export const GridComposer: React.FC = () => {
                                 </Typography>
                             </Grid>
                             <Grid item xs={2}>
-                            <Slider
+                                <Slider
                                     value={gridContainerNumerator as number}
                                     onChange={(
                                         event: Event,
@@ -102,7 +101,6 @@ export const GridComposer: React.FC = () => {
                                     max={gridContainerDenominator}
                                 />
                             </Grid>
-
                         </Grid>
                     </Box>
 

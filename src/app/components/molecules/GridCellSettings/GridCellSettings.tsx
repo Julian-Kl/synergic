@@ -4,8 +4,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
-import { builderApiUrl } from '../../../services/base/builderApiUrl'
-import { fetchApi } from '../../../services/base/fetchApi'
+import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
 import { Compound, CompoundGrid } from '../../../types/Compound'
 
 export const GridCellSettings: React.FC = () => {
@@ -27,7 +26,11 @@ export const GridCellSettings: React.FC = () => {
         newValue: GridSize,
         cellId: number | null
     ) => {
-        if (currentEditedGridCell && currentEditedGridCell.component) {
+        if (
+            currentEditedGridCell &&
+            currentEditedGridCell.component &&
+            currentEditedComponent?.component
+        ) {
             const updatedCellComponent: CompoundGrid = Object.assign(
                 {},
                 currentEditedGridCell.component
@@ -43,12 +46,10 @@ export const GridCellSettings: React.FC = () => {
                 updatedCurrentEditedComponent.grid[cellId] =
                     currentEditedGridCell.component
 
-                const response = await fetchApi(
-                    `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
-                    'PUT',
-                    {
-                        grid: updatedCurrentEditedComponent.grid,
-                    }
+                const response = await updateCompoundGrid(
+                    currentEditedComponent?.component?.id,
+                    currentEditedComponent?.component?.type,
+                    updatedCurrentEditedComponent.grid
                 )
 
                 if (!response.loading) {
@@ -61,30 +62,36 @@ export const GridCellSettings: React.FC = () => {
     }
 
     const deleteGridElement = async () => {
-        const updatedGrid = gridElements.filter(function (value, index, arr) {
-            return index != currentEditedGridCell?.id
-        })
+        if (currentEditedComponent?.component) {
+            const updatedGrid = gridElements.filter(function (
+                value,
+                index,
+                arr
+            ) {
+                return index != currentEditedGridCell?.id
+            })
 
-        const response = await fetchApi(
-            `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
-            'PUT',
-            {
-                grid: updatedGrid,
-            }
-        )
-
-        if (!response.loading) {
-            const updatedCurrentEditedComponent: Compound = Object.assign(
-                {},
-                currentEditedComponent?.component
+            const response = await updateCompoundGrid(
+                currentEditedComponent?.component?.id,
+                currentEditedComponent?.component?.type,
+                updatedGrid
             )
-            updatedCurrentEditedComponent.grid = updatedGrid
-            currentEditedComponent?.setComponent(updatedCurrentEditedComponent)
 
-            currentEditedGridCell?.setComponent(null)
-            currentEditedGridCell?.setId(null)
-            currentEditedGridCellComponent?.setComponent(null)
-            currentEditedGridCellComponent?.setId(null)
+            if (!response.loading) {
+                const updatedCurrentEditedComponent: Compound = Object.assign(
+                    {},
+                    currentEditedComponent?.component
+                )
+                updatedCurrentEditedComponent.grid = updatedGrid
+                currentEditedComponent?.setComponent(
+                    updatedCurrentEditedComponent
+                )
+
+                currentEditedGridCell?.setComponent(null)
+                currentEditedGridCell?.setId(null)
+                currentEditedGridCellComponent?.setComponent(null)
+                currentEditedGridCellComponent?.setId(null)
+            }
         }
     }
 

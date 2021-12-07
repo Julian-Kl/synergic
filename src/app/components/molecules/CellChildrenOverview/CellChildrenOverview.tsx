@@ -4,8 +4,8 @@ import React, { useContext } from 'react'
 import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
-import { builderApiUrl } from '../../../services/base/builderApiUrl'
-import { fetchApi } from '../../../services/base/fetchApi'
+import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
+import { updateTemplateOrganisms } from '../../../services/templates/updateTemplateOrganisms'
 import { Atom } from '../../../types/Atom'
 import { Compound } from '../../../types/Compound'
 import { Template } from '../../../types/Template'
@@ -50,38 +50,38 @@ export const CellChildrenOverview: React.FC = () => {
     }
 
     const deleteNestedComponent = async (id: number) => {
-        const updatedCellComponents = currentEditedGridCell?.component?.components.filter(
-            function (value, index, arr) {
-                return index != id
-            }
-        )
-
-        if (
-            currentEditedGridCell?.id != null &&
-            updatedCellComponents &&
-            currentEditedGridCell
-        ) {
-            const updatedCurrentEditedComponent: Compound = Object.assign(
-                {},
-                currentEditedComponent?.component
-            )
-
-            updatedCurrentEditedComponent.grid[
-                currentEditedGridCell?.id
-            ].components = updatedCellComponents
-
-            const response = await fetchApi(
-                `${builderApiUrl}/${currentEditedComponent?.component?.type}/${currentEditedComponent?.component?.id}`,
-                'PUT',
-                {
-                    grid: updatedCurrentEditedComponent.grid,
+        if (currentEditedComponent?.component) {
+            const updatedCellComponents = currentEditedGridCell?.component?.components.filter(
+                function (value, index, arr) {
+                    return index != id
                 }
             )
 
-            if (!response.loading) {
-                currentEditedComponent?.setComponent(
-                    updatedCurrentEditedComponent
+            if (
+                currentEditedGridCell?.id != null &&
+                updatedCellComponents &&
+                currentEditedGridCell
+            ) {
+                const updatedCurrentEditedComponent: Compound = Object.assign(
+                    {},
+                    currentEditedComponent?.component
                 )
+
+                updatedCurrentEditedComponent.grid[
+                    currentEditedGridCell?.id
+                ].components = updatedCellComponents
+
+                const response = await updateCompoundGrid(
+                    currentEditedComponent?.component?.id,
+                    currentEditedComponent?.component?.type,
+                    updatedCurrentEditedComponent.grid
+                )
+
+                if (!response.loading) {
+                    currentEditedComponent?.setComponent(
+                        updatedCurrentEditedComponent
+                    )
+                }
             }
         }
     }
@@ -101,18 +101,13 @@ export const CellChildrenOverview: React.FC = () => {
 
             updatedCurrentEditedTemplate.organisms = updatedTemplateOrganisms
 
-            const response = await fetchApi(
-                `${builderApiUrl}/templates/${currentEditedTemplate?.template?.id}`,
-                'PUT',
-                {
-                    organisms: updatedCurrentEditedTemplate.organisms,
-                }
+            const response = await updateTemplateOrganisms(
+                currentEditedTemplate.template.id,
+                updatedCurrentEditedTemplate.organisms
             )
 
             if (!response.loading) {
-                currentEditedTemplate?.setTemplate(
-                    updatedCurrentEditedTemplate
-                )
+                currentEditedTemplate?.setTemplate(updatedCurrentEditedTemplate)
             }
         }
     }

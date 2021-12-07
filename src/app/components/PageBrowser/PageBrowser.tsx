@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { CurrentEditedPageContext } from '../../contexts/CurrentEditedPage'
-import { contentApiUrl } from '../../services/base/contentApiUrl'
-import { fetchApi } from '../../services/base/fetchApi'
+import { createPage } from '../../services/pages/createPage'
 import { deletePage } from '../../services/pages/deletePage'
+import { getPages } from '../../services/pages/getPages'
 import { Page } from '../../types/Page'
 import { AddTemplate } from '../atoms/AddTemplate/AddTemplate'
 import { LoadingBackdrop } from '../atoms/LoadingBackdrop/LoadingBackdrop'
@@ -15,7 +15,7 @@ export const PageBrowser: React.FC = () => {
     const [loading, setLoading] = useState(true)
 
     const loadData = async () => {
-        const response = await fetchApi(`${contentApiUrl}/pages`)
+        const response = await getPages()
         setPages(response.data)
         setLoading(false)
     }
@@ -24,19 +24,10 @@ export const PageBrowser: React.FC = () => {
         loadData()
     }, [currentEditedPage])
 
-    const createPage = async (name: string) => {
-        if (name) {
-            const response = await fetchApi(`${contentApiUrl}/pages`, 'POST', {
-                name: name,
-                title: name,
-                route: encodeURIComponent(name),
-                template: '',
-                structure: [],
-                content: [],
-            })
-            pages.push(response.data)
-            setPages([...pages])
-        }
+    const addPage = async (name: string) => {
+        const response = await createPage(name)
+        pages.push(response.data)
+        setPages([...pages])
     }
 
     const removePage = async (id: number) => {
@@ -79,10 +70,7 @@ export const PageBrowser: React.FC = () => {
                             </PageBrowserItem>
                         </Grid>
                     ))}
-                <AddTemplate
-                    components='templates'
-                    createComponent={createPage}
-                />
+                <AddTemplate components='templates' createComponent={addPage} />
             </Grid>
         </>
     )
