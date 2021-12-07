@@ -1,10 +1,10 @@
-import React from 'react'
 import express from 'express'
+import React from 'react'
 import { renderToString } from 'react-dom/server'
+import { HelmetData, HelmetProvider } from 'react-helmet-async'
 import { StaticRouter } from 'react-router-dom'
-import { html } from './app/index'
-import { App } from './app/App'
-import { HelmetProvider, HelmetData } from 'react-helmet-async'
+import { Editor } from './editor/Editor'
+import { html } from './editor/index'
 
 type helmetContext = Record<string, never> | { helmet: HelmetData }
 
@@ -20,7 +20,7 @@ server.get('*', (req, res) => {
     const body = renderToString(
         <HelmetProvider context={helmetContext}>
             <StaticRouter location={req.url}>
-                <App />
+                <Editor />
             </StaticRouter>
         </HelmetProvider>
     )

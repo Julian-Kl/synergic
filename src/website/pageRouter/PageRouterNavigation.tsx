@@ -2,7 +2,7 @@
 import { Box, FormControl, InputLabel, MenuItem, Select, Typography } from '@mui/material'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Page } from '../../app/types/Page'
+import { Page } from '../../editor/types/Page'
 
 interface Props {
     pageName: string

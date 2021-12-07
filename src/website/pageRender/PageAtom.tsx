@@ -1,6 +1,6 @@
 import React from 'react'
-import { PageAtom as PageAtomType } from '../../app/types/Page'
-import { atomRegistry } from '../../builder/components/atoms/atomRegistry'
+import { PageAtom as PageAtomType } from '../../editor/types/Page'
+import { atomRegistry } from '../../resources/components/atoms/atomRegistry'
 
 interface Props {
     component: PageAtomType

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Page } from '../../app/types/Page'
+import { Page } from '../../editor/types/Page'
 import { PageGrid } from './PageGrid'
 
 interface Props {

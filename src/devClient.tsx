@@ -2,13 +2,13 @@ import React, { StrictMode } from 'react'
 import { render } from 'react-dom'
 import { HelmetProvider } from 'react-helmet-async'
 import { BrowserRouter } from 'react-router-dom'
-import { App } from './app/App'
+import { Editor } from './editor/Editor'
 
 render(
     <StrictMode>
         <HelmetProvider>
             <BrowserRouter>
-                <App />
+                <Editor />
             </BrowserRouter>
         </HelmetProvider>
     </StrictMode>,

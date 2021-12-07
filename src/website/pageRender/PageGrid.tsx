@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { PageCompound, PageCompoundGrid } from '../../app/types/Page'
+import { PageCompound, PageCompoundGrid } from '../../editor/types/Page'
 import { PageAtom } from './PageAtom'
 
 interface GridElementProps {
