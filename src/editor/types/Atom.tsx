@@ -15,7 +15,7 @@ export interface Atom {
     component: React.FC<any>
 }
 
-export interface TemplateAtom {
+export interface SavedAtom {
     name: string
     type: 'atoms'
     props: VariableStringProps
