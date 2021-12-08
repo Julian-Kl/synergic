@@ -65,6 +65,7 @@ export const PageAtomPreview: React.FC<Props> = (props: Props) => {
 
                         const saveChanges = async (value: string) => {
                             entry.props.text = value
+                            // TODO change props text to all props on a page level
 
                             const stepsInverted = [...steps].reverse()
 
