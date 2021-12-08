@@ -9,7 +9,7 @@ import { Atom } from '../../../types/Atom'
 import { Compound } from '../../../types/Compound'
 import { Template } from '../../../types/Template'
 import { AtomList } from './AtomList/AtomList'
-import { BuilderComponentList } from './BuilderComponentList/BuilderComponentList'
+import { CompoundList } from './CompoundList/CompoundList'
 
 interface Props {
     components: 'atoms' | 'molecules' | 'organisms'
@@ -57,10 +57,6 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
                 {},
                 currentEditedComponent?.component
             )
-
-            if (component.type === 'atoms') {
-                console.log(component.props)
-            }
 
             updatedCurrentEditedComponent.grid[
                 currentEditedGridCell?.id
@@ -114,7 +110,7 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
         return (
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
-                    <BuilderComponentList
+                    <CompoundList
                         components={props.components}
                         isAddAble={isAddAble(props.components)}
                         addComponentToCell={
