@@ -10,11 +10,11 @@ export const HeadlineDefaultProps: AtomProps = {
 }
 
 export const HeadlinePropsOptions: AtomPropsOptions = {
-    compoundProps: {
+    compoundLevelProps: {
         variant: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
         element: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
     },
-    pageProps: {
+    pageLevelProps: {
         text: 'string',
     },
 }

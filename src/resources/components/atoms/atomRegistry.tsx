@@ -1,8 +1,8 @@
-import { AtomRegister } from '../../../editor/types/Atom'
+import { AtomEntry } from '../../../editor/types/Atom'
 import { EditableHeadline, Headline, HeadlineDefaultProps, HeadlinePropsOptions } from './headline/Headline'
 
 export interface AtomRegistry {
-    [key: string]: AtomRegister
+    [key: string]: AtomEntry
 }
 
 export const atomRegistry: AtomRegistry = {
