@@ -14,7 +14,7 @@ import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedCo
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
 import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
-import { Atom, SavedAtom } from '../../../types/Atom'
+import { Atom } from '../../../types/Atom'
 import { Compound } from '../../../types/Compound'
 
 export const GridCellComponentSettings: React.FC = () => {
@@ -53,7 +53,7 @@ export const GridCellComponentSettings: React.FC = () => {
                 ) {
                     const updatedComponent = updatedCurrentEditedComponent.grid[
                         currentEditedGridCell?.id
-                    ].components[id] as SavedAtom
+                    ].components[id] as Atom
                     updatedComponent.props[optionName] = value
                     updatedCurrentEditedComponent.grid[
                         currentEditedGridCell?.id
