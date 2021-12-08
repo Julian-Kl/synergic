@@ -1,28 +1,20 @@
-import { Atom } from '../../../editor/types/Atom'
-import { EditableHeadline, Headline } from './headline/Headline'
-import { EditableParagraph, Paragraph } from './paragraph/Paragraph'
+import { AtomRegister } from '../../../editor/types/Atom'
+import { EditableHeadline, Headline, HeadlineDefaultProps, HeadlinePropsOptions } from './headline/Headline'
 
 export interface AtomRegistry {
-    [key: string]: Atom
+    [key: string]: AtomRegister
 }
 
 export const atomRegistry: AtomRegistry = {
     'Headline': {
         name: 'Headline',
         type: 'atoms',
-        props: {
-            variant: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-            element: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-            text: 'string',
-        },
-        defaultProps: {
-            variant: 'h1',
-            element: 'h1',
-            text: 'Lorem ipsum dolor sit amet',
-        },
+        props: HeadlineDefaultProps,
+        propsOptions: HeadlinePropsOptions,
         component: Headline,
         editableComponent: EditableHeadline
     },
+    /*
     'Paragraph': {
         name: 'Paragraph',
         type: 'atoms',
@@ -35,4 +27,5 @@ export const atomRegistry: AtomRegistry = {
         component: Paragraph,
         editableComponent: EditableParagraph
     },
+    */
 }

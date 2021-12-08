@@ -1,14 +1,31 @@
 import React, { useState } from 'react'
 import { SettingsPopup } from '../../../../editor/components/PagePreview/SaveSettingsPopup'
+import { AtomProps, AtomPropsOptions } from '../../../../editor/types/Atom'
 import './headline.scss'
 
-interface Props {
+export const HeadlineDefaultProps: AtomProps = {
+        variant: 'h1',
+        element: 'h1',
+        text: 'Lorem ipsum dolor sit amet'
+}
+
+export const HeadlinePropsOptions: AtomPropsOptions = {
+    compoundProps: {
+        variant: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        element: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+    },
+    pageProps: {
+        text: 'string',
+    },
+}
+
+export interface HeadlineProps {
     variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
     element: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
     text: string
 }
 
-export const Headline: React.FC<Props> = (props: Props) => {
+export const Headline: React.FC<HeadlineProps> = (props: HeadlineProps) => {
     const classes = `headline headline-${props.variant}`
 
     switch (props.element) {
@@ -29,12 +46,12 @@ export const Headline: React.FC<Props> = (props: Props) => {
     }
 }
 
-interface EditableProps extends Props {
+interface EditableHeadlineProps extends HeadlineProps {
     saveChanges: (value: string) => void
 }
 
-export const EditableHeadline: React.FC<EditableProps> = (
-    props: EditableProps
+export const EditableHeadline: React.FC<EditableHeadlineProps> = (
+    props: EditableHeadlineProps
 ) => {
     const [value, setValue] = useState(props.text)
     const classes = `headline headline-${props.variant} headline-editor`

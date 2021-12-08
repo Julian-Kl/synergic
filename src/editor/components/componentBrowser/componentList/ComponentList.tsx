@@ -59,7 +59,7 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
             )
 
             if (component.type === 'atoms') {
-                component.props = component.defaultProps
+                console.log(component.props)
             }
 
             updatedCurrentEditedComponent.grid[
