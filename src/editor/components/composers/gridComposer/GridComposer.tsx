@@ -42,18 +42,15 @@ export const GridComposer: React.FC = () => {
 
     const addGridElement = async () => {
         if (currentEditedComponent?.component) {
+            const newGridElement: CompoundGrid = {
+                size: 3,
+                components: [],
+            }
+
             if (gridElements != null) {
-                gridElements.push({
-                    size: 3,
-                    components: [],
-                })
+                gridElements.push(newGridElement)
             } else {
-                setGridElements([
-                    {
-                        size: 3,
-                        components: [],
-                    },
-                ])
+                setGridElements([newGridElement])
             }
 
             const response = await updateCompoundGrid(

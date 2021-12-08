@@ -14,25 +14,27 @@ import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedCo
 import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
 import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
 import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
-import { Atom } from '../../../types/Atom'
+import { Atom, VariablePropsOptions } from '../../../types/Atom'
 import { Compound } from '../../../types/Compound'
 
-export const GridCellComponentSettings: React.FC = () => {
+export const CompoundLevelProps: React.FC = () => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
     const currentEditedGridCellComponent = useContext(
         CurrentEditedGridCellComponentContext
     )
-    const [propsOptions, setPropsOptions] = useState<object | null>(null)
+    const [propsOptions, setPropsOptions] = useState<VariablePropsOptions | null>(null)
 
     useEffect(() => {
         if (currentEditedGridCellComponent?.component?.type === 'atoms') {
             const component = currentEditedGridCellComponent?.component
 
             if (component.name in atomRegistry) {
-                setPropsOptions(atomRegistry[component.name].props)
+                setPropsOptions(atomRegistry[component.name].propsOptions.compoundLevelProps)
             }
         }
+        
+        console.log(currentEditedGridCellComponent?.component)
     }, [currentEditedGridCellComponent?.component])
 
     const changeGridCellComponentProps = async (

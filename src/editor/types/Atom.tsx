@@ -2,13 +2,13 @@ export interface AtomProps {
     [key: string]: string
 }
 
+export interface VariablePropsOptions {
+    [key: string]: string[] | string
+}
+
 export interface AtomPropsOptions {
-    compoundLevelProps: {
-        [key: string]: string[] | string
-    }
-    pageLevelProps: {
-        [key: string]: string[] | string
-    }
+    compoundLevelProps: VariablePropsOptions
+    pageLevelProps: VariablePropsOptions
 }
 
 export interface Atom {
