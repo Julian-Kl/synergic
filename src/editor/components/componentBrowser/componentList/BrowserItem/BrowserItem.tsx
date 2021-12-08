@@ -1,8 +1,8 @@
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Button, Grid, Paper, styled } from '@mui/material';
-import React from 'react';
-import { Atom } from '../../../../types/Atom';
+import React, { useEffect, useState } from 'react';
+import { Atom, AtomEntry } from '../../../../types/Atom';
 import { Compound } from '../../../../types/Compound';
 
 export const DefaultItem = styled(Paper)(({ theme }) => ({
@@ -45,15 +45,30 @@ interface Props {
     selected?: boolean
     deleteComponent?: (id: number) => void
     index?: number
-    component: Atom | Compound
+    component: AtomEntry | Compound
 }
 
 export const BrowserItem: React.FC<Props> = (props: Props) => {
+    const [component, setComponent] = useState<Atom | Compound>(props.component)
+
     const handleDelete = () => {
         if (props.id && props.deleteComponent) {
             props.deleteComponent(props.id)
         }
     }
+
+    useEffect(() => {
+        if(props.component.type === 'atoms') {
+            props.component as AtomEntry
+            const defaultAtom: Atom = {
+                name: props.component.name,
+                type: props.component.type,
+                props: props.component.props
+            }
+            setComponent(defaultAtom)
+        }
+    }, [])
+
 
     if (props.selected) {
         return (
@@ -78,7 +93,7 @@ export const BrowserItem: React.FC<Props> = (props: Props) => {
                         {props.children}{' '}
                     </Grid>
                     <Grid item xs={4} style={{ padding: 0 }}>
-                        <Button color='inherit' onClick={() => props.addComponentToCell(props.component)}>
+                        <Button color='inherit' onClick={() => props.addComponentToCell(component)}>
                             <AddIcon fontSize='medium' />
                         </Button>
                     </Grid>

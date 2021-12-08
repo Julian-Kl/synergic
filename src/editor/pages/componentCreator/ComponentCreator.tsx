@@ -3,7 +3,7 @@ import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { ComponentBrowser } from '../../components/componentBrowser/ComponentBrowser'
 import { GridComposer } from '../../components/composers/gridComposer/GridComposer'
-import { GridCellComponentSettings } from '../../components/molecules/GridCellComponentSettings/GridCellComponentSettings'
+import { CompoundLevelProps } from '../../components/molecules/CompoundLevelProps/CompoundLevelProps'
 import { GridCellSettings } from '../../components/molecules/GridCellSettings/GridCellSettings'
 import {
     SidebarLeft
@@ -31,7 +31,7 @@ export const ComponentCreator: React.FC = () => {
                                 <SidebarLeft>
                                     <GridCellSettings />
                                     <Divider variant='fullWidth' />
-                                    <GridCellComponentSettings />
+                                    <CompoundLevelProps />
                                 </SidebarLeft>
                             </Grid>
                             <Grid item xs={10}>

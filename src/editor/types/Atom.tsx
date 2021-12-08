@@ -1,23 +1,24 @@
-interface VariableStringArrayProps {
+export interface AtomProps {
+    [key: string]: string
+}
+
+export interface VariablePropsOptions {
     [key: string]: string[] | string
 }
 
-interface VariableStringProps {
-    [key: string]: string
+export interface AtomPropsOptions {
+    compoundLevelProps: VariablePropsOptions
+    pageLevelProps: VariablePropsOptions
 }
 
 export interface Atom {
     name: string
     type: 'atoms'
-    props: VariableStringArrayProps
-    defaultProps: VariableStringArrayProps
-    editableComponent: React.FC<any>
-    component: React.FC<any>
+    props: AtomProps
 }
 
-export interface SavedAtom {
-    name: string
-    type: 'atoms'
-    props: VariableStringProps
-    defaultProps: VariableStringProps
+export interface AtomEntry extends Atom {
+    propsOptions: AtomPropsOptions
+    editableComponent: React.FC<any>
+    component: React.FC<any>
 }

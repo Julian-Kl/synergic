@@ -19,7 +19,7 @@ interface Props {
     isCreateable: boolean | undefined
 }
 
-export const BuilderComponentList: React.FC<Props> = (props: Props) => {
+export const CompoundList: React.FC<Props> = (props: Props) => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
     const currentEditedGridCellComponent = useContext(
