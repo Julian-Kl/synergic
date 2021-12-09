@@ -16,10 +16,10 @@ export const CompoundEditor: React.FC = () => {
     return (
         <>
             <Helmet>
-                <title>Components</title>
+                <title>Compound Editor</title>
                 <meta
                     name='description'
-                    content='This is the Component Editor'
+                    content='This is the Compound Editor'
                 />
             </Helmet>
             <CurrentEditedComponentContextProvider>

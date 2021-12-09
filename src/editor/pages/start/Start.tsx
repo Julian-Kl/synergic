@@ -7,7 +7,7 @@ export const Start: React.FC = () => {
         <>
             <Helmet>
                 <title>Synergic</title>
-                <meta name='description' content='This is Home' />
+                <meta name='description' content='Welcome to Synergic' />
             </Helmet>
             <div style={{ position: 'absolute', top: 200, left: 80 }}>
                 <Grow in {...{ timeout: 1500 }}>
