@@ -1,10 +1,10 @@
 import { Grid } from '@mui/material'
 import React, { useContext } from 'react'
-import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
-import { Atom } from '../../../types/Atom'
-import { Compound, CompoundGrid } from '../../../types/Compound'
-import { ActiveItemSecondary, DefaultItemSecondary } from '../../atoms/ItemSecondary/ItemSecondary'
-import { AtomPreview } from '../atomPreview/AtomPreview'
+import { CurrentEditedGridCellComponentContext } from '../../../../contexts/CurrentEditedGridCellComponent'
+import { Atom } from '../../../../types/Atom'
+import { Compound, CompoundGrid } from '../../../../types/Compound'
+import { ActiveItemSecondary, DefaultItemSecondary } from '../../../atoms/ItemSecondary/ItemSecondary'
+import { AtomPreview } from '../AtomPreview/AtomPreview'
 
 interface Props {
     component: Compound

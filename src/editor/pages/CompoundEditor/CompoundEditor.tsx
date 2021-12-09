@@ -2,17 +2,17 @@ import { Divider, Grid } from '@mui/material'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { ComponentBrowser } from '../../components/componentBrowser/ComponentBrowser'
-import { GridComposer } from '../../components/composers/gridComposer/GridComposer'
 import { CompoundLevelProps } from '../../components/molecules/CompoundLevelProps/CompoundLevelProps'
 import { GridCellSettings } from '../../components/molecules/GridCellSettings/GridCellSettings'
 import {
     SidebarLeft
 } from '../../components/molecules/Sidebar/Sidebar'
+import { CompoundPreview } from '../../components/preview/compoundEditor/CompoundPreview/GridPreview/GridPreview'
 import { CurrentEditedComponentContextProvider } from '../../contexts/CurrentEditedComponentContext'
 import { CurrentEditedGridCellContextProvider } from '../../contexts/CurrentEditedGridCell'
 import { CurrentEditedGridCellComponentContextProvider } from '../../contexts/CurrentEditedGridCellComponent'
 
-export const ComponentCreator: React.FC = () => {
+export const CompoundEditor: React.FC = () => {
     return (
         <>
             <Helmet>
@@ -35,7 +35,7 @@ export const ComponentCreator: React.FC = () => {
                                 </SidebarLeft>
                             </Grid>
                             <Grid item xs={10}>
-                                <GridComposer />
+                                <CompoundPreview />
                             </Grid>
                         </Grid>
                     </CurrentEditedGridCellComponentContextProvider>

@@ -3,7 +3,7 @@ import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { routeObject } from '../../router/routes'
+import { routeObject } from '../../../router/routes'
 
 interface Props {
     routes: routeObject[]

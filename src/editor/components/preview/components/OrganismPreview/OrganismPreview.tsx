@@ -1,9 +1,9 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { Atom } from '../../../types/Atom'
-import { Compound, CompoundGrid } from '../../../types/Compound'
-import { AtomPreview } from '../atomPreview/AtomPreview'
-import { MoleculePreview } from '../moleculesPreview/MoleculePreview'
+import { Atom } from '../../../../types/Atom'
+import { Compound, CompoundGrid } from '../../../../types/Compound'
+import { AtomPreview } from '../AtomPreview/AtomPreview'
+import { MoleculePreview } from '../MoleculesPreview/MoleculePreview'
 
 interface Props {
     organism: Compound

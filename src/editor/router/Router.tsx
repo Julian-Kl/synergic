@@ -1,7 +1,7 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import { PageRouter } from '../../website/pageRouter/PageRouter'
-import { Navbar } from '../components/navbar/Navbar'
+import { Navbar } from '../components/molecules/Navbar/Navbar'
 import { NoMatch } from '../pages/404/NoMatch'
 import routes from './routes'
 

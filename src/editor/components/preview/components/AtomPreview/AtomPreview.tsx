@@ -1,11 +1,11 @@
 import React, { useContext } from 'react'
-import { atomRegistry } from '../../../../resources/components/atoms/atomRegistry'
-import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
-import { Atom } from '../../../types/Atom'
+import { atomRegistry } from '../../../../../resources/components/atoms/atomRegistry'
+import { CurrentEditedGridCellComponentContext } from '../../../../contexts/CurrentEditedGridCellComponent'
+import { Atom } from '../../../../types/Atom'
 import {
     ActiveItemSecondary,
     DefaultItemSecondary
-} from '../../atoms/ItemSecondary/ItemSecondary'
+} from '../../../atoms/ItemSecondary/ItemSecondary'
 
 interface Props {
     component: Atom

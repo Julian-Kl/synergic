@@ -1,0 +1,192 @@
+Date : 2021-12-08 23:03:54
+Directory : /Users/julianklummer/WebProjects/synergic/src
+Total : 102 files,  3758 codes, 30 comments, 489 blanks, all 4277 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| TypeScript React |         83 |      3,412 |         21 |        438 |      3,871 |
+| SCSS             |         17 |        338 |          9 |         50 |        397 |
+| XML              |          1 |          7 |          0 |          1 |          8 |
+| JSON             |          1 |          1 |          0 |          0 |          1 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                  | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                     |        102 |      3,758 |         30 |        489 |      4,277 |
+| editor                                                                                                                                |         70 |      3,025 |          7 |        377 |      3,409 |
+| editor/components                                                                                                                     |         31 |      2,280 |          6 |        255 |      2,541 |
+| editor/components/PageBrowser                                                                                                         |          2 |        122 |          0 |         17 |        139 |
+| editor/components/PageBrowser/PageBrowserItem                                                                                         |          1 |         55 |          0 |          6 |         61 |
+| editor/components/PagePreview                                                                                                         |          4 |        194 |          3 |         30 |        227 |
+| editor/components/TemplateBrowser                                                                                                     |          2 |        125 |          0 |         17 |        142 |
+| editor/components/TemplateBrowser/TemplateBrowserItem                                                                                 |          1 |         55 |          0 |          6 |         61 |
+| editor/components/atoms                                                                                                               |          5 |        193 |          0 |         16 |        209 |
+| editor/components/atoms/AddComponent                                                                                                  |          1 |         74 |          0 |          4 |         78 |
+| editor/components/atoms/AddTemplate                                                                                                   |          1 |         76 |          0 |          4 |         80 |
+| editor/components/atoms/ItemPrimary                                                                                                   |          1 |         14 |          0 |          3 |         17 |
+| editor/components/atoms/ItemSecondary                                                                                                 |          1 |         14 |          0 |          3 |         17 |
+| editor/components/atoms/LoadingBackdrop                                                                                               |          1 |         15 |          0 |          2 |         17 |
+| editor/components/builderComponents                                                                                                   |          3 |        224 |          3 |         21 |        248 |
+| editor/components/builderComponents/atomPreview                                                                                       |          1 |         51 |          0 |          6 |         57 |
+| editor/components/builderComponents/moleculesPreview                                                                                  |          1 |         93 |          1 |          9 |        103 |
+| editor/components/builderComponents/organismPreview                                                                                   |          1 |         80 |          2 |          6 |         88 |
+| editor/components/componentBrowser                                                                                                    |          5 |        418 |          0 |         44 |        462 |
+| editor/components/componentBrowser/componentList                                                                                      |          4 |        338 |          0 |         35 |        373 |
+| editor/components/componentBrowser/componentList/AtomList                                                                             |          1 |         27 |          0 |          3 |         30 |
+| editor/components/componentBrowser/componentList/BrowserItem                                                                          |          1 |         97 |          0 |         10 |        107 |
+| editor/components/componentBrowser/componentList/CompoundList                                                                         |          1 |         98 |          0 |         10 |        108 |
+| editor/components/composers                                                                                                           |          4 |        287 |          0 |         20 |        307 |
+| editor/components/composers/gridComposer                                                                                              |          3 |        268 |          0 |         17 |        285 |
+| editor/components/composers/gridComposer/gridCell                                                                                     |          2 |         62 |          0 |          6 |         68 |
+| editor/components/composers/gridComposer/gridCell/gridCellChildren                                                                    |          1 |         43 |          0 |          3 |         46 |
+| editor/components/composers/templateComposer                                                                                          |          1 |         19 |          0 |          3 |         22 |
+| editor/components/molecules                                                                                                           |          5 |        685 |          0 |         86 |        771 |
+| editor/components/molecules/CellChildrenOverview                                                                                      |          1 |        121 |          0 |         17 |        138 |
+| editor/components/molecules/CompoundLevelProps                                                                                        |          1 |        203 |          0 |         22 |        225 |
+| editor/components/molecules/GridCellSettings                                                                                          |          1 |        124 |          0 |         12 |        136 |
+| editor/components/molecules/PageSettings                                                                                              |          1 |        220 |          0 |         32 |        252 |
+| editor/components/molecules/Sidebar                                                                                                   |          1 |         17 |          0 |          3 |         20 |
+| editor/components/navbar                                                                                                              |          1 |         32 |          0 |          4 |         36 |
+| editor/contexts                                                                                                                       |          7 |        200 |          0 |         49 |        249 |
+| editor/pages                                                                                                                          |          5 |        163 |          0 |         10 |        173 |
+| editor/pages/404                                                                                                                      |          1 |          4 |          0 |          2 |          6 |
+| editor/pages/componentCreator                                                                                                         |          1 |         45 |          0 |          2 |         47 |
+| editor/pages/pageEditor                                                                                                               |          1 |         37 |          0 |          2 |         39 |
+| editor/pages/start                                                                                                                    |          1 |         30 |          0 |          2 |         32 |
+| editor/pages/templateEditor                                                                                                           |          1 |         47 |          0 |          2 |         49 |
+| editor/router                                                                                                                         |          2 |         74 |          0 |          7 |         81 |
+| editor/services                                                                                                                       |         18 |        199 |          1 |         34 |        234 |
+| editor/services/base                                                                                                                  |          3 |         46 |          1 |          9 |         56 |
+| editor/services/compounds                                                                                                             |          4 |         41 |          0 |          5 |         46 |
+| editor/services/pages                                                                                                                 |          6 |         65 |          0 |         11 |         76 |
+| editor/services/templates                                                                                                             |          5 |         47 |          0 |          9 |         56 |
+| editor/types                                                                                                                          |          4 |         59 |          0 |         15 |         74 |
+| resources                                                                                                                             |         21 |        455 |         23 |         70 |        548 |
+| resources/components                                                                                                                  |          5 |        187 |         14 |         37 |        238 |
+| resources/components/atoms                                                                                                            |          5 |        187 |         14 |         37 |        238 |
+| resources/components/atoms/headline                                                                                                   |          2 |        133 |          0 |         25 |        158 |
+| resources/components/atoms/paragraph                                                                                                  |          2 |         39 |          0 |          9 |         48 |
+| resources/styles                                                                                                                      |         16 |        268 |          9 |         33 |        310 |
+| resources/styles/config                                                                                                               |          7 |        144 |          9 |         11 |        164 |
+| resources/styles/editor                                                                                                               |          2 |          9 |          0 |          2 |         11 |
+| resources/styles/functions                                                                                                            |          3 |         82 |          0 |         13 |         95 |
+| resources/styles/template                                                                                                             |          3 |         29 |          0 |          6 |         35 |
+| site                                                                                                                                  |          2 |          8 |          0 |          1 |          9 |
+| site/favicon                                                                                                                          |          1 |          1 |          0 |          0 |          1 |
+| website                                                                                                                               |          6 |        217 |          0 |         29 |        246 |
+| website/pageRender                                                                                                                    |          3 |         63 |          0 |         10 |         73 |
+| website/pageRouter                                                                                                                    |          2 |        110 |          0 |         14 |        124 |
++---------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                                                                              | language         | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| /Users/julianklummer/WebProjects/synergic/src/client.tsx                                                                              | TypeScript React |         15 |          0 |          1 |         16 |
+| /Users/julianklummer/WebProjects/synergic/src/devClient.tsx                                                                           | TypeScript React |         15 |          0 |          2 |         17 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/Editor.tsx                                                                       | TypeScript React |         12 |          0 |          2 |         14 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/EditorProvider.tsx                                                               | TypeScript React |         13 |          0 |          3 |         16 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/PageBrowser/PageBrowser.tsx                                           | TypeScript React |         67 |          0 |         11 |         78 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/PageBrowser/PageBrowserItem/PageBrowserItem.tsx                       | TypeScript React |         55 |          0 |          6 |         61 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/PagePreview/PagePreview.tsx                                           | TypeScript React |         13 |          0 |          3 |         16 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/PagePreview/PagePreviewAtom.tsx                                       | TypeScript React |        108 |          1 |         19 |        128 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/PagePreview/PagePreviewGrid.tsx                                       | TypeScript React |         42 |          2 |          6 |         50 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/PagePreview/SaveSettingsPopup.tsx                                     | TypeScript React |         31 |          0 |          2 |         33 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/TemplateBrowser/TemplateBrowser.tsx                                   | TypeScript React |         70 |          0 |         11 |         81 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/TemplateBrowser/TemplateBrowserItem/TemplateBrowserItem.tsx           | TypeScript React |         55 |          0 |          6 |         61 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/atoms/AddComponent/AddComponent.tsx                                   | TypeScript React |         74 |          0 |          4 |         78 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/atoms/AddTemplate/AddTemplate.tsx                                     | TypeScript React |         76 |          0 |          4 |         80 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/atoms/ItemPrimary/ItemPrimary.tsx                                     | TypeScript React |         14 |          0 |          3 |         17 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/atoms/ItemSecondary/ItemSecondary.tsx                                 | TypeScript React |         14 |          0 |          3 |         17 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/atoms/LoadingBackdrop/LoadingBackdrop.tsx                             | TypeScript React |         15 |          0 |          2 |         17 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/builderComponents/atomPreview/AtomPreview.tsx                         | TypeScript React |         51 |          0 |          6 |         57 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/builderComponents/moleculesPreview/MoleculePreview.tsx                | TypeScript React |         93 |          1 |          9 |        103 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/builderComponents/organismPreview/OrganismPreview.tsx                 | TypeScript React |         80 |          2 |          6 |         88 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/componentBrowser/ComponentBrowser.tsx                                 | TypeScript React |         80 |          0 |          9 |         89 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/componentBrowser/componentList/AtomList/AtomList.tsx                  | TypeScript React |         27 |          0 |          3 |         30 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/componentBrowser/componentList/BrowserItem/BrowserItem.tsx            | TypeScript React |         97 |          0 |         10 |        107 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/componentBrowser/componentList/ComponentList.tsx                      | TypeScript React |        116 |          0 |         12 |        128 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/componentBrowser/componentList/CompoundList/CompoundList.tsx          | TypeScript React |         98 |          0 |         10 |        108 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/composers/gridComposer/GridComposer.tsx                               | TypeScript React |        206 |          0 |         11 |        217 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/composers/gridComposer/gridCell/GridCell.tsx                          | TypeScript React |         19 |          0 |          3 |         22 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/composers/gridComposer/gridCell/gridCellChildren/GridCellChildren.tsx | TypeScript React |         43 |          0 |          3 |         46 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/composers/templateComposer/TemplateComposer.tsx                       | TypeScript React |         19 |          0 |          3 |         22 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/molecules/CellChildrenOverview/CellChildrenOverview.tsx               | TypeScript React |        121 |          0 |         17 |        138 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/molecules/CompoundLevelProps/CompoundLevelProps.tsx                   | TypeScript React |        203 |          0 |         22 |        225 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/molecules/GridCellSettings/GridCellSettings.tsx                       | TypeScript React |        124 |          0 |         12 |        136 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/molecules/PageSettings/PageSettings.tsx                               | TypeScript React |        220 |          0 |         32 |        252 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/molecules/Sidebar/Sidebar.tsx                                         | TypeScript React |         17 |          0 |          3 |         20 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/components/navbar/Navbar.tsx                                                     | TypeScript React |         32 |          0 |          4 |         36 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/contexts/CurrentEditedComponentContext.tsx                                       | TypeScript React |         26 |          0 |          7 |         33 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/contexts/CurrentEditedGridCell.tsx                                               | TypeScript React |         31 |          0 |          7 |         38 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/contexts/CurrentEditedGridCellComponent.tsx                                      | TypeScript React |         32 |          0 |          7 |         39 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/contexts/CurrentEditedPage.tsx                                                   | TypeScript React |         23 |          0 |          7 |         30 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/contexts/CurrentEditedPageAtom.tsx                                               | TypeScript React |         31 |          0 |          7 |         38 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/contexts/CurrentEditedTemplate.tsx                                               | TypeScript React |         26 |          0 |          7 |         33 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/contexts/CurrentEditedTemplateComponent.tsx                                      | TypeScript React |         31 |          0 |          7 |         38 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/index.tsx                                                                        | TypeScript React |         25 |          0 |          2 |         27 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/pages/404/NoMatch.tsx                                                            | TypeScript React |          4 |          0 |          2 |          6 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/pages/componentCreator/ComponentCreator.tsx                                      | TypeScript React |         45 |          0 |          2 |         47 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/pages/pageEditor/PageEditor.tsx                                                  | TypeScript React |         37 |          0 |          2 |         39 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/pages/start/Start.tsx                                                            | TypeScript React |         30 |          0 |          2 |         32 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/pages/templateEditor/TemplateEditor.tsx                                          | TypeScript React |         47 |          0 |          2 |         49 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/router/Router.tsx                                                                | TypeScript React |         30 |          0 |          3 |         33 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/router/routes.tsx                                                                | TypeScript React |         44 |          0 |          4 |         48 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/base/builderApiUrl.tsx                                                  | TypeScript React |          1 |          0 |          0 |          1 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/base/contentApiUrl.tsx                                                  | TypeScript React |          1 |          0 |          0 |          1 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/base/fetchApi.tsx                                                       | TypeScript React |         44 |          1 |          9 |         54 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/compounds/createCompound.tsx                                            | TypeScript React |         13 |          0 |          1 |         14 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/compounds/deleteCompound.tsx                                            | TypeScript React |          9 |          0 |          2 |         11 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/compounds/getCompounds.tsx                                              | TypeScript React |          6 |          0 |          1 |          7 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/compounds/updateCompoundGrid.tsx                                        | TypeScript React |         13 |          0 |          1 |         14 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/pages/createPage.tsx                                                    | TypeScript React |         12 |          0 |          1 |         13 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/pages/deletePage.tsx                                                    | TypeScript React |          9 |          0 |          2 |         11 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/pages/getPages.tsx                                                      | TypeScript React |          6 |          0 |          1 |          7 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/pages/updatePageContent.tsx                                             | TypeScript React |         12 |          0 |          3 |         15 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/pages/updatePageProperty.tsx                                            | TypeScript React |         12 |          0 |          3 |         15 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/pages/updatePageTemplate.tsx                                            | TypeScript React |         14 |          0 |          1 |         15 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/templates/createTemplate.tsx                                            | TypeScript React |         13 |          0 |          2 |         15 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/templates/deleteTemplate.tsx                                            | TypeScript React |          9 |          0 |          3 |         12 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/templates/getTemplate.tsx                                               | TypeScript React |          6 |          0 |          2 |          8 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/templates/getTemplates.tsx                                              | TypeScript React |          6 |          0 |          1 |          7 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/services/templates/updateTemplateOrganisms.tsx                                   | TypeScript React |         13 |          0 |          1 |         14 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/types/Atom.tsx                                                                   | TypeScript React |         20 |          0 |          5 |         25 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/types/Compound.tsx                                                               | TypeScript React |         12 |          0 |          3 |         15 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/types/Page.tsx                                                                   | TypeScript React |         20 |          0 |          5 |         25 |
+| /Users/julianklummer/WebProjects/synergic/src/editor/types/Template.tsx                                                               | TypeScript React |          7 |          0 |          2 |          9 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/components/atoms/atomRegistry.tsx                                             | TypeScript React |         15 |         14 |          3 |         32 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/components/atoms/headline/Headline.tsx                                        | TypeScript React |         61 |          0 |          9 |         70 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/components/atoms/headline/headline.scss                                       | SCSS             |         72 |          0 |         16 |         88 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/components/atoms/paragraph/Paragraph.tsx                                      | TypeScript React |         30 |          0 |          7 |         37 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/components/atoms/paragraph/paragraph.scss                                     | SCSS             |          9 |          0 |          2 |         11 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/config/breakpoints.scss                                                | SCSS             |         11 |          0 |          1 |         12 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/config/breakpoints.tsx                                                 | TypeScript React |         11 |          0 |          1 |         12 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/config/colors.scss                                                     | SCSS             |          7 |          0 |          1 |          8 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/config/fonts.scss                                                      | SCSS             |         73 |          9 |          1 |         83 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/config/index.scss                                                      | SCSS             |          5 |          0 |          0 |          5 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/config/site-wrapper.scss                                               | SCSS             |         34 |          0 |          7 |         41 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/config/transitions.scss                                                | SCSS             |          3 |          0 |          0 |          3 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/editor/index.scss                                                      | SCSS             |          1 |          0 |          1 |          2 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/editor/textarea.scss                                                   | SCSS             |          8 |          0 |          1 |          9 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/functions/index.scss                                                   | SCSS             |          2 |          0 |          1 |          3 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/functions/media-query.scss                                             | SCSS             |         72 |          0 |         10 |         82 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/functions/rem-convert.scss                                             | SCSS             |          8 |          0 |          2 |         10 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/index.scss                                                             | SCSS             |          4 |          0 |          1 |          5 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/template/index.scss                                                    | SCSS             |          2 |          0 |          1 |          3 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/template/spacing.scss                                                  | SCSS             |         13 |          0 |          3 |         16 |
+| /Users/julianklummer/WebProjects/synergic/src/resources/styles/template/typography.scss                                               | SCSS             |         14 |          0 |          2 |         16 |
+| /Users/julianklummer/WebProjects/synergic/src/server.tsx                                                                              | TypeScript React |         23 |          0 |          9 |         32 |
+| /Users/julianklummer/WebProjects/synergic/src/site/favicon/site.webmanifest                                                           | JSON             |          1 |          0 |          0 |          1 |
+| /Users/julianklummer/WebProjects/synergic/src/site/sitemap.xml                                                                        | XML              |          7 |          0 |          1 |          8 |
+| /Users/julianklummer/WebProjects/synergic/src/website/Website.tsx                                                                     | TypeScript React |         44 |          0 |          5 |         49 |
+| /Users/julianklummer/WebProjects/synergic/src/website/pageRender/PageAtomRender.tsx                                                   | TypeScript React |         16 |          0 |          2 |         18 |
+| /Users/julianklummer/WebProjects/synergic/src/website/pageRender/PageGridRender.tsx                                                   | TypeScript React |         32 |          0 |          5 |         37 |
+| /Users/julianklummer/WebProjects/synergic/src/website/pageRender/PageRender.tsx                                                       | TypeScript React |         15 |          0 |          3 |         18 |
+| /Users/julianklummer/WebProjects/synergic/src/website/pageRouter/PageRouter.tsx                                                       | TypeScript React |         57 |          0 |          7 |         64 |
+| /Users/julianklummer/WebProjects/synergic/src/website/pageRouter/PageRouterNavigation.tsx                                             | TypeScript React |         53 |          0 |          7 |         60 |
+| Total                                                                                                                                 |                  |      3,758 |         30 |        489 |      4,277 |
++---------------------------------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+

@@ -1,8 +1,8 @@
 import { Website } from '../../website/Website'
-import { ComponentCreator } from '../pages/componentCreator/ComponentCreator'
-import { PageEditor } from '../pages/pageEditor/PageEditor'
-import { Start } from '../pages/start/Start'
-import { TemplateEditor } from '../pages/templateEditor/TemplateEditor'
+import { CompoundEditor } from '../pages/CompoundEditor/CompoundEditor'
+import { PageEditor } from '../pages/PageEditor/PageEditor'
+import { Start } from '../pages/Start/Start'
+import { TemplateEditor } from '../pages/TemplateEditor/TemplateEditor'
 
 export interface routeObject {
     path: string
@@ -22,7 +22,7 @@ const routes: routeObject[] = [
         path: '/components',
         name: 'Components',
         exact: true,
-        component: ComponentCreator,
+        component: CompoundEditor,
     },
     {
         path: '/templates',

@@ -5,11 +5,11 @@ import Grid, { GridSize } from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { styled } from '@mui/material/styles'
 import React, { useContext, useEffect, useState } from 'react'
-import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
-import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
-import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
-import { CompoundGrid } from '../../../types/Compound'
-import { GridCell } from './gridCell/GridCell'
+import { CurrentEditedComponentContext } from '../../../../../contexts/CurrentEditedComponentContext'
+import { CurrentEditedGridCellContext } from '../../../../../contexts/CurrentEditedGridCell'
+import { updateCompoundGrid } from '../../../../../services/compounds/updateCompoundGrid'
+import { CompoundGrid } from '../../../../../types/Compound'
+import { GridCellPreview } from '../GridCellPreview/GridCellPreview'
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -19,7 +19,7 @@ const Item = styled(Paper)(({ theme }) => ({
     borderRadius: 0,
 }))
 
-export const GridComposer: React.FC = () => {
+export const CompoundPreview: React.FC = () => {
     const currentEditedComponent = useContext(CurrentEditedComponentContext)
     const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
     const [gridElements, setGridElements] = useState<CompoundGrid[]>([])
@@ -151,7 +151,7 @@ export const GridComposer: React.FC = () => {
                                                                     )
                                                                 }
                                                             >
-                                                                <GridCell
+                                                                <GridCellPreview
                                                                     key={index}
                                                                     gridElement={
                                                                         gridElement
@@ -174,7 +174,7 @@ export const GridComposer: React.FC = () => {
                                                                         ?.size
                                                                 }
                                                             >
-                                                                <GridCell
+                                                                <GridCellPreview
                                                                     key={index}
                                                                     gridElement={
                                                                         gridElement

@@ -2,12 +2,12 @@ import { Grid, Typography } from '@mui/material'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { ComponentBrowser } from '../../components/componentBrowser/ComponentBrowser'
-import { TemplateComposer } from '../../components/composers/templateComposer/TemplateComposer'
 import { CellChildrenOverview } from '../../components/molecules/CellChildrenOverview/CellChildrenOverview'
 import {
     SidebarLeft,
     SidebarRight
 } from '../../components/molecules/Sidebar/Sidebar'
+import { TemplatePreview } from '../../components/preview/templateEditor/TemplatePreview/TemplatePreview'
 import { TemplateBrowser } from '../../components/TemplateBrowser/TemplateBrowser'
 import { CurrentEditedTemplateContextProvider } from '../../contexts/CurrentEditedTemplate'
 import { CurrentEditedTemplateComponentContextProvider } from '../../contexts/CurrentEditedTemplateComponent'
@@ -35,7 +35,7 @@ export const TemplateEditor: React.FC = () => {
                             </SidebarLeft>
                         </Grid>
                         <Grid item xs={8}>
-                            <TemplateComposer />
+                            <TemplatePreview />
                         </Grid>
                         <SidebarRight>
                             <CellChildrenOverview />
