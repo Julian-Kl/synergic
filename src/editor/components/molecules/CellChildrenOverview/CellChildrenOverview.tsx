@@ -1,9 +1,9 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Button, Divider, Typography } from '@mui/material'
 import React, { useContext } from 'react'
-import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
-import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
-import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
+import { SelectedCompound } from '../../../contexts/CompoundEditor/SelectedCompound'
+import { SelectedGridCell } from '../../../contexts/CompoundEditor/SelectedGridCell'
+import { SelectedTemplate } from '../../../contexts/TemplateEditor/SelectedTemplate'
 import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
 import { updateTemplateOrganisms } from '../../../services/templates/updateTemplateOrganisms'
 import { Atom } from '../../../types/Atom'
@@ -34,51 +34,51 @@ const ComponentListItem: React.FC<ComponentListItemProps> = (
 }
 
 export const CellChildrenOverview: React.FC = () => {
-    const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
-    const currentEditedComponent = useContext(CurrentEditedComponentContext)
-    const currentEditedTemplate = useContext(CurrentEditedTemplateContext)
+    const selectedGridCell = useContext(SelectedGridCell)
+    const selectedCompound = useContext(SelectedCompound)
+    const selectedTemplate = useContext(SelectedTemplate)
 
     let components: (Atom | Compound)[] = []
     let isOrganism: boolean
 
-    if (currentEditedGridCell?.component?.components) {
-        components = currentEditedGridCell?.component?.components
+    if (selectedGridCell?.gridCell?.components) {
+        components = selectedGridCell?.gridCell?.components
         isOrganism = false
-    } else if (currentEditedTemplate?.template?.organisms) {
-        components = currentEditedTemplate?.template?.organisms
+    } else if (selectedTemplate?.template?.organisms) {
+        components = selectedTemplate?.template?.organisms
         isOrganism = true
     }
 
     const deleteNestedComponent = async (id: number) => {
-        if (currentEditedComponent?.component) {
-            const updatedCellComponents = currentEditedGridCell?.component?.components.filter(
+        if (selectedCompound?.compound) {
+            const updatedCellComponents = selectedGridCell?.gridCell?.components.filter(
                 function (value, index, arr) {
                     return index != id
                 }
             )
 
             if (
-                currentEditedGridCell?.id != null &&
+                selectedGridCell?.id != null &&
                 updatedCellComponents &&
-                currentEditedGridCell
+                selectedGridCell
             ) {
                 const updatedCurrentEditedComponent: Compound = Object.assign(
                     {},
-                    currentEditedComponent?.component
+                    selectedCompound?.compound
                 )
 
                 updatedCurrentEditedComponent.grid[
-                    currentEditedGridCell?.id
+                    selectedGridCell?.id
                 ].components = updatedCellComponents
 
                 const response = await updateCompoundGrid(
-                    currentEditedComponent?.component?.id,
-                    currentEditedComponent?.component?.type,
+                    selectedCompound?.compound?.id,
+                    selectedCompound?.compound?.type,
                     updatedCurrentEditedComponent.grid
                 )
 
                 if (!response.loading) {
-                    currentEditedComponent?.setComponent(
+                    selectedCompound?.setCompound(
                         updatedCurrentEditedComponent
                     )
                 }
@@ -87,8 +87,8 @@ export const CellChildrenOverview: React.FC = () => {
     }
 
     const deleteNestedOrganism = async (id: number) => {
-        if (currentEditedTemplate?.template) {
-            const updatedTemplateOrganisms = currentEditedTemplate?.template?.organisms.filter(
+        if (selectedTemplate?.template) {
+            const updatedTemplateOrganisms = selectedTemplate?.template?.organisms.filter(
                 function (value, index, arr) {
                     return index != id
                 }
@@ -96,18 +96,18 @@ export const CellChildrenOverview: React.FC = () => {
 
             const updatedCurrentEditedTemplate: Template = Object.assign(
                 {},
-                currentEditedTemplate?.template
+                selectedTemplate?.template
             )
 
             updatedCurrentEditedTemplate.organisms = updatedTemplateOrganisms
 
             const response = await updateTemplateOrganisms(
-                currentEditedTemplate.template.id,
+                selectedTemplate.template.id,
                 updatedCurrentEditedTemplate.organisms
             )
 
             if (!response.loading) {
-                currentEditedTemplate?.setTemplate(updatedCurrentEditedTemplate)
+                selectedTemplate?.setTemplate(updatedCurrentEditedTemplate)
             }
         }
     }

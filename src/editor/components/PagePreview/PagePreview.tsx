@@ -1,13 +1,13 @@
 import React, { useContext } from 'react'
-import { CurrentEditedPageContext } from '../../contexts/CurrentEditedPage'
+import { SelectedPage } from '../../contexts/PageEditor/SelectedPage'
 import { PagePreviewGrid } from './PagePreviewGrid'
 
 export const PagePreview: React.FC = () => {
-    const currentEditedPage = useContext(CurrentEditedPageContext)
+    const selectedPage = useContext(SelectedPage)
     
     return (
         <>
-            {currentEditedPage?.page?.content.map((component, index) => (
+            {selectedPage?.page?.content.map((component, index) => (
                 <PagePreviewGrid key={index} component={component} locator={['content', index]}/>
             ))}
         </>

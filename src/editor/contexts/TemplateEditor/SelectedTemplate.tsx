@@ -1,12 +1,12 @@
 import React, { createContext, useMemo, useState } from 'react'
-import { Template } from '../types/Template'
+import { Template } from '../../types/Template'
 
-interface CurrentEditedTemplateContextInterface {
+interface SelectedTemplate {
     template: Template | null
     setTemplate: React.Dispatch<React.SetStateAction<Template | null>>
 }
 
-export const CurrentEditedTemplateContext = createContext<CurrentEditedTemplateContextInterface | null>(
+export const SelectedTemplate = createContext<SelectedTemplate | null>(
     null
 )
 
@@ -14,7 +14,7 @@ interface Props {
     children: React.ReactNode
 }
 
-export const CurrentEditedTemplateContextProvider: React.FC<Props> = (
+export const SelectedTemplateProvider: React.FC<Props> = (
     props: Props
 ) => {
     const [template, setTemplate] = useState<Template | null>(null)
@@ -25,8 +25,8 @@ export const CurrentEditedTemplateContextProvider: React.FC<Props> = (
     ])
 
     return (
-        <CurrentEditedTemplateContext.Provider value={value}>
+        <SelectedTemplate.Provider value={value}>
             {props.children}
-        </CurrentEditedTemplateContext.Provider>
+        </SelectedTemplate.Provider>
     )
 }

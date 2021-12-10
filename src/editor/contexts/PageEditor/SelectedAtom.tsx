@@ -1,14 +1,14 @@
 import React, { createContext, useMemo, useState } from 'react'
-import { PageAtom } from '../types/Page'
+import { PageAtom } from '../../types/Page'
 
-interface CurrentEditedPageAtomContext {
+interface SelectedAtom {
     atom: PageAtom | null
     setAtom: React.Dispatch<React.SetStateAction<PageAtom | null>>
     locator: (string | number)[] | null
     setLocator: React.Dispatch<React.SetStateAction<(string | number)[] | null>>
 }
 
-export const CurrentEditedPageAtomContext = createContext<CurrentEditedPageAtomContext | null>(
+export const SelectedAtom = createContext<SelectedAtom | null>(
     null
 )
 
@@ -16,7 +16,7 @@ interface Props {
     children: React.ReactNode
 }
 
-export const CurrentEditedPageAtomContextProvider: React.FC<Props> = (
+export const SelectedAtomProvider: React.FC<Props> = (
     props: Props
 ) => {
     const [atom, setAtom] = useState<PageAtom | null>(null)
@@ -30,8 +30,8 @@ export const CurrentEditedPageAtomContextProvider: React.FC<Props> = (
     ])
 
     return (
-        <CurrentEditedPageAtomContext.Provider value={value}>
+        <SelectedAtom.Provider value={value}>
             {props.children}
-        </CurrentEditedPageAtomContext.Provider>
+        </SelectedAtom.Provider>
     )
 }

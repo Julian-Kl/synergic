@@ -6,9 +6,9 @@ import { LoadingBackdrop } from '../../editor/components/atoms/LoadingBackdrop/L
 import { getPages } from '../../editor/services/pages/getPages'
 import { Page } from '../../editor/types/Page'
 import { PageRender } from '../pageRender/PageRender'
-import { PageRouterNavigation } from './PageRouterNavigation'
+import { RouterNavigation } from './RouterNavigation'
 
-export const PageRouter: React.FC = () => {
+export const Router: React.FC = () => {
     const [pages, setPages] = useState<Page[]>([])
     const [loading, setLoading] = useState(true)
     const { path, url } = useRouteMatch()
@@ -38,7 +38,7 @@ export const PageRouter: React.FC = () => {
         
         <BrowserRouter>
         {loading && <LoadingBackdrop />}
-            <PageRouterNavigation 
+            <RouterNavigation 
                 pageName={pageName}
                 setPageName= {setPageName}
                 pages={pages}

@@ -5,8 +5,8 @@ import Grid, { GridSize } from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { styled } from '@mui/material/styles'
 import React, { useContext, useEffect, useState } from 'react'
-import { CurrentEditedComponentContext } from '../../../../../contexts/CurrentEditedComponentContext'
-import { CurrentEditedGridCellContext } from '../../../../../contexts/CurrentEditedGridCell'
+import { SelectedCompound } from '../../../../../contexts/CompoundEditor/SelectedCompound'
+import { SelectedGridCell } from '../../../../../contexts/CompoundEditor/SelectedGridCell'
 import { updateCompoundGrid } from '../../../../../services/compounds/updateCompoundGrid'
 import { CompoundGrid } from '../../../../../types/Compound'
 import { GridCellPreview } from '../GridCellPreview/GridCellPreview'
@@ -20,8 +20,8 @@ const Item = styled(Paper)(({ theme }) => ({
 }))
 
 export const CompoundPreview: React.FC = () => {
-    const currentEditedComponent = useContext(CurrentEditedComponentContext)
-    const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
+    const selectedCompound = useContext(SelectedCompound)
+    const selectedGridCell = useContext(SelectedGridCell)
     const [gridElements, setGridElements] = useState<CompoundGrid[]>([])
     const [
         gridContainerNumerator,
@@ -30,18 +30,18 @@ export const CompoundPreview: React.FC = () => {
     const gridContainerDenominator = 12
 
     useEffect(() => {
-        if (typeof currentEditedComponent?.component?.grid != 'undefined') {
-            setGridElements(currentEditedComponent?.component?.grid)
+        if (typeof selectedCompound?.compound?.grid != 'undefined') {
+            setGridElements(selectedCompound?.compound?.grid)
         }
-        if (currentEditedComponent?.component?.type === 'molecules') {
+        if (selectedCompound?.compound?.type === 'molecules') {
             setGridContainerNumerator(6)
-        } else if (currentEditedComponent?.component?.type === 'organisms') {
+        } else if (selectedCompound?.compound?.type === 'organisms') {
             setGridContainerNumerator(12)
         }
-    }, [currentEditedComponent?.component])
+    }, [selectedCompound?.compound])
 
     const addGridElement = async () => {
-        if (currentEditedComponent?.component) {
+        if (selectedCompound?.compound) {
             const newGridElement: CompoundGrid = {
                 size: 3,
                 components: [],
@@ -54,8 +54,8 @@ export const CompoundPreview: React.FC = () => {
             }
 
             const response = await updateCompoundGrid(
-                currentEditedComponent?.component?.id,
-                currentEditedComponent?.component?.type,
+                selectedCompound?.compound?.id,
+                selectedCompound?.compound?.type,
                 gridElements
             )
 
@@ -66,13 +66,13 @@ export const CompoundPreview: React.FC = () => {
     }
 
     const selectGridCell = (component: CompoundGrid, index: number) => {
-        currentEditedGridCell?.setComponent(component)
-        currentEditedGridCell?.setId(index)
+        selectedGridCell?.setGridCell(component)
+        selectedGridCell?.setId(index)
     }
 
     return (
         <>
-            {currentEditedComponent?.component && (
+            {selectedCompound?.compound && (
                 <>
                     <Box sx={{ flexGrow: 1 }}>
                         <Grid container spacing={1}>
@@ -126,15 +126,15 @@ export const CompoundPreview: React.FC = () => {
                                 {/* Grid Builder */}
                                 <Box sx={{ flexGrow: 1 }}>
                                     <Grid container spacing={0}>
-                                        {currentEditedComponent?.component
+                                        {selectedCompound?.compound
                                             ?.grid &&
-                                            currentEditedComponent?.component?.grid.map(
+                                            selectedCompound?.compound?.grid.map(
                                                 (
                                                     gridElement: CompoundGrid,
                                                     index
                                                 ) => {
                                                     if (
-                                                        currentEditedGridCell?.id !=
+                                                        selectedGridCell?.id !=
                                                         index
                                                     ) {
                                                         return (
@@ -158,7 +158,7 @@ export const CompoundPreview: React.FC = () => {
                                                                     }
                                                                     selected={
                                                                         index ===
-                                                                        currentEditedGridCell?.id
+                                                                        selectedGridCell?.id
                                                                     }
                                                                 />
                                                             </Grid>
@@ -169,8 +169,8 @@ export const CompoundPreview: React.FC = () => {
                                                                 key={index}
                                                                 item
                                                                 xs={
-                                                                    currentEditedGridCell
-                                                                        ?.component
+                                                                    selectedGridCell
+                                                                        ?.gridCell
                                                                         ?.size
                                                                 }
                                                             >
@@ -181,7 +181,7 @@ export const CompoundPreview: React.FC = () => {
                                                                     }
                                                                     selected={
                                                                         index ===
-                                                                        currentEditedGridCell?.id
+                                                                        selectedGridCell?.id
                                                                     }
                                                                 />
                                                             </Grid>

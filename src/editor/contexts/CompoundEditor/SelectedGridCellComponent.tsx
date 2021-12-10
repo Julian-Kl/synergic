@@ -1,15 +1,15 @@
 import React, { createContext, useMemo, useState } from 'react'
-import { Atom } from '../types/Atom'
-import { Compound } from '../types/Compound'
+import { Atom } from '../../types/Atom'
+import { Compound } from '../../types/Compound'
 
-interface CurrentEditedGridCellComponentContext {
+interface SelectedGridCellComponent {
     component: Atom | Compound | null
     setComponent: React.Dispatch<React.SetStateAction<Atom | Compound | null>>
     id: number | null
     setId: React.Dispatch<React.SetStateAction<number | null>>
 }
 
-export const CurrentEditedGridCellComponentContext = createContext<CurrentEditedGridCellComponentContext | null>(
+export const SelectedGridCellComponent = createContext<SelectedGridCellComponent | null>(
     null
 )
 
@@ -17,7 +17,7 @@ interface Props {
     children: React.ReactNode
 }
 
-export const CurrentEditedGridCellComponentContextProvider: React.FC<Props> = (
+export const SelectedGridCellComponentProvider: React.FC<Props> = (
     props: Props
 ) => {
     const [component, setComponent] = useState<Atom | Compound | null>(null)
@@ -31,8 +31,8 @@ export const CurrentEditedGridCellComponentContextProvider: React.FC<Props> = (
     ])
 
     return (
-        <CurrentEditedGridCellComponentContext.Provider value={value}>
+        <SelectedGridCellComponent.Provider value={value}>
             {props.children}
-        </CurrentEditedGridCellComponentContext.Provider>
+        </SelectedGridCellComponent.Provider>
     )
 }

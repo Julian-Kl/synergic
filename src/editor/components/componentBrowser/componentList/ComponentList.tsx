@@ -1,8 +1,8 @@
 import { Box, Grid } from '@mui/material'
 import React, { useContext } from 'react'
-import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
-import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
-import { CurrentEditedTemplateContext } from '../../../contexts/CurrentEditedTemplate'
+import { SelectedCompound } from '../../../contexts/CompoundEditor/SelectedCompound'
+import { SelectedGridCell } from '../../../contexts/CompoundEditor/SelectedGridCell'
+import { SelectedTemplate } from '../../../contexts/TemplateEditor/SelectedTemplate'
 import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
 import { updateTemplateOrganisms } from '../../../services/templates/updateTemplateOrganisms'
 import { Atom } from '../../../types/Atom'
@@ -17,28 +17,28 @@ interface Props {
 }
 
 export const ComponentList: React.FC<Props> = (props: Props) => {
-    const currentEditedComponent = useContext(CurrentEditedComponentContext)
-    const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
-    const currentEditedTemplate = useContext(CurrentEditedTemplateContext)
+    const selectedCompound = useContext(SelectedCompound)
+    const selectedGridCell = useContext(SelectedGridCell)
+    const selectedTemplate = useContext(SelectedTemplate)
 
     const isAddAble = (
         components: 'atoms' | 'molecules' | 'organisms'
     ): boolean => {
         if (
-            currentEditedGridCell?.component ||
-            currentEditedTemplate?.template
+            selectedGridCell?.gridCell ||
+            selectedTemplate?.template
         ) {
             if (
-                currentEditedComponent?.component?.type === 'molecules' &&
+                selectedCompound?.compound?.type === 'molecules' &&
                 components === 'atoms'
             ) {
                 return true
             } else if (
-                currentEditedComponent?.component?.type === 'organisms' &&
+                selectedCompound?.compound?.type === 'organisms' &&
                 (components === 'atoms' || components === 'molecules')
             ) {
                 return true
-            } else if (currentEditedTemplate?.template?.type === 'templates') {
+            } else if (selectedTemplate?.template?.type === 'templates') {
                 return true
             } else {
                 return false
@@ -50,26 +50,26 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
 
     const addComponentToCell = async (component: Atom | Compound) => {
         if (
-            currentEditedComponent?.component &&
-            currentEditedGridCell?.id != null
+            selectedCompound?.compound &&
+            selectedGridCell?.id != null
         ) {
             const updatedCurrentEditedComponent: Compound = Object.assign(
                 {},
-                currentEditedComponent?.component
+                selectedCompound?.compound
             )
 
             updatedCurrentEditedComponent.grid[
-                currentEditedGridCell?.id
+                selectedGridCell?.id
             ].components.push(component)
 
             const response = await updateCompoundGrid(
-                currentEditedComponent?.component?.id,
-                currentEditedComponent?.component?.type,
+                selectedCompound?.compound?.id,
+                selectedCompound?.compound?.type,
                 updatedCurrentEditedComponent.grid
             )
 
             if (!response.loading) {
-                currentEditedComponent?.setComponent(
+                selectedCompound?.setCompound(
                     updatedCurrentEditedComponent
                 )
             }
@@ -77,20 +77,20 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
     }
 
     const addComponentToTemplate = async (component: Atom | Compound) => {
-        if (currentEditedTemplate?.template) {
+        if (selectedTemplate?.template) {
             const updatedEditedTemplate: Template = Object.assign(
                 {},
-                currentEditedTemplate?.template
+                selectedTemplate?.template
             )
             updatedEditedTemplate.organisms.push(component as Compound)
             
             const response = await updateTemplateOrganisms(
-                currentEditedTemplate?.template?.id,
+                selectedTemplate?.template?.id,
                 updatedEditedTemplate.organisms
             )
 
             if (!response.loading) {
-                currentEditedTemplate?.setTemplate(updatedEditedTemplate)
+                selectedTemplate?.setTemplate(updatedEditedTemplate)
             }
         }
     }
@@ -114,7 +114,7 @@ export const ComponentList: React.FC<Props> = (props: Props) => {
                         components={props.components}
                         isAddAble={isAddAble(props.components)}
                         addComponentToCell={
-                            currentEditedComponent?.component
+                            selectedCompound?.compound
                                 ? addComponentToCell
                                 : addComponentToTemplate
                         }

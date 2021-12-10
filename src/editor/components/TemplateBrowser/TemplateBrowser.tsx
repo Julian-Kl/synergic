@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
-import { CurrentEditedTemplateContext } from '../../contexts/CurrentEditedTemplate'
+import { SelectedTemplate } from '../../contexts/TemplateEditor/SelectedTemplate'
 import { createTemplate } from '../../services/templates/createTemplate'
 import { deleteTemplate } from '../../services/templates/deleteTemplate'
 import { getTemplates } from '../../services/templates/getTemplates'
@@ -10,7 +10,7 @@ import { LoadingBackdrop } from '../atoms/LoadingBackdrop/LoadingBackdrop'
 import { TemplateBrowserItem } from './TemplateBrowserItem/TemplateBrowserItem'
 
 export const TemplateBrowser: React.FC = () => {
-    const currentEditedTemplate = useContext(CurrentEditedTemplateContext)
+    const selectedTemplate = useContext(SelectedTemplate)
     const [templates, setTemplates] = useState<Template[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -38,15 +38,15 @@ export const TemplateBrowser: React.FC = () => {
         })
 
         setTemplates([...updatedData])
-        currentEditedTemplate?.setTemplate(null)
+        selectedTemplate?.setTemplate(null)
     }
 
     const selectTemplate = (template: Template) => {
-        currentEditedTemplate?.setTemplate(template)
+        selectedTemplate?.setTemplate(template)
     }
 
     const isSelected = (template: Template) => {
-        return template.id === currentEditedTemplate?.template?.id
+        return template.id === selectedTemplate?.template?.id
     }
 
     return (

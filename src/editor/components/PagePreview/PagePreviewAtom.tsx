@@ -2,8 +2,8 @@ import { Paper } from '@mui/material'
 import styled from '@mui/styled-engine'
 import React, { useContext } from 'react'
 import { atomRegistry } from '../../../resources/components/atoms/atomRegistry'
-import { CurrentEditedPageContext } from '../../contexts/CurrentEditedPage'
-import { CurrentEditedPageAtomContext } from '../../contexts/CurrentEditedPageAtom'
+import { SelectedAtom } from '../../contexts/PageEditor/SelectedAtom'
+import { SelectedPage } from '../../contexts/PageEditor/SelectedPage'
 import { updatePageContent } from '../../services/pages/updatePageContent'
 import { PageAtom } from '../../types/Page'
 
@@ -28,9 +28,9 @@ interface Props {
 }
 
 export const PageAtomPreview: React.FC<Props> = (props: Props) => {
-    const currentEditedPage = useContext(CurrentEditedPageContext)
-    const currentEditedPageAtomContext = useContext(
-        CurrentEditedPageAtomContext
+    const selectedPage = useContext(SelectedPage)
+    const selectedAtom = useContext(
+        SelectedAtom
     )
 
     const renderPreview = () => {
@@ -44,13 +44,13 @@ export const PageAtomPreview: React.FC<Props> = (props: Props) => {
     }
 
     const renderEditablePreview = () => {
-        if (currentEditedPageAtomContext?.atom) {
-            const componentName = currentEditedPageAtomContext?.atom?.name
+        if (selectedAtom?.atom) {
+            const componentName = selectedAtom?.atom?.name
             if (componentName in atomRegistry) {
                 const block = atomRegistry[componentName]
 
-                if (currentEditedPage?.page) {
-                    let entry: any = currentEditedPage?.page
+                if (selectedPage?.page) {
+                    let entry: any = selectedPage?.page
                     const steps: any[] = []
                     steps.push(entry)
 
@@ -76,18 +76,18 @@ export const PageAtomPreview: React.FC<Props> = (props: Props) => {
 
                             const updatedCurrentEditedPage = newStepValue
 
-                            if (currentEditedPage?.page) {
+                            if (selectedPage?.page) {
                                 const response = await updatePageContent(
-                                    currentEditedPage.page.id,
+                                    selectedPage.page.id,
                                     updatedCurrentEditedPage.content
                                 )
 
                                 if (!response.loading) {
-                                    currentEditedPage?.setPage(
+                                    selectedPage?.setPage(
                                         updatedCurrentEditedPage
                                     )
-                                    currentEditedPageAtomContext.setAtom(null)
-                                    currentEditedPageAtomContext.setLocator(
+                                    selectedAtom.setAtom(null)
+                                    selectedAtom.setLocator(
                                         null
                                     )
                                 }
@@ -107,11 +107,11 @@ export const PageAtomPreview: React.FC<Props> = (props: Props) => {
     }
 
     const editAtomContent = () => {
-        currentEditedPageAtomContext?.setAtom(props.component)
-        currentEditedPageAtomContext?.setLocator(props.locator)
+        selectedAtom?.setAtom(props.component)
+        selectedAtom?.setLocator(props.locator)
     }
 
-    if (currentEditedPageAtomContext?.locator === props.locator) {
+    if (selectedAtom?.locator === props.locator) {
         return (
             <ActiveAtomPreviewContainer onClick={editAtomContent}>
                 {renderEditablePreview()}

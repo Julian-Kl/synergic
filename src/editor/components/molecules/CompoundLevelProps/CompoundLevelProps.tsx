@@ -10,67 +10,67 @@ import {
 } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { atomRegistry } from '../../../../resources/components/atoms/atomRegistry'
-import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
-import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
-import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
+import { SelectedCompound } from '../../../contexts/CompoundEditor/SelectedCompound'
+import { SelectedGridCell } from '../../../contexts/CompoundEditor/SelectedGridCell'
+import { SelectedGridCellComponent } from '../../../contexts/CompoundEditor/SelectedGridCellComponent'
 import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
 import { Atom, VariablePropsOptions } from '../../../types/Atom'
 import { Compound } from '../../../types/Compound'
 
 export const CompoundLevelProps: React.FC = () => {
-    const currentEditedComponent = useContext(CurrentEditedComponentContext)
-    const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
-    const currentEditedGridCellComponent = useContext(
-        CurrentEditedGridCellComponentContext
+    const selectedCompound = useContext(SelectedCompound)
+    const selectedGridCell = useContext(SelectedGridCell)
+    const selectedGridCellComponent = useContext(
+        SelectedGridCellComponent
     )
     const [propsOptions, setPropsOptions] = useState<VariablePropsOptions | null>(null)
 
     useEffect(() => {
-        if (currentEditedGridCellComponent?.component?.type === 'atoms') {
-            const component = currentEditedGridCellComponent?.component
+        if (selectedGridCellComponent?.component?.type === 'atoms') {
+            const component = selectedGridCellComponent?.component
 
             if (component.name in atomRegistry) {
                 setPropsOptions(atomRegistry[component.name].propsOptions.compoundLevelProps)
             }
         }
         
-        console.log(currentEditedGridCellComponent?.component)
-    }, [currentEditedGridCellComponent?.component])
+        console.log(selectedGridCellComponent?.component)
+    }, [selectedGridCellComponent?.component])
 
     const changeGridCellComponentProps = async (
         id: number,
         optionName: string,
         value: string
     ) => {
-        if (currentEditedComponent?.component) {
+        if (selectedCompound?.compound) {
             const updatedCurrentEditedComponent: Compound = Object.assign(
                 {},
-                currentEditedComponent?.component
+                selectedCompound?.compound
             )
-            if (currentEditedGridCell?.id != undefined) {
+            if (selectedGridCell?.id != undefined) {
                 if (
                     updatedCurrentEditedComponent.grid[
-                        currentEditedGridCell?.id
+                        selectedGridCell?.id
                     ].components[id].type === 'atoms'
                 ) {
                     const updatedComponent = updatedCurrentEditedComponent.grid[
-                        currentEditedGridCell?.id
+                        selectedGridCell?.id
                     ].components[id] as Atom
                     updatedComponent.props[optionName] = value
                     updatedCurrentEditedComponent.grid[
-                        currentEditedGridCell?.id
+                        selectedGridCell?.id
                     ].components[id] = updatedComponent as Atom
                 }
             }
 
             const response = await updateCompoundGrid(
-                currentEditedComponent?.component?.id,
-                currentEditedComponent?.component?.type,
+                selectedCompound?.compound?.id,
+                selectedCompound?.compound?.type,
                 updatedCurrentEditedComponent.grid
             )
 
             if (!response.loading) {
-                currentEditedComponent?.setComponent(
+                selectedCompound?.setCompound(
                     updatedCurrentEditedComponent
                 )
             }
@@ -78,35 +78,35 @@ export const CompoundLevelProps: React.FC = () => {
     }
 
     const deleteGridCellComponent = async (id: number) => {
-        if (currentEditedComponent?.component) {
-            const updatedCellComponents = currentEditedGridCell?.component?.components.filter(
+        if (selectedCompound?.compound) {
+            const updatedCellComponents = selectedGridCell?.gridCell?.components.filter(
                 function (value, index, arr) {
                     return index != id
                 }
             )
 
             if (
-                currentEditedGridCell?.id != null &&
+                selectedGridCell?.id != null &&
                 updatedCellComponents &&
-                currentEditedGridCell
+                selectedGridCell
             ) {
                 const updatedCurrentEditedComponent: Compound = Object.assign(
                     {},
-                    currentEditedComponent?.component
+                    selectedCompound?.compound
                 )
 
                 updatedCurrentEditedComponent.grid[
-                    currentEditedGridCell?.id
+                    selectedGridCell?.id
                 ].components = updatedCellComponents
 
                 const response = await updateCompoundGrid(
-                    currentEditedComponent?.component?.id,
-                    currentEditedComponent?.component?.type,
+                    selectedCompound?.compound?.id,
+                    selectedCompound?.compound?.type,
                     updatedCurrentEditedComponent.grid
                 )
 
                 if (!response.loading) {
-                    currentEditedComponent?.setComponent(
+                    selectedCompound?.setCompound(
                         updatedCurrentEditedComponent
                     )
                 }
@@ -121,9 +121,9 @@ export const CompoundLevelProps: React.FC = () => {
 
     const renderOption = (option: option) => {
         let currentValue = ''
-        if (currentEditedGridCellComponent?.component?.type === 'atoms') {
+        if (selectedGridCellComponent?.component?.type === 'atoms') {
             for (const prop of Object.entries(
-                currentEditedGridCellComponent?.component?.props
+                selectedGridCellComponent?.component?.props
             )) {
                 if (prop[0] === option.name) {
                     if (typeof prop[1] === 'string') {
@@ -145,7 +145,7 @@ export const CompoundLevelProps: React.FC = () => {
                     label={option.name}
                     onChange={(event) =>
                         changeGridCellComponentProps(
-                            currentEditedGridCellComponent?.id as number,
+                            selectedGridCellComponent?.id as number,
                             option.name,
                             event.target.value
                         )
@@ -182,16 +182,16 @@ export const CompoundLevelProps: React.FC = () => {
 
     return (
         <>
-            {currentEditedGridCellComponent?.component && (
+            {selectedGridCellComponent?.component && (
                 <>
                     <Typography variant='h6' component='h3'>
-                        {currentEditedGridCellComponent?.component?.type ===
+                        {selectedGridCellComponent?.component?.type ===
                         'atoms'
                             ? 'Atom Settings'
                             : 'Molecule Settings'}
                     </Typography>
                     <Typography variant='body1' component='p'>
-                        Name: {currentEditedGridCellComponent?.component.name}
+                        Name: {selectedGridCellComponent?.component.name}
                     </Typography>
 
                     {renderOptions()}
@@ -203,16 +203,16 @@ export const CompoundLevelProps: React.FC = () => {
                         endIcon={<DeleteIcon />}
                         onClick={() => {
                             if (
-                                currentEditedGridCellComponent?.component !==
+                                selectedGridCellComponent?.component !==
                                 undefined
                             ) {
                                 deleteGridCellComponent(
-                                    currentEditedGridCellComponent?.id as number
+                                    selectedGridCellComponent?.id as number
                                 )
                             }
                         }}
                     >
-                        {currentEditedGridCellComponent?.component?.type ===
+                        {selectedGridCellComponent?.component?.type ===
                         'atoms'
                             ? 'Delete Atom'
                             : 'Delete Molecule'}

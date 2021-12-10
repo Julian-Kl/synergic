@@ -5,8 +5,8 @@ import { PageSettings } from '../../components/molecules/PageSettings/PageSettin
 import { SidebarLeft } from '../../components/molecules/Sidebar/Sidebar'
 import { PageBrowser } from '../../components/PageBrowser/PageBrowser'
 import { PagePreview } from '../../components/PagePreview/PagePreview'
-import { CurrentEditedPageContextProvider } from '../../contexts/CurrentEditedPage'
-import { CurrentEditedPageAtomContextProvider } from '../../contexts/CurrentEditedPageAtom'
+import { SelectedAtomProvider } from '../../contexts/PageEditor/SelectedAtom'
+import { SelectedPageProvider } from '../../contexts/PageEditor/SelectedPage'
 
 export const PageEditor: React.FC = () => {
     return (
@@ -15,8 +15,8 @@ export const PageEditor: React.FC = () => {
                 <title>Page Editor</title>
                 <meta name='description' content='This is the Page Editor' />
             </Helmet>
-            <CurrentEditedPageContextProvider>
-                <CurrentEditedPageAtomContextProvider>
+            <SelectedPageProvider>
+                <SelectedAtomProvider>
                     <Grid container style={{ minHeight: '90vh' }}>
                         <Grid item xs={2}>
                             <SidebarLeft>
@@ -31,8 +31,8 @@ export const PageEditor: React.FC = () => {
                             <PagePreview />
                         </Grid>
                     </Grid>
-                </CurrentEditedPageAtomContextProvider>
-            </CurrentEditedPageContextProvider>
+                </SelectedAtomProvider>
+            </SelectedPageProvider>
         </>
     )
 }

@@ -1,12 +1,12 @@
 import React, { createContext, useMemo, useState } from 'react'
-import { Page } from '../types/Page'
+import { Page } from '../../types/Page'
 
-interface CurrentEditedPageContextInterface {
+interface SelectedPage {
     page: Page | null
     setPage: React.Dispatch<React.SetStateAction<Page | null>>
 }
 
-export const CurrentEditedPageContext = createContext<CurrentEditedPageContextInterface | null>(
+export const SelectedPage = createContext<SelectedPage | null>(
     null
 )
 
@@ -14,7 +14,7 @@ interface Props {
     children: React.ReactNode
 }
 
-export const CurrentEditedPageContextProvider: React.FC<Props> = (
+export const SelectedPageProvider: React.FC<Props> = (
     props: Props
 ) => {
     const [page, setPage] = useState<Page | null>(null)
@@ -22,8 +22,8 @@ export const CurrentEditedPageContextProvider: React.FC<Props> = (
     const value = useMemo(() => ({ page, setPage }), [page, setPage])
 
     return (
-        <CurrentEditedPageContext.Provider value={value}>
+        <SelectedPage.Provider value={value}>
             {props.children}
-        </CurrentEditedPageContext.Provider>
+        </SelectedPage.Provider>
     )
 }

@@ -9,8 +9,7 @@ import {
 } from '../../components/molecules/Sidebar/Sidebar'
 import { TemplatePreview } from '../../components/preview/templateEditor/TemplatePreview/TemplatePreview'
 import { TemplateBrowser } from '../../components/TemplateBrowser/TemplateBrowser'
-import { CurrentEditedTemplateContextProvider } from '../../contexts/CurrentEditedTemplate'
-import { CurrentEditedTemplateComponentContextProvider } from '../../contexts/CurrentEditedTemplateComponent'
+import { SelectedTemplateProvider } from '../../contexts/TemplateEditor/SelectedTemplate'
 
 export const TemplateEditor: React.FC = () => {
     return (
@@ -22,8 +21,9 @@ export const TemplateEditor: React.FC = () => {
                     content='This is the Template Editor'
                 />
             </Helmet>
-            <CurrentEditedTemplateContextProvider>
-                <CurrentEditedTemplateComponentContextProvider>
+            <SelectedTemplateProvider>
+               {/* <SelectedOrganismProvider> */}
+               {/* TODO: Use or delete context*/}
                     <ComponentBrowser organisms />
                     <Grid container style={{ minHeight: '90vh' }}>
                         <Grid item xs={2}>
@@ -41,8 +41,8 @@ export const TemplateEditor: React.FC = () => {
                             <CellChildrenOverview />
                         </SidebarRight>
                     </Grid>
-                </CurrentEditedTemplateComponentContextProvider>
-            </CurrentEditedTemplateContextProvider>
+                {/*</SelectedOrganismProvider>*/}
+            </SelectedTemplateProvider>
         </>
     )
 }

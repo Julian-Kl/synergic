@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
-import { CurrentEditedPageContext } from '../../contexts/CurrentEditedPage'
+import { SelectedPage } from '../../contexts/PageEditor/SelectedPage'
 import { createPage } from '../../services/pages/createPage'
 import { deletePage } from '../../services/pages/deletePage'
 import { getPages } from '../../services/pages/getPages'
@@ -10,7 +10,7 @@ import { LoadingBackdrop } from '../atoms/LoadingBackdrop/LoadingBackdrop'
 import { PageBrowserItem } from './PageBrowserItem/PageBrowserItem'
 
 export const PageBrowser: React.FC = () => {
-    const currentEditedPage = useContext(CurrentEditedPageContext)
+    const selectedPage = useContext(SelectedPage)
     const [pages, setPages] = useState<Page[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -22,7 +22,7 @@ export const PageBrowser: React.FC = () => {
 
     useEffect(() => {
         loadData()
-    }, [currentEditedPage])
+    }, [selectedPage])
 
     const addPage = async (name: string) => {
         const response = await createPage(name)
@@ -38,15 +38,15 @@ export const PageBrowser: React.FC = () => {
         })
 
         setPages([...updatedData])
-        currentEditedPage?.setPage(null)
+        selectedPage?.setPage(null)
     }
 
     const selectPage = (page: Page) => {
-        currentEditedPage?.setPage(page)
+        selectedPage?.setPage(page)
     }
 
     const isSelected = (page: Page) => {
-        return page.id === currentEditedPage?.page?.id
+        return page.id === selectedPage?.page?.id
     }
 
     return (

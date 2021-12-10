@@ -1,24 +1,24 @@
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Button, Divider, GridSize, Slider, Typography } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
-import { CurrentEditedComponentContext } from '../../../contexts/CurrentEditedComponentContext'
-import { CurrentEditedGridCellContext } from '../../../contexts/CurrentEditedGridCell'
-import { CurrentEditedGridCellComponentContext } from '../../../contexts/CurrentEditedGridCellComponent'
+import { SelectedCompound } from '../../../contexts/CompoundEditor/SelectedCompound'
+import { SelectedGridCell } from '../../../contexts/CompoundEditor/SelectedGridCell'
+import { SelectedGridCellComponent } from '../../../contexts/CompoundEditor/SelectedGridCellComponent'
 import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
 import { Compound, CompoundGrid } from '../../../types/Compound'
 
 export const GridCellSettings: React.FC = () => {
-    const currentEditedGridCell = useContext(CurrentEditedGridCellContext)
-    const currentEditedComponent = useContext(CurrentEditedComponentContext)
+    const selectedGridCell = useContext(SelectedGridCell)
+    const selectedCompound = useContext(SelectedCompound)
     const [gridElements, setGridElements] = useState<CompoundGrid[]>([])
-    const currentEditedGridCellComponent = useContext(
-        CurrentEditedGridCellComponentContext
+    const selectedGridCellComponent = useContext(
+        SelectedGridCellComponent
     )
     const gridContainerDenominator = 12
 
     useEffect(() => {
-        if (typeof currentEditedComponent?.component?.grid != 'undefined') {
-            setGridElements(currentEditedComponent?.component?.grid)
+        if (typeof selectedCompound?.compound?.grid != 'undefined') {
+            setGridElements(selectedCompound?.compound?.grid)
         }
     })
 
@@ -27,33 +27,32 @@ export const GridCellSettings: React.FC = () => {
         cellId: number | null
     ) => {
         if (
-            currentEditedGridCell &&
-            currentEditedGridCell.component &&
-            currentEditedComponent?.component
+            selectedGridCell?.gridCell &&
+            selectedCompound?.compound
         ) {
             const updatedCellComponent: CompoundGrid = Object.assign(
                 {},
-                currentEditedGridCell.component
+                selectedGridCell.gridCell
             )
             updatedCellComponent.size = newValue as GridSize
-            currentEditedGridCell.setComponent(updatedCellComponent)
+            selectedGridCell.setGridCell(updatedCellComponent)
 
             if (cellId != null) {
                 const updatedCurrentEditedComponent: Compound = Object.assign(
                     {},
-                    currentEditedComponent?.component
+                    selectedCompound?.compound
                 )
                 updatedCurrentEditedComponent.grid[cellId] =
-                    currentEditedGridCell.component
+                    selectedGridCell.gridCell
 
                 const response = await updateCompoundGrid(
-                    currentEditedComponent?.component?.id,
-                    currentEditedComponent?.component?.type,
+                    selectedCompound?.compound?.id,
+                    selectedCompound?.compound?.type,
                     updatedCurrentEditedComponent.grid
                 )
 
                 if (!response.loading) {
-                    currentEditedComponent?.setComponent(
+                    selectedCompound?.setCompound(
                         updatedCurrentEditedComponent
                     )
                 }
@@ -62,42 +61,42 @@ export const GridCellSettings: React.FC = () => {
     }
 
     const deleteGridElement = async () => {
-        if (currentEditedComponent?.component) {
+        if (selectedCompound?.compound) {
             const updatedGrid = gridElements.filter(function (
                 value,
                 index,
                 arr
             ) {
-                return index != currentEditedGridCell?.id
+                return index != selectedGridCell?.id
             })
 
             const response = await updateCompoundGrid(
-                currentEditedComponent?.component?.id,
-                currentEditedComponent?.component?.type,
+                selectedCompound?.compound?.id,
+                selectedCompound?.compound?.type,
                 updatedGrid
             )
 
             if (!response.loading) {
                 const updatedCurrentEditedComponent: Compound = Object.assign(
                     {},
-                    currentEditedComponent?.component
+                    selectedCompound?.compound
                 )
                 updatedCurrentEditedComponent.grid = updatedGrid
-                currentEditedComponent?.setComponent(
+                selectedCompound?.setCompound(
                     updatedCurrentEditedComponent
                 )
 
-                currentEditedGridCell?.setComponent(null)
-                currentEditedGridCell?.setId(null)
-                currentEditedGridCellComponent?.setComponent(null)
-                currentEditedGridCellComponent?.setId(null)
+                selectedGridCell?.setGridCell(null)
+                selectedGridCell?.setId(null)
+                selectedGridCellComponent?.setComponent(null)
+                selectedGridCellComponent?.setId(null)
             }
         }
     }
 
     return (
         <>
-            {currentEditedGridCell?.component?.size && (
+            {selectedGridCell?.gridCell?.size && (
                 <>
                     <Typography variant='h6' component='h3'>
                         Cell Settings
@@ -107,11 +106,11 @@ export const GridCellSettings: React.FC = () => {
                         GridSize
                     </Typography>
                     <Slider
-                        value={currentEditedGridCell?.component?.size as number}
+                        value={selectedGridCell?.gridCell?.size as number}
                         onChange={(event: Event, newValue: number | number[]) =>
                             updateGridSize(
                                 newValue as GridSize,
-                                currentEditedGridCell?.id
+                                selectedGridCell?.id
                             )
                         }
                         step={1}

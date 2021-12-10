@@ -9,7 +9,7 @@ import {
     Typography
 } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
-import { CurrentEditedPageContext } from '../../../contexts/CurrentEditedPage'
+import { SelectedPage } from '../../../contexts/PageEditor/SelectedPage'
 import { updatePageProperty } from '../../../services/pages/updatePageProperty'
 import { updatePageTemplate } from '../../../services/pages/updatePageTemplate'
 import { getTemplate } from '../../../services/templates/getTemplate'
@@ -26,7 +26,7 @@ import { Template } from '../../../types/Template'
 import { LoadingBackdrop } from '../../atoms/LoadingBackdrop/LoadingBackdrop'
 
 export const PageSettings: React.FC = () => {
-    const currentEditedPage = useContext(CurrentEditedPageContext)
+    const selectedPage = useContext(SelectedPage)
     const [template, setTemplate] = useState<Template[]>([])
     const [loading, setLoading] = useState(true)
 
@@ -121,7 +121,7 @@ export const PageSettings: React.FC = () => {
     }
 
     const changeTemplate = async (event: SelectChangeEvent) => {
-        if (currentEditedPage?.page) {
+        if (selectedPage?.page) {
             const templateResponse = await getTemplate(event.target.value)
 
             if (!templateResponse.loading) {
@@ -129,7 +129,7 @@ export const PageSettings: React.FC = () => {
 
                 const updatedCurrentEditedPage: Page = Object.assign(
                     {},
-                    currentEditedPage?.page
+                    selectedPage?.page
                 )
 
                 updatedCurrentEditedPage.templateId = String(template.id)
@@ -138,13 +138,13 @@ export const PageSettings: React.FC = () => {
                 transformTemplate(template)
 
                 const response = await updatePageTemplate(
-                    currentEditedPage?.page?.id,
+                    selectedPage?.page?.id,
                     updatedCurrentEditedPage.templateId,
                     updatedCurrentEditedPage.content
                 )
 
                 if (!response.loading) {
-                    currentEditedPage?.setPage(updatedCurrentEditedPage)
+                    selectedPage?.setPage(updatedCurrentEditedPage)
                 }
             }
         }
@@ -153,19 +153,19 @@ export const PageSettings: React.FC = () => {
     type property = 'route' | 'title'
 
     const changeProperty = async (property: property, value: string) => {
-        if (currentEditedPage?.page) {
-            const updatedPage: Page = Object.assign({}, currentEditedPage?.page)
+        if (selectedPage?.page) {
+            const updatedPage: Page = Object.assign({}, selectedPage?.page)
 
             updatedPage[property] = value
 
             const response = await updatePageProperty(
-                currentEditedPage?.page?.id,
+                selectedPage?.page?.id,
                 property,
                 updatedPage[property]
             )
 
             if (!response.loading) {
-                currentEditedPage?.setPage(updatedPage)
+                selectedPage?.setPage(updatedPage)
             }
         }
     }
@@ -173,7 +173,7 @@ export const PageSettings: React.FC = () => {
     return (
         <>
             {loading && <LoadingBackdrop />}
-            {currentEditedPage?.page && (
+            {selectedPage?.page && (
                 <Box
                     sx={{
                         flexGrow: 1,
@@ -199,8 +199,8 @@ export const PageSettings: React.FC = () => {
                                 labelId='demo-simple-select-label'
                                 id='demo-simple-select'
                                 value={
-                                    currentEditedPage?.page?.templateId
-                                        ? currentEditedPage?.page?.templateId
+                                    selectedPage?.page?.templateId
+                                        ? selectedPage?.page?.templateId
                                         : ''
                                 }
                                 label='Template'
@@ -221,8 +221,8 @@ export const PageSettings: React.FC = () => {
                             label='Route'
                             color='primary'
                             value={
-                                currentEditedPage?.page?.route
-                                    ? currentEditedPage?.page?.route
+                                selectedPage?.page?.route
+                                    ? selectedPage?.page?.route
                                     : ''
                             }
                             onChange={(e) =>
@@ -235,8 +235,8 @@ export const PageSettings: React.FC = () => {
                             label='Title'
                             color='primary'
                             value={
-                                currentEditedPage?.page?.title
-                                    ? currentEditedPage?.page?.title
+                                selectedPage?.page?.title
+                                    ? selectedPage?.page?.title
                                     : ''
                             }
                             onChange={(e) =>

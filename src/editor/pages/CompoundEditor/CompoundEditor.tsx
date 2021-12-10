@@ -8,9 +8,9 @@ import {
     SidebarLeft
 } from '../../components/molecules/Sidebar/Sidebar'
 import { CompoundPreview } from '../../components/preview/compoundEditor/CompoundPreview/GridPreview/GridPreview'
-import { CurrentEditedComponentContextProvider } from '../../contexts/CurrentEditedComponentContext'
-import { CurrentEditedGridCellContextProvider } from '../../contexts/CurrentEditedGridCell'
-import { CurrentEditedGridCellComponentContextProvider } from '../../contexts/CurrentEditedGridCellComponent'
+import { SelectedCompoundProvider } from '../../contexts/CompoundEditor/SelectedCompound'
+import { SelectedGridCellProvider } from '../../contexts/CompoundEditor/SelectedGridCell'
+import { SelectedGridCellComponentProvider } from '../../contexts/CompoundEditor/SelectedGridCellComponent'
 
 export const CompoundEditor: React.FC = () => {
     return (
@@ -22,9 +22,9 @@ export const CompoundEditor: React.FC = () => {
                     content='This is the Component Editor'
                 />
             </Helmet>
-            <CurrentEditedComponentContextProvider>
-                <CurrentEditedGridCellContextProvider>
-                    <CurrentEditedGridCellComponentContextProvider>
+            <SelectedCompoundProvider>
+                <SelectedGridCellProvider>
+                    <SelectedGridCellComponentProvider>
                         <ComponentBrowser isCreateable />
                         <Grid container style={{ minHeight: '70vh' }}>
                             <Grid item xs={2}>
@@ -38,9 +38,9 @@ export const CompoundEditor: React.FC = () => {
                                 <CompoundPreview />
                             </Grid>
                         </Grid>
-                    </CurrentEditedGridCellComponentContextProvider>
-                </CurrentEditedGridCellContextProvider>
-            </CurrentEditedComponentContextProvider>
+                    </SelectedGridCellComponentProvider>
+                </SelectedGridCellProvider>
+            </SelectedCompoundProvider>
         </>
     )
 }

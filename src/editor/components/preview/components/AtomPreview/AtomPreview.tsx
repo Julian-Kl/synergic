@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { atomRegistry } from '../../../../../resources/components/atoms/atomRegistry'
-import { CurrentEditedGridCellComponentContext } from '../../../../contexts/CurrentEditedGridCellComponent'
+import { SelectedGridCellComponent } from '../../../../contexts/CompoundEditor/SelectedGridCellComponent'
 import { Atom } from '../../../../types/Atom'
 import {
     ActiveItemSecondary,
@@ -15,14 +15,14 @@ interface Props {
 }
 
 export const AtomPreview: React.FC<Props> = (props: Props) => {
-    const currentEditedGridCellComponentContext = useContext(
-        CurrentEditedGridCellComponentContext
+    const selectedGridCellComponent = useContext(
+        SelectedGridCellComponent
     )
 
     const selectAtom = () => {
         if (props.id !== undefined) {
-            currentEditedGridCellComponentContext?.setComponent(props.component)
-            currentEditedGridCellComponentContext?.setId(props.id)
+            selectedGridCellComponent?.setComponent(props.component)
+            selectedGridCellComponent?.setId(props.id)
         }
     }
 
@@ -39,8 +39,8 @@ export const AtomPreview: React.FC<Props> = (props: Props) => {
     if (props.selectAble) {
         if (
             props.selected &&
-            currentEditedGridCellComponentContext?.id === props.id &&
-            currentEditedGridCellComponentContext?.component?.type === 'atoms'
+            selectedGridCellComponent?.id === props.id &&
+            selectedGridCellComponent?.component?.type === 'atoms'
         ) {
             return <ActiveItemSecondary>{renderPreview()}</ActiveItemSecondary>
         } else {

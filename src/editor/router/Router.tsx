@@ -1,6 +1,6 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { PageRouter } from '../../website/pageRouter/PageRouter'
+import { Router as PreviewRouter } from '../../website/router/Router'
 import { Navbar } from '../components/molecules/Navbar/Navbar'
 import { NoMatch } from '../pages/404/NoMatch'
 import routes from './routes'
@@ -11,7 +11,7 @@ export const Router: React.FC = () => {
             return component
         } else {
             return (
-                <PageRouter />
+                <PreviewRouter />
             )
         }
     }

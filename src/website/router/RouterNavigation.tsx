@@ -11,7 +11,7 @@ interface Props {
     url: string
 }
 
-export const PageRouterNavigation: React.FC<Props> = (props: Props) => {
+export const RouterNavigation: React.FC<Props> = (props: Props) => {
     
     return (
         
