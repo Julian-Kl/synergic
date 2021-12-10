@@ -3,7 +3,7 @@ import { Button, Divider, GridSize, Slider, Typography } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { SelectedCompound } from '../../../contexts/CompoundEditor/SelectedCompound'
 import { SelectedGridCell } from '../../../contexts/CompoundEditor/SelectedGridCell'
-import { SelectedGridCellComponent } from '../../../contexts/CompoundEditor/SelectedGridCellComponent'
+import { SelectedGridCellChild } from '../../../contexts/CompoundEditor/SelectedGridCellChild'
 import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
 import { Compound, CompoundGrid } from '../../../types/Compound'
 
@@ -11,8 +11,8 @@ export const GridCellSettings: React.FC = () => {
     const selectedGridCell = useContext(SelectedGridCell)
     const selectedCompound = useContext(SelectedCompound)
     const [gridElements, setGridElements] = useState<CompoundGrid[]>([])
-    const selectedGridCellComponent = useContext(
-        SelectedGridCellComponent
+    const selectedGridCellChild = useContext(
+        SelectedGridCellChild
     )
     const gridContainerDenominator = 12
 
@@ -88,8 +88,8 @@ export const GridCellSettings: React.FC = () => {
 
                 selectedGridCell?.setGridCell(null)
                 selectedGridCell?.setId(null)
-                selectedGridCellComponent?.setComponent(null)
-                selectedGridCellComponent?.setId(null)
+                selectedGridCellChild?.setChild(null)
+                selectedGridCellChild?.setId(null)
             }
         }
     }

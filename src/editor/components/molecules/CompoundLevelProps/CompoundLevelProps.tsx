@@ -12,7 +12,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { atomRegistry } from '../../../../resources/components/atoms/atomRegistry'
 import { SelectedCompound } from '../../../contexts/CompoundEditor/SelectedCompound'
 import { SelectedGridCell } from '../../../contexts/CompoundEditor/SelectedGridCell'
-import { SelectedGridCellComponent } from '../../../contexts/CompoundEditor/SelectedGridCellComponent'
+import { SelectedGridCellChild } from '../../../contexts/CompoundEditor/SelectedGridCellChild'
 import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGrid'
 import { Atom, VariablePropsOptions } from '../../../types/Atom'
 import { Compound } from '../../../types/Compound'
@@ -20,22 +20,22 @@ import { Compound } from '../../../types/Compound'
 export const CompoundLevelProps: React.FC = () => {
     const selectedCompound = useContext(SelectedCompound)
     const selectedGridCell = useContext(SelectedGridCell)
-    const selectedGridCellComponent = useContext(
-        SelectedGridCellComponent
+    const selectedGridCellChild = useContext(
+        SelectedGridCellChild
     )
     const [propsOptions, setPropsOptions] = useState<VariablePropsOptions | null>(null)
 
     useEffect(() => {
-        if (selectedGridCellComponent?.component?.type === 'atoms') {
-            const component = selectedGridCellComponent?.component
+        if (selectedGridCellChild?.child?.type === 'atoms') {
+            const component = selectedGridCellChild?.child
 
             if (component.name in atomRegistry) {
                 setPropsOptions(atomRegistry[component.name].propsOptions.compoundLevelProps)
             }
         }
         
-        console.log(selectedGridCellComponent?.component)
-    }, [selectedGridCellComponent?.component])
+        console.log(selectedGridCellChild?.child)
+    }, [selectedGridCellChild?.child])
 
     const changeGridCellComponentProps = async (
         id: number,
@@ -121,9 +121,9 @@ export const CompoundLevelProps: React.FC = () => {
 
     const renderOption = (option: option) => {
         let currentValue = ''
-        if (selectedGridCellComponent?.component?.type === 'atoms') {
+        if (selectedGridCellChild?.child?.type === 'atoms') {
             for (const prop of Object.entries(
-                selectedGridCellComponent?.component?.props
+                selectedGridCellChild?.child?.props
             )) {
                 if (prop[0] === option.name) {
                     if (typeof prop[1] === 'string') {
@@ -145,7 +145,7 @@ export const CompoundLevelProps: React.FC = () => {
                     label={option.name}
                     onChange={(event) =>
                         changeGridCellComponentProps(
-                            selectedGridCellComponent?.id as number,
+                            selectedGridCellChild?.id as number,
                             option.name,
                             event.target.value
                         )
@@ -182,16 +182,16 @@ export const CompoundLevelProps: React.FC = () => {
 
     return (
         <>
-            {selectedGridCellComponent?.component && (
+            {selectedGridCellChild?.child && (
                 <>
                     <Typography variant='h6' component='h3'>
-                        {selectedGridCellComponent?.component?.type ===
+                        {selectedGridCellChild?.child?.type ===
                         'atoms'
                             ? 'Atom Settings'
                             : 'Molecule Settings'}
                     </Typography>
                     <Typography variant='body1' component='p'>
-                        Name: {selectedGridCellComponent?.component.name}
+                        Name: {selectedGridCellChild?.child.name}
                     </Typography>
 
                     {renderOptions()}
@@ -203,16 +203,16 @@ export const CompoundLevelProps: React.FC = () => {
                         endIcon={<DeleteIcon />}
                         onClick={() => {
                             if (
-                                selectedGridCellComponent?.component !==
+                                selectedGridCellChild?.child !==
                                 undefined
                             ) {
                                 deleteGridCellComponent(
-                                    selectedGridCellComponent?.id as number
+                                    selectedGridCellChild?.id as number
                                 )
                             }
                         }}
                     >
-                        {selectedGridCellComponent?.component?.type ===
+                        {selectedGridCellChild?.child?.type ===
                         'atoms'
                             ? 'Delete Atom'
                             : 'Delete Molecule'}

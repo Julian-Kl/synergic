@@ -10,7 +10,7 @@ import {
 import { CompoundPreview } from '../../components/preview/compoundEditor/CompoundPreview/GridPreview/GridPreview'
 import { SelectedCompoundProvider } from '../../contexts/CompoundEditor/SelectedCompound'
 import { SelectedGridCellProvider } from '../../contexts/CompoundEditor/SelectedGridCell'
-import { SelectedGridCellComponentProvider } from '../../contexts/CompoundEditor/SelectedGridCellComponent'
+import { SelectedGridCellChildProvider } from '../../contexts/CompoundEditor/SelectedGridCellChild'
 
 export const CompoundEditor: React.FC = () => {
     return (
@@ -24,7 +24,7 @@ export const CompoundEditor: React.FC = () => {
             </Helmet>
             <SelectedCompoundProvider>
                 <SelectedGridCellProvider>
-                    <SelectedGridCellComponentProvider>
+                    <SelectedGridCellChildProvider>
                         <ComponentBrowser isCreateable />
                         <Grid container style={{ minHeight: '70vh' }}>
                             <Grid item xs={2}>
@@ -38,7 +38,7 @@ export const CompoundEditor: React.FC = () => {
                                 <CompoundPreview />
                             </Grid>
                         </Grid>
-                    </SelectedGridCellComponentProvider>
+                    </SelectedGridCellChildProvider>
                 </SelectedGridCellProvider>
             </SelectedCompoundProvider>
         </>

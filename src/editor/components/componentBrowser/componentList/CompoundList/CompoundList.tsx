@@ -2,7 +2,7 @@ import { Grid } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
 import { SelectedCompound } from '../../../../contexts/CompoundEditor/SelectedCompound'
 import { SelectedGridCell } from '../../../../contexts/CompoundEditor/SelectedGridCell'
-import { SelectedGridCellComponent } from '../../../../contexts/CompoundEditor/SelectedGridCellComponent'
+import { SelectedGridCellChild } from '../../../../contexts/CompoundEditor/SelectedGridCellChild'
 import { createCompound } from '../../../../services/compounds/createCompound'
 import { deleteCompound } from '../../../../services/compounds/deleteCompound'
 import { getCompounds } from '../../../../services/compounds/getCompounds'
@@ -22,8 +22,8 @@ interface Props {
 export const CompoundList: React.FC<Props> = (props: Props) => {
     const selectedCompound = useContext(SelectedCompound)
     const selectedGridCell = useContext(SelectedGridCell)
-    const selectedGridCellComponent = useContext(
-        SelectedGridCellComponent
+    const selectedGridCellChild = useContext(
+        SelectedGridCellChild
     )
     const [compounds, setCompounds] = useState<Compound[]>([])
     const [loading, setLoading] = useState(true)
@@ -51,16 +51,16 @@ export const CompoundList: React.FC<Props> = (props: Props) => {
         })
         setCompounds([...updatedCompounds])
         selectedCompound?.setCompound(null)
-        selectedGridCellComponent?.setComponent(null)
-        selectedGridCellComponent?.setId(null)
+        selectedGridCellChild?.setChild(null)
+        selectedGridCellChild?.setId(null)
     }
 
     const selectComponent = (component: Compound) => {
         selectedCompound?.setCompound(component)
         selectedGridCell?.setGridCell(null)
         selectedGridCell?.setId(null)
-        selectedGridCellComponent?.setComponent(null)
-        selectedGridCellComponent?.setId(null)
+        selectedGridCellChild?.setChild(null)
+        selectedGridCellChild?.setId(null)
     }
 
     const isSelected = (component: Compound) => {

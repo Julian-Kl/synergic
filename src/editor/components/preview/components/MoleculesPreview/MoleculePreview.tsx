@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import React, { useContext } from 'react'
-import { SelectedGridCellComponent } from '../../../../contexts/CompoundEditor/SelectedGridCellComponent'
+import { SelectedGridCellChild } from '../../../../contexts/CompoundEditor/SelectedGridCellChild'
 import { Atom } from '../../../../types/Atom'
 import { Compound, CompoundGrid } from '../../../../types/Compound'
 import { ActiveItemSecondary, DefaultItemSecondary } from '../../../atoms/ItemSecondary/ItemSecondary'
@@ -14,8 +14,8 @@ interface Props {
 }
 
 export const MoleculePreview: React.FC<Props> = (props: Props) => {
-    const selectedGridCellComponent = useContext(
-        SelectedGridCellComponent
+    const selectedGridCellChild = useContext(
+        SelectedGridCellChild
     )
 
     const renderCellAtoms = (components: (Compound | Atom)[]) => {
@@ -57,8 +57,8 @@ export const MoleculePreview: React.FC<Props> = (props: Props) => {
     }
     const selectMolecule = () => {
         if (props.id !== undefined) {
-            selectedGridCellComponent?.setComponent(props.component)
-            selectedGridCellComponent?.setId(props.id)
+            selectedGridCellChild?.setChild(props.component)
+            selectedGridCellChild?.setId(props.id)
         }
     }
 
@@ -81,8 +81,8 @@ export const MoleculePreview: React.FC<Props> = (props: Props) => {
     if (props.selectAble) {
         if (
             props.selected &&
-            selectedGridCellComponent?.id === props.id &&
-            selectedGridCellComponent?.component?.type === 'molecules'
+            selectedGridCellChild?.id === props.id &&
+            selectedGridCellChild?.child?.type === 'molecules'
         ) {
             return (
                 <ActiveItemSecondary>
