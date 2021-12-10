@@ -7,7 +7,7 @@ import routes from './routes'
 
 export const Router: React.FC = () => {
     const renderPageComponent = (path: string, component: React.ReactNode) => {
-        if (path != '/preview') {
+        if (path != '/website-preview') {
             return component
         } else {
             return (

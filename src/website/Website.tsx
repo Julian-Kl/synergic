@@ -14,7 +14,7 @@ export const Website: React.FC = () => {
     const { path } = useRouteMatch()
 
     const loadData = async () => {
-        const response = await getPages();
+        const response = await getPages()
         setPages(response.data)
         setLoading(false)
     }
