@@ -116,7 +116,7 @@ export const CompoundLevelProps: React.FC = () => {
 
     interface option {
         name: string
-        values: string[]
+        values: readonly string[]
     }
 
     const renderOption = (option: option) => {

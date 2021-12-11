@@ -11,19 +11,20 @@ export const HeadlineDefaultProps: AtomProps = {
 
 export const HeadlinePropsOptions: AtomPropsOptions = {
     compoundLevelProps: {
-        variant: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
-        element: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
+        variant: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as const,
+        element: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'] as const
     },
     pageLevelProps: {
-        text: 'string',
+        text: 'string'
     },
 }
 
 export interface HeadlineProps {
-    variant: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
-    element: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
+    variant: typeof HeadlinePropsOptions.compoundLevelProps.variant
+    element: typeof HeadlinePropsOptions.compoundLevelProps.element
     text: string
 }
+
 
 export const Headline: React.FC<HeadlineProps> = (props: HeadlineProps) => {
     const classes = `headline headline-${props.variant}`

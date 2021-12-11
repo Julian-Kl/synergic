@@ -3,22 +3,22 @@ export interface AtomProps {
 }
 
 export interface VariablePropsOptions {
-    [key: string]: string[] | string
+    readonly [key: string]: readonly string[] | string
 }
 
 export interface AtomPropsOptions {
-    compoundLevelProps: VariablePropsOptions
-    pageLevelProps: VariablePropsOptions
+    readonly compoundLevelProps: VariablePropsOptions
+    readonly pageLevelProps: VariablePropsOptions
 }
 
 export interface Atom {
-    name: string
-    type: 'atoms'
+    readonly name: string
+    readonly type: 'atoms'
     props: AtomProps
 }
 
 export interface AtomEntry extends Atom {
     propsOptions: AtomPropsOptions
-    editableComponent: React.FC<any>
-    component: React.FC<any>
+    readonly editableComponent: React.FC<any>
+    readonly component: React.FC<any>
 }

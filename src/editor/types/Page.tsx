@@ -1,8 +1,9 @@
 import { GridSize } from "@mui/material";
+import { AtomProps } from "./Atom";
 
 export type PageAtom = {
     name: string
-    props: object
+    props: AtomProps
 }
 
 export interface PageCompoundGrid {
