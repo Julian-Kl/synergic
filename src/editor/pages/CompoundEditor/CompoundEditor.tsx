@@ -1,7 +1,7 @@
 import { Divider, Grid } from '@mui/material'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { AtomicBrowser } from '../../components/componentBrowser/AtomicBrowser'
+import { AtomicBrowser } from '../../components/AtomicBrowser/AtomicBrowser'
 import { CompoundLevelPropSettings } from '../../components/molecules/CompoundLevelPropsSettings/CompoundLevelPropsSettings'
 import { GridCellSettings } from '../../components/molecules/GridCellSettings/GridCellSettings'
 import {
