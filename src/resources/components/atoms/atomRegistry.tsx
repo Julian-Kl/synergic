@@ -5,10 +5,12 @@ export interface AtomRegistry {
     [key: string]: AtomEntry
 }
 
+const type = 'atoms'
+
 export const atomRegistry: AtomRegistry = {
     'Headline': {
         name: 'Headline',
-        type: 'atoms',
+        type: type,
         props: HeadlineDefaultProps,
         propsOptions: HeadlinePropsOptions,
         component: Headline,
