@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { createElement, useState } from 'react'
 import { SettingsPopup } from '../../../../editor/components/PagePreview/SaveSettingsPopup'
 import { AtomProps, AtomPropsOptions } from '../../../../editor/types/Atom'
 import './headline.scss'
@@ -27,7 +27,7 @@ export interface HeadlineProps {
 
 
 export const Headline: React.FC<HeadlineProps> = (props: HeadlineProps) => {
-    return React.createElement(
+    return createElement(
         props.element,
         {className: `headline headline-${props.variant}`},
         props.text
