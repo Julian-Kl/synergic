@@ -1,7 +1,7 @@
 import { Grid, Typography } from '@mui/material'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { ComponentBrowser } from '../../components/componentBrowser/ComponentBrowser'
+import { AtomicBrowser } from '../../components/AtomicBrowser/AtomicBrowser'
 import { CellChildrenOverview } from '../../components/molecules/CellChildrenOverview/CellChildrenOverview'
 import {
     SidebarLeft,
@@ -24,7 +24,7 @@ export const TemplateEditor: React.FC = () => {
             <SelectedTemplateProvider>
                {/* <SelectedOrganismProvider> */}
                {/* TODO: Use or delete context*/}
-                    <ComponentBrowser organisms />
+                    <AtomicBrowser organisms />
                     <Grid container style={{ minHeight: '90vh' }}>
                         <Grid item xs={2}>
                             <SidebarLeft>

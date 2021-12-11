@@ -1,8 +1,8 @@
 import { Divider, Grid } from '@mui/material'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
-import { ComponentBrowser } from '../../components/componentBrowser/ComponentBrowser'
-import { CompoundLevelProps } from '../../components/molecules/CompoundLevelProps/CompoundLevelProps'
+import { AtomicBrowser } from '../../components/componentBrowser/AtomicBrowser'
+import { CompoundLevelPropSettings } from '../../components/molecules/CompoundLevelPropsSettings/CompoundLevelPropsSettings'
 import { GridCellSettings } from '../../components/molecules/GridCellSettings/GridCellSettings'
 import {
     SidebarLeft
@@ -25,13 +25,13 @@ export const CompoundEditor: React.FC = () => {
             <SelectedCompoundProvider>
                 <SelectedGridCellProvider>
                     <SelectedGridCellChildProvider>
-                        <ComponentBrowser isCreateable />
+                        <AtomicBrowser isCreateable />
                         <Grid container style={{ minHeight: '70vh' }}>
                             <Grid item xs={2}>
                                 <SidebarLeft>
                                     <GridCellSettings />
                                     <Divider variant='fullWidth' />
-                                    <CompoundLevelProps />
+                                    <CompoundLevelPropSettings />
                                 </SidebarLeft>
                             </Grid>
                             <Grid item xs={10}>

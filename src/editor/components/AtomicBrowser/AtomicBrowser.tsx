@@ -37,13 +37,13 @@ function a11yProps(index: number) {
     }
 }
 
-interface ComponentBrowserProps {
+interface AtomicBrowserProps {
     organisms?: boolean
     isCreateable?: boolean | undefined
 }
 
-export const ComponentBrowser: React.FC<ComponentBrowserProps> = (
-    props: ComponentBrowserProps
+export const AtomicBrowser: React.FC<AtomicBrowserProps> = (
+    props: AtomicBrowserProps
 ) => {
     const [value, setValue] = React.useState(props.organisms ? 2 : 0)
 

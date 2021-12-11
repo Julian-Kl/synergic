@@ -17,7 +17,7 @@ import { updateCompoundGrid } from '../../../services/compounds/updateCompoundGr
 import { Atom, VariablePropsOptions } from '../../../types/Atom'
 import { Compound } from '../../../types/Compound'
 
-export const CompoundLevelProps: React.FC = () => {
+export const CompoundLevelPropSettings: React.FC = () => {
     const selectedCompound = useContext(SelectedCompound)
     const selectedGridCell = useContext(SelectedGridCell)
     const selectedGridCellChild = useContext(
