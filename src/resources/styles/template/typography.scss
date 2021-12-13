@@ -14,3 +14,10 @@
     font-size: rem(16px);
     color: $color-darkgray;
 }
+
+@mixin link {
+    font-family: $main-font;
+    font-weight: 300;
+    font-size: rem(16px);
+    color: $color-darkgray;
+}
