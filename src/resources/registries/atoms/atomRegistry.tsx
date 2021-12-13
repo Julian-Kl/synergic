@@ -1,7 +1,7 @@
 import { AtomEntry } from '../../../editor/types/Atom'
-import { EditableHeadline, Headline, HeadlineDefaultProps, HeadlinePropsOptions } from './headline/Headline'
-import { EditableLink, Link, LinkDefaultProps, LinkPropsOptions } from './link/Link'
-import { EditableParagraph, Paragraph, ParagraphDefaultProps, ParagraphPropsOptions } from './paragraph/Paragraph'
+import { EditableHeadline, Headline, HeadlineDefaultProps, HeadlinePropsOptions } from '../../components/atoms/headline/Headline'
+import { EditableLink, Link, LinkDefaultProps, LinkPropsOptions } from '../../components/atoms/link/Link'
+import { EditableParagraph, Paragraph, ParagraphDefaultProps, ParagraphPropsOptions } from '../../components/atoms/paragraph/Paragraph'
 
 export interface AtomRegistry {
     [key: string]: AtomEntry

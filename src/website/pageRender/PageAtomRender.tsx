@@ -1,6 +1,6 @@
 import React from 'react'
 import { PageAtom } from '../../editor/types/Page'
-import { atomRegistry } from '../../resources/components/atoms/atomRegistry'
+import { atomRegistry } from '../../resources/registries/atoms/atomRegistry'
 
 interface Props {
     atom: PageAtom

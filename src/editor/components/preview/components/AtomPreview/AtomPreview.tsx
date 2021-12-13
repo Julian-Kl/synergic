@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import { atomRegistry } from '../../../../../resources/components/atoms/atomRegistry'
+import { atomRegistry } from '../../../../../resources/registries/atoms/atomRegistry'
 import { SelectedGridCellChild } from '../../../../contexts/CompoundEditor/SelectedGridCellChild'
 import { Atom } from '../../../../types/Atom'
 import {

@@ -9,7 +9,7 @@ import {
     Typography
 } from '@mui/material'
 import React, { useContext, useEffect, useState } from 'react'
-import { atomRegistry } from '../../../../resources/components/atoms/atomRegistry'
+import { atomRegistry } from '../../../../resources/registries/atoms/atomRegistry'
 import { SelectedCompound } from '../../../contexts/CompoundEditor/SelectedCompound'
 import { SelectedGridCell } from '../../../contexts/CompoundEditor/SelectedGridCell'
 import { SelectedGridCellChild } from '../../../contexts/CompoundEditor/SelectedGridCellChild'

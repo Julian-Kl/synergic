@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material'
 import React from 'react'
-import { atomRegistry } from '../../../../../resources/components/atoms/atomRegistry'
+import { atomRegistry } from '../../../../../resources/registries/atoms/atomRegistry'
 import { Atom } from '../../../../types/Atom'
 import { Compound } from '../../../../types/Compound'
 import { BrowserItem } from '../BrowserItem/BrowserItem'

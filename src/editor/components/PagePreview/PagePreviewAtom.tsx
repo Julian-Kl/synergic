@@ -1,7 +1,8 @@
 import { Paper } from '@mui/material'
 import styled from '@mui/styled-engine'
 import React, { useContext } from 'react'
-import { atomRegistry } from '../../../resources/components/atoms/atomRegistry'
+import { atomRegistry } from '../../../resources/registries/atoms/atomRegistry'
+import { isAtomInRegistry } from '../../../resources/registries/atoms/functions/isAtomInRegistry'
 import { SelectedAtom } from '../../contexts/PageEditor/SelectedAtom'
 import { SelectedPage } from '../../contexts/PageEditor/SelectedPage'
 import { updatePageContent } from '../../services/pages/updatePageContent'
@@ -29,9 +30,7 @@ interface Props {
 
 export const PageAtomPreview: React.FC<Props> = (props: Props) => {
     const selectedPage = useContext(SelectedPage)
-    const selectedAtom = useContext(
-        SelectedAtom
-    )
+    const selectedAtom = useContext(SelectedAtom)
 
     const renderPreview = () => {
         const componentName = props.component.name
@@ -45,9 +44,9 @@ export const PageAtomPreview: React.FC<Props> = (props: Props) => {
 
     const renderEditablePreview = () => {
         if (selectedAtom?.atom) {
-            const componentName = selectedAtom?.atom?.name
-            if (componentName in atomRegistry) {
-                const block = atomRegistry[componentName]
+            const atomName = selectedAtom?.atom?.name
+            if (isAtomInRegistry(atomName)) {
+                const atomEntry = atomRegistry[atomName]
 
                 if (selectedPage?.page) {
                     let entry: any = selectedPage?.page
@@ -60,8 +59,12 @@ export const PageAtomPreview: React.FC<Props> = (props: Props) => {
                     })
 
                     let component: React.FC<any>
+
+                    console.log(atomEntry)
+                    console.log(selectedAtom?.atom)
+
                     if ('text' in entry.props) {
-                        component = block.editableComponent
+                        component = atomEntry.editableComponent
 
                         const saveChanges = async (value: string) => {
                             entry.props.text = value
@@ -87,16 +90,14 @@ export const PageAtomPreview: React.FC<Props> = (props: Props) => {
                                         updatedCurrentEditedPage
                                     )
                                     selectedAtom.setAtom(null)
-                                    selectedAtom.setLocator(
-                                        null
-                                    )
+                                    selectedAtom.setLocator(null)
                                 }
                             }
                         }
 
                         entry.props.saveChanges = saveChanges
                     } else {
-                        component = block.component
+                        component = atomEntry.component
                     }
                     return React.createElement(component, entry.props)
                 } else {
