@@ -1,0 +1,11 @@
+@use '../../../styles' as *;
+
+.link {
+    @include paragraph;
+    padding: spacing(1);
+    margin: 0;
+}
+
+.link-editor {
+    @include editor-textarea
+}

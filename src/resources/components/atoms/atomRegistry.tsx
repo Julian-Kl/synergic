@@ -1,5 +1,6 @@
 import { AtomEntry } from '../../../editor/types/Atom'
 import { EditableHeadline, Headline, HeadlineDefaultProps, HeadlinePropsOptions } from './headline/Headline'
+import { EditableLink, Link, LinkDefaultProps, LinkPropsOptions } from './link/Link'
 import { EditableParagraph, Paragraph, ParagraphDefaultProps, ParagraphPropsOptions } from './paragraph/Paragraph'
 
 export interface AtomRegistry {
@@ -24,5 +25,13 @@ export const atomRegistry: AtomRegistry = {
         propsOptions: ParagraphPropsOptions,
         component: Paragraph,
         editableComponent: EditableParagraph
+    },
+    'Link': {
+        name: 'Link',
+        type: type,
+        props: LinkDefaultProps,
+        propsOptions: LinkPropsOptions,
+        component: Link,
+        editableComponent: EditableLink
     },
 }

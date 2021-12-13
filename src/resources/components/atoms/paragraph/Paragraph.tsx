@@ -25,12 +25,12 @@ export const Paragraph: React.FC<ParagraphProps> = (props: ParagraphProps) => {
     return <p className={classes}>{props.text}</p>
 }
 
-interface EditableProps extends ParagraphProps {
+interface EditableParagraphProps extends ParagraphProps {
     saveChanges: (value: string) => void
 }
 
-export const EditableParagraph: React.FC<EditableProps> = (
-    props: EditableProps
+export const EditableParagraph: React.FC<EditableParagraphProps> = (
+    props: EditableParagraphProps
 ) => {
     const [value, setValue] = useState(props.text)
     const classes = 'paragraph paragraph-editor'
