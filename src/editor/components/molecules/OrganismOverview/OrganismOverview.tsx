@@ -33,7 +33,7 @@ const ComponentListItem: React.FC<ComponentListItemProps> = (
     )
 }
 
-export const CellChildrenOverview: React.FC = () => {
+export const OrganismOverview: React.FC = () => {
     const selectedGridCell = useContext(SelectedGridCell)
     const selectedCompound = useContext(SelectedCompound)
     const selectedTemplate = useContext(SelectedTemplate)
@@ -115,7 +115,7 @@ export const CellChildrenOverview: React.FC = () => {
     return (
         <>
             <Typography variant='h6' component='h3'>
-                Cell Children
+                Organism Overview
             </Typography>
             <Divider />
             {components.map((component, index) => (

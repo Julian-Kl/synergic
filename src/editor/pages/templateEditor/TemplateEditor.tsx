@@ -2,7 +2,7 @@ import { Grid, Typography } from '@mui/material'
 import React from 'react'
 import { Helmet } from 'react-helmet-async'
 import { AtomicBrowser } from '../../components/AtomicBrowser/AtomicBrowser'
-import { CellChildrenOverview } from '../../components/molecules/CellChildrenOverview/CellChildrenOverview'
+import { OrganismOverview } from '../../components/molecules/OrganismOverview/OrganismOverview'
 import {
     SidebarLeft,
     SidebarRight
@@ -38,7 +38,7 @@ export const TemplateEditor: React.FC = () => {
                             <TemplatePreview />
                         </Grid>
                         <SidebarRight>
-                            <CellChildrenOverview />
+                            <OrganismOverview />
                         </SidebarRight>
                     </Grid>
                 {/*</SelectedOrganismProvider>*/}
