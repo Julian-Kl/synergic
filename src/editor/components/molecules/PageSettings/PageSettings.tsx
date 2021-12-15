@@ -29,6 +29,7 @@ export const PageSettings: React.FC = () => {
     const selectedPage = useContext(SelectedPage)
     const [template, setTemplate] = useState<Template[]>([])
     const [loading, setLoading] = useState(true)
+    const [descriptionInputRows, setDescriptionInputRows] = useState(1)
 
     const loadData = async () => {
         const response = await getTemplates()
@@ -150,7 +151,7 @@ export const PageSettings: React.FC = () => {
         }
     }
 
-    type property = 'route' | 'title'
+    type property = 'route' | 'title' | 'description'
 
     const changeProperty = async (property: property, value: string) => {
         if (selectedPage?.page) {
@@ -242,6 +243,24 @@ export const PageSettings: React.FC = () => {
                             onChange={(e) =>
                                 changeProperty('title', e.target.value)
                             }
+                        />
+                    </Box>
+                    <Box sx={{ marginLeft: 4 }}>
+                        <TextField
+                            label='Description'
+                            color='primary'
+                            multiline
+                            rows={descriptionInputRows}
+                            value={
+                                selectedPage?.page?.description
+                                    ? selectedPage?.page?.description
+                                    : ''
+                            }
+                            onChange={(e) =>
+                                changeProperty('description', e.target.value)
+                            }
+                            onFocus={() => setDescriptionInputRows(5)}
+                            onBlur={() => setDescriptionInputRows(1)}
                         />
                     </Box>
                 </Box>
