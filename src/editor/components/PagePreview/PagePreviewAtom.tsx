@@ -60,15 +60,11 @@ export const PageAtomPreview: React.FC<Props> = (props: Props) => {
 
                     let component: React.FC<any>
 
-                    console.log(atomEntry)
-                    console.log(selectedAtom?.atom)
-
-                    if ('text' in entry.props) {
+                    if (atomEntry.propsOptions.pageLevelProps != {}) {
                         component = atomEntry.editableComponent
 
                         const saveChanges = async (value: string) => {
                             entry.props.text = value
-                            // TODO change props text to all props on a page level
 
                             const stepsInverted = [...steps].reverse()
 

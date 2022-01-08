@@ -1,7 +1,9 @@
 import { AtomEntry } from '../../../editor/types/Atom'
 import { EditableHeadline, Headline, HeadlineDefaultProps, HeadlinePropsOptions } from '../../components/atoms/headline/Headline'
+import { EditableImage, Image, ImageDefaultProps, ImagePropsOptions } from '../../components/atoms/image/Image'
 import { EditableLink, Link, LinkDefaultProps, LinkPropsOptions } from '../../components/atoms/link/Link'
 import { EditableParagraph, Paragraph, ParagraphDefaultProps, ParagraphPropsOptions } from '../../components/atoms/paragraph/Paragraph'
+import { EditableSeparator, Separator, SeparatorDefaultProps, SeparatorPropsOptions } from '../../components/atoms/separator/Separator'
 
 export interface AtomRegistry {
     [key: string]: AtomEntry
@@ -33,5 +35,21 @@ export const atomRegistry: AtomRegistry = {
         propsOptions: LinkPropsOptions,
         component: Link,
         editableComponent: EditableLink
+    },
+    'Image': {
+        name: 'Image',
+        type: type,
+        props: ImageDefaultProps,
+        propsOptions: ImagePropsOptions,
+        component: Image,
+        editableComponent: EditableImage
+    },
+    'Separator': {
+        name: 'Separator',
+        type: type,
+        props: SeparatorDefaultProps,
+        propsOptions: SeparatorPropsOptions,
+        component: Separator,
+        editableComponent: EditableSeparator
     },
 }

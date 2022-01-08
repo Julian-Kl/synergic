@@ -1,0 +1,11 @@
+@use '../../../styles' as *;
+
+.separator {
+    display: block;
+    height: rem(7px);
+    width: 90%;
+    margin: 5px auto;
+    border-radius: rem(5px);
+    bottom: rem(-10px);
+    background-color: $color-secondary-light;
+}
