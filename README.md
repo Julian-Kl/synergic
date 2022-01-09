@@ -3,7 +3,9 @@
 
 ## 1. Installation:
 clone this project and the depending cms systems in the same root folder:
+
 https://github.com/Julian-Kl/synergic-content-cms
+
 https://github.com/Julian-Kl/synergic-editor-cms
 
 Your folder structure should look like this:
